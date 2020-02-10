@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name='EDD_2020_Residential_Water'
