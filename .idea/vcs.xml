@@ -2,14 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/AbhiPathWeaver2020" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/AbhiUser2020" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Kairos-Rewrite" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Residential-Water" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/StormAppMaster2019" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/StormAppMaster2020" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/StormAppUser2019" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/StormAppUser2020" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/StormRobotics2020" vcs="Git" />
   </component>
 </project>
