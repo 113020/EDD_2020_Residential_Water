@@ -1,6 +1,7 @@
 package com.example.edd_2020_residential_water.models;
 
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 
@@ -119,7 +120,7 @@ public class Splash {
     // Return water bill calculation method
     public String getBillMethod() { return billMethod; }
 
-    // Return total calculated water bill total in $$
+    // Return calculated water bill total in $$
     public double getWaterBill() { return waterBill; }
 
     // ***** Set methods for modifying the values ***** //
@@ -132,6 +133,48 @@ public class Splash {
     // Modifying the fixture
     public void setFixture(String fixture) { this.fixture = fixture; }
 
-    // Modifying the fixture
-    public void setFixture(String fixture) { this.fixture = fixture; }
+    // Modifying the water speed
+    public void setWaterSpeed(double waterSpeed) { this.waterSpeed = waterSpeed; }
+
+    // Modifying how long fixture is being used
+    public void setWaterExtent(double waterExtent) { this.waterExtent = waterExtent; }
+
+    // Modifying daily frequency of fixture use
+    public void setDailyFrequency(int dailyFrequency) { this.dailyFrequency = dailyFrequency; }
+
+    // Modifying weekly frequency of fixture use
+    public void setWeeklyFrequency(int weeklyFrequency) { this.weeklyFrequency = weeklyFrequency; }
+
+    // Modifying monthly frequency of fixture use
+    public void setMonthlyFrequency(int monthlyFrequency) { this.monthlyFrequency = monthlyFrequency; }
+
+    // Modifying yearly frequency of fixture use
+    public void setYearlyFrequency(int yearlyFrequency) { this.yearlyFrequency = yearlyFrequency; }
+
+    // Modifying frequency of leak occurrences
+    public void setLeakFrequency(int leakFrequency) { this.leakFrequency = leakFrequency; }
+
+    // Modifying water bill calculate method
+    public void setBillMethod(String billMethod) { this.billMethod = billMethod; }
+
+    // Modifying water bill calculated
+    public void setWaterBill(double waterBill) { this.waterBill = waterBill; }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return date
+                + "," + time
+                + "," + fixture
+                + "," + waterSpeed
+                + "," + waterExtent
+                + "," + dailyFrequency
+                + "," + weeklyFrequency
+                + "," + monthlyFrequency
+                + "," + yearlyFrequency
+                + "," + leakFrequency
+                + "," + billMethod
+                + "," + waterBill
+                + "|";
+    }
 }
