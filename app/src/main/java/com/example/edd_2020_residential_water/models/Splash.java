@@ -22,6 +22,10 @@ public class Splash {
     private double waterSpeed; // Private double value for the detected water speed
     @ColumnInfo(name = "extent_of_use") // Column for how long the faucet was on: in seconds
     private double waterExtent; // Private double value for length of faucet run time
+    @ColumnInfo(name = "time_interval") // Column for time interval (hourly, daily, weekly, monthly)
+    private String timeInterval; // Private string for time interval of water flow detection
+    @ColumnInfo(name = "frequency_of_use_hourly") // Column for how frequently the fixture is used hourly
+    private int hourlyFrequency; // Private inteeger for daily frequency of use
     @ColumnInfo(name = "frequency_of_use_daily") // Column for how frequently the fixture is used daily
     private int dailyFrequency; // Private inteeger for daily frequency of use
     @ColumnInfo(name = "frequency_of_use_weekly") // Column for how frequently the fixture is used weekly
@@ -39,13 +43,11 @@ public class Splash {
 
     /**
      * Splash class constructor
-     * @param d date
-     * @param t time
-     * @param f fixture
+     * @param t
+     * @param f
      */
-    public Splash(String d, String t, String f) {
-        date = d;
-        time = t;
+    public Splash(String t, String f) {
+        timeInterval = t;
         fixture = f;
     }
 
@@ -56,6 +58,8 @@ public class Splash {
      * @param fixture
      * @param waterSpeed
      * @param waterExtent
+     * @param timeInterval
+     * @param hourlyFrequency
      * @param dailyFrequency
      * @param weeklyFrequency
      * @param monthlyFrequency
@@ -64,14 +68,16 @@ public class Splash {
      * @param billMethod
      * @param waterBill
      */
-    public Splash(String date, String time, String fixture, double waterSpeed, double waterExtent,
-                  int dailyFrequency, int weeklyFrequency, int monthlyFrequency, int yearlyFrequency,
+    public Splash(String date, String time, String fixture, double waterSpeed, double waterExtent, String timeInterval,
+                  int hourlyFrequency, int dailyFrequency, int weeklyFrequency, int monthlyFrequency, int yearlyFrequency,
                   int leakFrequency, String billMethod, double waterBill) {
         this.date = date;
         this.time = time;
         this.fixture = fixture;
         this.waterSpeed = waterSpeed;
         this.waterExtent = waterExtent;
+        this.timeInterval = timeInterval;
+        this.hourlyFrequency = hourlyFrequency;
         this.dailyFrequency = dailyFrequency;
         this.weeklyFrequency = weeklyFrequency;
         this.monthlyFrequency = monthlyFrequency;
@@ -101,6 +107,12 @@ public class Splash {
 
     // Return faucet run time
     public double getWaterExtent() { return waterExtent; }
+
+    // Return time interval of water flow detection (hourly, daily, weekly, monthly, yearly
+    public String getTimeInterval() { return timeInterval; }
+
+    // Return hourly frequency of fixture use
+    public int getHourlyFrequency() { return hourlyFrequency; }
 
     // Return daily frequency of fixture use
     public int getDailyFrequency() { return dailyFrequency; }
@@ -139,6 +151,12 @@ public class Splash {
     // Modifying how long fixture is being used
     public void setWaterExtent(double waterExtent) { this.waterExtent = waterExtent; }
 
+    // Modifying time interval
+    public void setTimeInterval(String timeInterval) { this.timeInterval = timeInterval; }
+
+    // Modifying hourly frequency of fixture use
+    public void setHourlyFrequency(int hourlyFrequency) { this.hourlyFrequency = hourlyFrequency; }
+
     // Modifying daily frequency of fixture use
     public void setDailyFrequency(int dailyFrequency) { this.dailyFrequency = dailyFrequency; }
 
@@ -168,6 +186,8 @@ public class Splash {
                 + "," + fixture
                 + "," + waterSpeed
                 + "," + waterExtent
+                + "," + timeInterval
+                + "," + hourlyFrequency
                 + "," + dailyFrequency
                 + "," + weeklyFrequency
                 + "," + monthlyFrequency
