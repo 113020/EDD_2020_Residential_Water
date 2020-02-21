@@ -33,15 +33,19 @@ public interface WaterDao {
     @Delete
     public void deleteSplash(Splash splash);
 
+    // Get all the Splash entities
     @Query("SELECT * FROM splash")
     public List<Splash> getAllSplashes();
 
+    // Get all the Splash entities that correspond with the fixture parameter
     @Query("SELECT * FROM splash WHERE fixture=:fixture")
     public List<Splash> getByFixture(String fixture);
 
+    // Get all the Splash entities that correspond with the time interval
     @Query("SELECT * FROM splash WHERE time_interval=:interval")
     public List<Splash> getByTimeInterval(String interval);
 
+    // Get all the Splash entities that correspond with water bill calculation method
     @Query("SELECT * FROM splash WHERE water_bill_method=:method")
     public List<Splash> getByBillMethod(String method);
 }
