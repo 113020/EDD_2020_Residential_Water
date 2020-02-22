@@ -8,9 +8,11 @@
     tools:context=".tabs.Fixtures" >
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/enterFixture"
+        style="@style/Platform.Widget.AppCompat.Spinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:entries="@array/fixture"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,11 +23,12 @@
         android:id="@+id/button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@color/colorWaterDefault"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/spinner"
+        app:layout_constraintStart_toEndOf="@id/enterFixture"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
