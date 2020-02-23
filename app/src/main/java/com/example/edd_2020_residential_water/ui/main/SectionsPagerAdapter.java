@@ -9,10 +9,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.edd_2020_residential_water.R;
-import com.example.edd_2020_residential_water.tabs.Fixtures;
-import com.example.edd_2020_residential_water.tabs.Overall;
-import com.example.edd_2020_residential_water.tabs.Scan;
-import com.example.edd_2020_residential_water.tabs.WaterBill;
+import com.example.edd_2020_residential_water.fixtures.Fixtures;
+import com.example.edd_2020_residential_water.overall.Overall;
+import com.example.edd_2020_residential_water.scan.Scan;
+import com.example.edd_2020_residential_water.bill.WaterBill;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to

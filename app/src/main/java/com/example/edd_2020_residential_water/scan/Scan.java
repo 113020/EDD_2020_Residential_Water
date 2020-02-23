@@ -1,4 +1,4 @@
-package com.example.edd_2020_residential_water.tabs;
+package com.example.edd_2020_residential_water.scan;
 
 import android.content.Context;
 import android.net.Uri;
@@ -16,12 +16,12 @@ import com.example.edd_2020_residential_water.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link WaterBill.OnFragmentInteractionListener} interface
+ * {@link Scan.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link WaterBill#newInstance} factory method to
+ * Use the {@link Scan#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WaterBill extends Fragment {
+public class Scan extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,7 +33,7 @@ public class WaterBill extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public WaterBill() {
+    public Scan() {
         // Required empty public constructor
     }
 
@@ -43,11 +43,11 @@ public class WaterBill extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment WaterBill.
+     * @return A new instance of fragment Scan.
      */
     // TODO: Rename and change types and number of parameters
-    public static WaterBill newInstance(String param1, String param2) {
-        WaterBill fragment = new WaterBill();
+    public static Scan newInstance(String param1, String param2) {
+        Scan fragment = new Scan();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

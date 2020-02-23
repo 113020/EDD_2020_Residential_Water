@@ -1,4 +1,4 @@
-package com.example.edd_2020_residential_water.tabs;
+package com.example.edd_2020_residential_water.fixtures;
 
 import android.content.Context;
 import android.net.Uri;
@@ -9,19 +9,25 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.edd_2020_residential_water.R;
+import com.example.edd_2020_residential_water.activities.MainActivity;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Overall.OnFragmentInteractionListener} interface
+ * {@link Fixtures.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Overall#newInstance} factory method to
+ * Use the {@link Fixtures#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Overall extends Fragment {
+public class Fixtures extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,7 +39,7 @@ public class Overall extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public Overall() {
+    public Fixtures() {
         // Required empty public constructor
     }
 
@@ -43,11 +49,11 @@ public class Overall extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Overall.
+     * @return A new instance of fragment Fixtures.
      */
     // TODO: Rename and change types and number of parameters
-    public static Overall newInstance(String param1, String param2) {
-        Overall fragment = new Overall();
+    public static Fixtures newInstance(String param1, String param2) {
+        Fixtures fragment = new Fixtures();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,11 +73,55 @@ public class Overall extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_water_bill, container, false);
+        View view = inflater.inflate(R.layout.fragment_fixtures, container, false);
+
+        final Spinner chooseFixture = view.findViewById(R.id.enterFixture);
+        final Button searchFixture = view.findViewById(R.id.btnSearch);
+
+        final MainActivity conserve = (MainActivity) getActivity();
+
+        // Initializing an ArrayAdapter. Also important for custom text size, color, font, etc.through "spinner_fixture"
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(view.getContext(), R.array.fixture, android.R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        chooseFixture.setAdapter(adapter);
+
+        // This adapter is for changing the text color, font, or size
+        ArrayAdapter adapter1 = ArrayAdapter.createFromResource(view.getContext(), R.array.fixture, R.layout.spinner_fixture);
+
+        // Apply this adapter to the spinner
+        chooseFixture.setAdapter(adapter1);
+
+        // Set up the listener for the search button (when pressed, what will the button do)
+        searchFixture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (chooseFixture.toString().equals(R.string.tab_text_1)) {
+                    Toast.makeText(getContext(), "Enter a fixture", Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+        });
+
+//        chooseFixture.setOnItemClickListener(this);
 
         // Inflate the layout for this fragment
         return view;
     }
+
+    /*public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+    }*/
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
