@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements Scan.OnFragmentIn
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
@@ -42,16 +43,28 @@ public class MainActivity extends AppCompatActivity implements Scan.OnFragmentIn
         });
 
         // Spinner object for the spinner container in the fixtures fragment
-        Spinner chooseFixture = (Spinner) findViewById(R.id.enterFixture);
-
-        // Assigning string array to the string resource file array under the "values" directory
-        String[] fixtureOpts = getResources().getStringArray(R.array.fixture);
+        /*Spinner chooseFixture = (Spinner) findViewById(R.id.enterFixture);
 
         // Initializing an ArrayAdapter. Also important for custom text size, color, font, etc.through "spinner_fixture"
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_fixture, fixtureOpts);
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_fixture);
-        chooseFixture.setAdapter(spinnerArrayAdapter);
-        super.onCreate(savedInstanceState);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.fixture, android.R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        chooseFixture.setAdapter(adapter);*/
+
+        // Assigning string array to the string resource file array under the "values" directory
+//        String[] fixtureOpts = getResources().getStringArray(R.array.fixture);
+
+        /*ArrayAdapter<String> spinnerArrayAdapter1 = new ArrayAdapter<String>(this, R.layout.spinner_fixture, fixtureOpts);
+        spinnerArrayAdapter1
+        ArrayAdapter<CharSequence> spinnerArrayAdapter2 = ArrayAdapter.createFromResource(this,
+                R.array.fixture, android.R.layout.simple_spinner_item);
+        spinnerArrayAdapter2.setDropDownViewResource(R.layout.spinner_fixture);
+        chooseFixture.setAdapter(spinnerArrayAdapter2);
+        super.onCreate(savedInstanceState);*/
 
     }
 

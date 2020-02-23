@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -69,11 +70,39 @@ public class Fixtures extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_water_bill, container, false);
+        View view = inflater.inflate(R.layout.fragment_fixtures, container, false);
+
+        Spinner chooseFixture = view.findViewById(R.id.enterFixture);
+
+        // Initializing an ArrayAdapter. Also important for custom text size, color, font, etc.through "spinner_fixture"
+        // Create an ArrayAdapter using the string array and a default spinner layout
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(view.getContext(), R.array.fixture, android.R.layout.simple_spinner_item);
+//
+//        // Specify the layout to use when the list of choices appears
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        // Apply the adapter to the spinner
+//        chooseFixture.setAdapter(adapter);
+
+        ArrayAdapter adapter1 = ArrayAdapter.createFromResource(view.getContext(), R.array.fixture, R.layout.spinner_fixture);
+
+        chooseFixture.setAdapter(adapter1);
+
+//        chooseFixture.setOnItemClickListener(this);
 
         // Inflate the layout for this fragment
         return view;
     }
+
+    /*public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+    }*/
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
