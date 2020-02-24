@@ -40,6 +40,9 @@ public class Splash {
     private String billMethod; // Private string for method to calculate water bill
     @ColumnInfo(name = "final_bill") // Projected water bill from water use data
     private double waterBill; // Private double value for total projected water bill (in $$)
+    @ColumnInfo(name = "water_fact") // Facts about conserving water, tips and tricks
+    private String waterFact; // Private string for water conservation facts
+
 
     /**
      * Splash class constructor
