@@ -1,6 +1,7 @@
 package com.example.edd_2020_residential_water.fixtures;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,7 +75,7 @@ public class Fixtures extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_fixtures, container, false);
+        final View view = inflater.inflate(R.layout.fragment_fixtures, container, false);
 
         final Spinner chooseFixture = view.findViewById(R.id.enterFixture);
         final Button searchFixture = view.findViewById(R.id.btnSearch);
@@ -96,32 +98,45 @@ public class Fixtures extends Fragment {
         // Apply this adapter to the spinner
         chooseFixture.setAdapter(adapter1);
 
+        final String[] fixtures = getResources().getStringArray(R.array.fixture);
+
         // Set up the listener for the search button (when pressed, what will the button do)
         searchFixture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (chooseFixture.toString().equals(R.string.tab_text_1)) {
-                    Toast.makeText(getContext(), "Enter a fixture", Toast.LENGTH_LONG).show();
+
+                Intent intent= new Intent();
+                intent.putExtra("fixtures",String.valueOf(chooseFixture.getSelectedItem()));
+                startActivity(intent);
+
+                /*String option = chooseFixture.toString();
+
+                if (option.equals(fixtures[0])) {
+                    Toast.makeText(getContext(), "Choose a fixture", Toast.LENGTH_LONG).show();
                     return;
-                }
+                }*/
+
             }
         });
 
-//        chooseFixture.setOnItemClickListener(this);
+//        chooseFixture.setOnItemClickListener(new View);
 
         // Inflate the layout for this fragment
         return view;
     }
 
-    /*public void onItemSelected(AdapterView<?> parent, View view,
+    public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
-        // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
+        // On selecting a spinner item
+        String item = parent.getItemAtPosition(pos).toString();
+
+        // Showing selected spinner item
+        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
-    }*/
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
