@@ -100,43 +100,37 @@ public class Fixtures extends Fragment {
 
         final String[] fixtures = getResources().getStringArray(R.array.fixture);
 
-        // Set up the listener for the search button (when pressed, what will the button do)
-        searchFixture.setOnClickListener(new View.OnClickListener() {
+        chooseFixture.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // On selecting a spinner item
+                String item = parent.getItemAtPosition(position).toString();
 
-                Intent intent= new Intent();
-                intent.putExtra("fixtures",String.valueOf(chooseFixture.getSelectedItem()));
-                startActivity(intent);
+                // Showing selected spinner item
+                if (item != fixtures[0]) {
+                    Toast.makeText(parent.getContext(), "" + item, Toast.LENGTH_LONG).show();
+                }
+            }
 
-                /*String option = chooseFixture.toString();
-
-                if (option.equals(fixtures[0])) {
-                    Toast.makeText(getContext(), "Choose a fixture", Toast.LENGTH_LONG).show();
-                    return;
-                }*/
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
 
-//        chooseFixture.setOnItemClickListener(new View);
+        // Set up the listener for the search button (when pressed, what will the button do)
+        searchFixture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (chooseFixture.getSelectedItem().toString().equals(fixtures[0]))
+                Toast.makeText(view.getContext(), "Choose a fixture", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // Inflate the layout for this fragment
         return view;
     }
 
-    public void onItemSelected(AdapterView<?> parent, View view,
-                               int pos, long id) {
-        // On selecting a spinner item
-        String item = parent.getItemAtPosition(pos).toString();
-
-        // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
-    }
-
-    public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
-    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

@@ -9,7 +9,7 @@ import androidx.room.Entity;
  * This class is a blueprint for the Splash object, which is an Entity of the Room Database.
  * These entities serve really as tables. Each Splash object or entity stores values which
  */
-@Entity
+@Entity(tableName = "splashes", primaryKeys = {"fixture", "time_interval"})
 public class Splash {
 
     @ColumnInfo(name = "date") // Column for date: month, day, year
@@ -70,10 +70,11 @@ public class Splash {
      * @param leakFrequency
      * @param billMethod
      * @param waterBill
+     * @param waterFact
      */
     public Splash(String date, String time, String fixture, double waterSpeed, double waterExtent, String timeInterval,
                   int hourlyFrequency, int dailyFrequency, int weeklyFrequency, int monthlyFrequency, int yearlyFrequency,
-                  int leakFrequency, String billMethod, double waterBill) {
+                  int leakFrequency, String billMethod, double waterBill, String waterFact) {
         this.date = date;
         this.time = time;
         this.fixture = fixture;
@@ -88,6 +89,7 @@ public class Splash {
         this.leakFrequency = leakFrequency;
         this.billMethod = billMethod;
         this.waterBill = waterBill;
+        this.waterFact = waterFact;
     }
 
     /**
@@ -138,6 +140,9 @@ public class Splash {
     // Return calculated water bill total in $$
     public double getWaterBill() { return waterBill; }
 
+    // Return water fact
+    public String getWaterFact() { return waterFact; }
+
     // ***** Set methods for modifying the values ***** //
     // Modifying the date value (month, day, year)
     public void setDate(String date) { this.date = date; }
@@ -181,6 +186,9 @@ public class Splash {
     // Modifying water bill calculated
     public void setWaterBill(double waterBill) { this.waterBill = waterBill; }
 
+    // Modifying water fact
+    public void setWaterFact(String waterFact) { this.waterFact = waterFact; }
+
     @NonNull
     @Override
     public String toString() {
@@ -198,6 +206,7 @@ public class Splash {
                 + "," + leakFrequency
                 + "," + billMethod
                 + "," + waterBill
+                + "," + waterFact
                 + "|";
     }
 }
