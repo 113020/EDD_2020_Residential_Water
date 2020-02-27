@@ -19,6 +19,9 @@ import android.widget.Toast;
 
 import com.example.edd_2020_residential_water.R;
 import com.example.edd_2020_residential_water.activities.MainActivity;
+import com.example.edd_2020_residential_water.models.Splash;
+
+import java.util.List;
 
 
 /**
@@ -167,6 +170,8 @@ public class Fixtures extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
+        List<Splash> getByFixture(String fixture);
+
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }

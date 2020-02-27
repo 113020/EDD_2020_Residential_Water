@@ -9,7 +9,7 @@ import androidx.room.Entity;
  * This class is a blueprint for the Splash object, which is an Entity of the Room Database.
  * These entities serve really as tables. Each Splash object or entity stores values which
  */
-@Entity(tableName = "splashes", primaryKeys = {"fixture", "time_interval"})
+@Entity(tableName = "splash", primaryKeys = {"fixture", "time_interval"})
 public class Splash {
 
     @ColumnInfo(name = "date") // Column for date: month, day, year

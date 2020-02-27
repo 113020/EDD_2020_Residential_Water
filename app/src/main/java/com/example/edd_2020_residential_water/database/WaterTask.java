@@ -11,7 +11,13 @@ import com.example.edd_2020_residential_water.models.Splash;
 import java.lang.ref.WeakReference;
 import java.util.regex.Pattern;
 
+/**
+ * This is the java class that handles the tasks using the AsyncTask.
+ * It chooses the tasks to run in the background, if any,
+ * chooses data updating tasks, if any, and what to do after background tasks finish.
+ */
 public class WaterTask extends AsyncTask<String, Integer, Boolean> {
+
 
     WaterDatabase waterdb;
     WeakReference<Context> context;
