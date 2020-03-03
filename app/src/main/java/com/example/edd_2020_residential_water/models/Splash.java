@@ -14,8 +14,8 @@ public class Splash {
 
     @ColumnInfo(name = "date") // Column for date: month, day, year
     private String date; // Private string for date
-    @ColumnInfo(name = "time") // Column for time
-    private String time; // Private string for time
+    @ColumnInfo(name = "time") // Column for time when fixture turns on
+    private String time; // Private string for time when fixture turns on
     @ColumnInfo(name = "fixture") // Column for household fixture: either sink faucet or shower
     private String fixture; // Private string for fixture
     @ColumnInfo(name = "water_speed") // Column for the detected water speed
