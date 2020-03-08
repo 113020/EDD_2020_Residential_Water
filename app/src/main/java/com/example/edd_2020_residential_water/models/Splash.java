@@ -4,25 +4,28 @@ package com.example.edd_2020_residential_water.models;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
 /**
  * This class is a blueprint for the Splash object, which is an Entity of the Room Database.
  * These entities serve really as tables. Each Splash object or entity stores values which
  */
-@Entity(tableName = "splash", primaryKeys = {"fixture", "time_interval"})
+@Entity(tableName = "splash")
 public class Splash {
 
+    @NonNull @PrimaryKey
     @ColumnInfo(name = "date") // Column for date: month, day, year
     private String date; // Private string for date
-    @ColumnInfo(name = "time") // Column for time when fixture turns on
+    @NonNull @ColumnInfo(name = "time") // Column for time when fixture turns on
     private String time; // Private string for time when fixture turns on
-    @ColumnInfo(name = "fixture") // Column for household fixture: either sink faucet or shower
+    @NonNull @ColumnInfo(name = "fixture") // Column for household fixture: either sink faucet or shower
     private String fixture; // Private string for fixture
-    @ColumnInfo(name = "water_speed") // Column for the detected water speed
+    @NonNull @ColumnInfo(name = "water_speed") // Column for the detected water speed
     private double waterSpeed; // Private double value for the detected water speed
-    @ColumnInfo(name = "extent_of_use") // Column for how long the faucet was on: in seconds
+    @NonNull @ColumnInfo(name = "extent_of_use") // Column for how long the faucet was on: in seconds
     private double waterExtent; // Private double value for length of faucet run time
-    @ColumnInfo(name = "time_interval") // Column for time interval (hourly, daily, weekly, monthly)
+    @NonNull @ColumnInfo(name = "time_interval") // Column for time interval (hourly, daily, weekly, monthly)
     private String timeInterval; // Private string for time interval of water flow detection
     @ColumnInfo(name = "frequency_of_use_hourly") // Column for how frequently the fixture is used hourly
     private int hourlyFrequency; // Private inteeger for daily frequency of use
@@ -95,6 +98,7 @@ public class Splash {
     /**
      * Blank constructor
      */
+    @Ignore
     public Splash() {}
 
     // ***** Get methods for returning values ***** //
