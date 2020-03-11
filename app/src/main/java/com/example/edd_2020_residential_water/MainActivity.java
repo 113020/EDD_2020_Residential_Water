@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements Scan.OnFragmentIn
             }
         });
 
+
+
         /* get database, or build if it doesn't exist. This exact line must be included in the onCreate
         method of every Activity that uses the database. waterdb can be a class-wide variable or local
         within onCreate. */
