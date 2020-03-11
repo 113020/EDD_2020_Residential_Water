@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,6 +19,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.example.edd_2020_residential_water.databinding.ItemWaterBinding;
 
 import java.util.List;
 
@@ -75,8 +79,10 @@ public class Fixtures extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        ItemWaterBinding itemWaterBinding = DataBindingUtil.inflate(inflater, )
+
         final View view = inflater.inflate(R.layout.fragment_fixtures, container, false);
 
         final Spinner chooseFixture = view.findViewById(R.id.enterFixture);
