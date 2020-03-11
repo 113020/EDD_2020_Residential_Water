@@ -1,4 +1,4 @@
-package com.example.edd_2020_residential_water.overall;
+package com.example.edd_2020_residential_water;
 
 import android.content.Context;
 import android.net.Uri;
@@ -10,18 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.edd_2020_residential_water.R;
-
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Overall.OnFragmentInteractionListener} interface
+ * {@link Scan.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Overall#newInstance} factory method to
+ * Use the {@link Scan#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Overall extends Fragment {
+public class Scan extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,7 +31,7 @@ public class Overall extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public Overall() {
+    public Scan() {
         // Required empty public constructor
     }
 
@@ -43,11 +41,11 @@ public class Overall extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Overall.
+     * @return A new instance of fragment Scan.
      */
     // TODO: Rename and change types and number of parameters
-    public static Overall newInstance(String param1, String param2) {
-        Overall fragment = new Overall();
+    public static Scan newInstance(String param1, String param2) {
+        Scan fragment = new Scan();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

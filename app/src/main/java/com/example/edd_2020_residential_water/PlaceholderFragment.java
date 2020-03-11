@@ -1,4 +1,4 @@
-package com.example.edd_2020_residential_water.ui.main;
+package com.example.edd_2020_residential_water;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-
-import com.example.edd_2020_residential_water.R;
 
 /**
  * A placeholder fragment containing a simple view.

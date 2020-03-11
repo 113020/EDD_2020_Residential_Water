@@ -1,11 +1,13 @@
-package com.example.edd_2020_residential_water.fixtures;
+package com.example.edd_2020_residential_water;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +15,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.example.edd_2020_residential_water.R;
-import com.example.edd_2020_residential_water.activities.MainActivity;
-import com.example.edd_2020_residential_water.models.Splash;
 
 import java.util.List;
 
@@ -43,6 +40,8 @@ public class Fixtures extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private SharedViewModel svm;
 
     public Fixtures() {
         // Required empty public constructor
@@ -85,6 +84,9 @@ public class Fixtures extends Fragment {
 
         final MainActivity conserve = (MainActivity) getActivity();
 
+        final List<Splash> sampleWaterList = conserve.initWaters();
+        final String[] fixtures = getResources().getStringArray(R.array.fixture);
+
         // Initializing an ArrayAdapter. Also important for custom text size, color, font, etc.through "spinner_fixture"
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(view.getContext(), R.array.fixture, android.R.layout.simple_spinner_item);
@@ -101,17 +103,17 @@ public class Fixtures extends Fragment {
         // Apply this adapter to the spinner
         chooseFixture.setAdapter(adapter1);
 
-        final String[] fixtures = getResources().getStringArray(R.array.fixture);
 
         chooseFixture.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // On selecting a spinner item
                 String item = parent.getItemAtPosition(position).toString();
+                Toast.makeText(parent.getContext(), "" + item, Toast.LENGTH_LONG).show();
 
                 // Showing selected spinner item
                 if (item != fixtures[0]) {
-                    Toast.makeText(parent.getContext(), "" + item, Toast.LENGTH_LONG).show();
+                    onOptionSelected(item);
                 }
             }
 
@@ -130,10 +132,27 @@ public class Fixtures extends Fragment {
             }
         });
 
+        FragmentManager fm = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.data, Fixtures.newInstance("",""));
+
         // Inflate the layout for this fragment
         return view;
     }
 
+    public void onOptionSelected(String fixture) {
+        if (mListener != null) {
+            List<Splash> data = mListener.getByFixture(fixture);
+            WaterListFragment frag = (WaterListFragment) getChildFragmentManager().findFragmentById(R.id.data);
+            if (data.isEmpty()) {
+                Toast.makeText(getContext(), "No Sets Found", Toast.LENGTH_LONG).show();
+            }
+            frag.setWaterList(data);
+
+            svm = new ViewModelProvider(this).get(SharedViewModel.class);
+            svm.select(data);
+        }
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

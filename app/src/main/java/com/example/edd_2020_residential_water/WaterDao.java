@@ -1,6 +1,4 @@
-package com.example.edd_2020_residential_water.dao;
-
-import android.database.Cursor;
+package com.example.edd_2020_residential_water;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -8,8 +6,6 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
-
-import com.example.edd_2020_residential_water.models.Splash;
 
 import java.util.List;
 
@@ -48,4 +44,7 @@ public interface WaterDao {
     // Get all the Splash entities that correspond with water bill calculation method
     @Query("SELECT * FROM splash WHERE water_bill_method=:method")
     public List<Splash> getByBillMethod(String method);
+
+    @Query("DELETE FROM splash")
+    public void deleteAll();
 }

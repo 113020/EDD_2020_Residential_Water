@@ -5,7 +5,7 @@
     android:id="@+id/constraintLayoutFixtures"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fixtures.Fixtures" >
+    tools:context=".Fixtures" >
 
     <Spinner
         android:id="@+id/enterFixture"
@@ -33,4 +33,16 @@
         app:layout_constraintStart_toEndOf="@id/enterFixture"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSearch"
+        tools:layout="@layout/fragment_water_list" />
 </androidx.constraintlayout.widget.ConstraintLayout>

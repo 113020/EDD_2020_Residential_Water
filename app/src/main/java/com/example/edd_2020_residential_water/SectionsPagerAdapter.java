@@ -1,4 +1,4 @@
-package com.example.edd_2020_residential_water.ui.main;
+package com.example.edd_2020_residential_water;
 
 import android.content.Context;
 
@@ -9,10 +9,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.edd_2020_residential_water.R;
-import com.example.edd_2020_residential_water.fixtures.Fixtures;
-import com.example.edd_2020_residential_water.overall.Overall;
-import com.example.edd_2020_residential_water.scan.Scan;
-import com.example.edd_2020_residential_water.bill.WaterBill;
+import com.example.edd_2020_residential_water.Fixtures;
+import com.example.edd_2020_residential_water.Overall;
+import com.example.edd_2020_residential_water.Scan;
+import com.example.edd_2020_residential_water.WaterBill;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to

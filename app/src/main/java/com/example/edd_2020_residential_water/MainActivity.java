@@ -1,16 +1,8 @@
-package com.example.edd_2020_residential_water.activities;
+package com.example.edd_2020_residential_water;
 
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.example.edd_2020_residential_water.R;
-import com.example.edd_2020_residential_water.dao.WaterDao;
-import com.example.edd_2020_residential_water.database.WaterDatabase;
-import com.example.edd_2020_residential_water.fixtures.Fixtures;
-import com.example.edd_2020_residential_water.models.Splash;
-import com.example.edd_2020_residential_water.overall.Overall;
-import com.example.edd_2020_residential_water.scan.Scan;
-import com.example.edd_2020_residential_water.bill.WaterBill;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -20,8 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
-import com.example.edd_2020_residential_water.ui.main.SectionsPagerAdapter;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements Scan.OnFragmentInteractionListener, Fixtures.OnFragmentInteractionListener, Overall.OnFragmentInteractionListener, WaterBill.OnFragmentInteractionListener {
@@ -53,6 +44,26 @@ public class MainActivity extends AppCompatActivity implements Scan.OnFragmentIn
         method of every Activity that uses the database. waterdb can be a class-wide variable or local
         within onCreate. */
         waterdb = WaterDatabase.getDatabase(getApplicationContext());
+    }
+
+    public List<Splash> initWaters() {
+        List<Splash> list = new ArrayList<>();
+        String[] fixtureOpt = getResources().getStringArray(R.array.fixture);
+
+        list.add(new Splash("12/2/19", "6:00", fixtureOpt[1], 25.0, 12.5, "hourly",
+                25, 25, 25, 25, 25, 2,
+                "regular", 40.0, "Save 20% of water."));
+        list.add(new Splash("12/3/19", "6:00", fixtureOpt[2], 25.0, 12.5, "hourly",
+                25, 25, 25, 25, 25, 2,
+                "regular", 40.0, "Save 20% of water."));
+        list.add(new Splash("12/4/19", "6:00", fixtureOpt[3], 25.0, 12.5, "hourly",
+                25, 25, 25, 25, 25, 2,
+                "regular", 40.0, "Save 20% of water."));
+        list.add(new Splash("12/5/19", "6:00", fixtureOpt[4], 25.0, 12.5, "hourly",
+                25, 25, 25, 25, 25, 2,
+                "regular", 40.0, "Save 20% of water."));
+
+        return list;
     }
 
     /**

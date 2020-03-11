@@ -1,4 +1,4 @@
-package com.example.edd_2020_residential_water.models;
+package com.example.edd_2020_residential_water;
 
 
 import androidx.annotation.NonNull;

@@ -1,12 +1,9 @@
-package com.example.edd_2020_residential_water.database;
+package com.example.edd_2020_residential_water;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.example.edd_2020_residential_water.dao.WaterDao;
-import com.example.edd_2020_residential_water.models.Splash;
 
 import java.lang.ref.WeakReference;
 import java.util.regex.Pattern;

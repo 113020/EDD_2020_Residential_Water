@@ -1,4 +1,4 @@
-package com.example.edd_2020_residential_water.database;
+package com.example.edd_2020_residential_water;
 
 import android.content.Context;
 
@@ -9,13 +9,10 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.edd_2020_residential_water.models.Splash;
-import com.example.edd_2020_residential_water.dao.WaterDao;
-
 @Database(entities = {Splash.class}, version = 2, exportSchema = false)
 public abstract class WaterDatabase extends RoomDatabase {
     public abstract WaterDao waterDao();
-    public static final String DB_NAME = "storm";
+    public static final String DB_NAME = "water";
 
     private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
