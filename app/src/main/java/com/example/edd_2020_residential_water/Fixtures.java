@@ -81,7 +81,7 @@ public class Fixtures extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        ItemWaterBinding itemWaterBinding = DataBindingUtil.inflate(inflater, )
+//        ItemWaterBinding itemWaterBinding = DataBindingUtil.inflate(inflater, R.layout.)
 
         final View view = inflater.inflate(R.layout.fragment_fixtures, container, false);
 
