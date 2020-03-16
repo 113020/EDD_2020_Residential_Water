@@ -20,15 +20,13 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.edd_2020_residential_water.databinding.FragmentFixturesBinding;
-
 import java.util.List;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Fixtures.OnFragmentInteractionListener} interface
+ * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link Fixtures#newInstance} factory method to
  * create an instance of this fragment.
@@ -44,6 +42,8 @@ public class Fixtures extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private SharedViewModel svm;
 
     public Fixtures() {
         // Required empty public constructor
