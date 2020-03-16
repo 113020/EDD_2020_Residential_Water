@@ -20,7 +20,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.edd_2020_residential_water.databinding.ItemWaterBinding;
+import com.example.edd_2020_residential_water.databinding.FragmentFixturesBinding;
 
 import java.util.List;
 
@@ -44,8 +44,6 @@ public class Fixtures extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-
-    private SharedViewModel svm;
 
     public Fixtures() {
         // Required empty public constructor
@@ -138,26 +136,12 @@ public class Fixtures extends Fragment {
             }
         });
 
-        FragmentManager fm = getChildFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.data, Fixtures.newInstance("",""));
-
         // Inflate the layout for this fragment
         return view;
     }
 
     public void onOptionSelected(String fixture) {
-        if (mListener != null) {
-            List<Splash> data = mListener.getByFixture(fixture);
-            WaterListFragment frag = (WaterListFragment) getChildFragmentManager().findFragmentById(R.id.data);
-            if (data.isEmpty()) {
-                Toast.makeText(getContext(), "No Sets Found", Toast.LENGTH_LONG).show();
-            }
-            frag.setWaterList(data);
 
-            svm = new ViewModelProvider(this).get(SharedViewModel.class);
-            svm.select(data);
-        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
