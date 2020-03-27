@@ -1,6 +1,5 @@
 package com.example.edd_2020_residential_water;
 
-
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -33,7 +32,6 @@ public class Water {
     private double waterBill; // Private double value for total projected water bill (in $$)
     @ColumnInfo(name = "water_fact") // Facts about conserving water, tips and tricks
     private String waterFact; // Private string for water conservation facts
-
 
     /**
      * Water class constructor
@@ -119,9 +117,7 @@ public class Water {
     public void setWaterExtent(double waterExtent) { this.waterExtent = waterExtent; }
 
     // Modifying boolean value of leak occurring
-    public void setLeak(boolean leak) {
-        this.leak = leak;
-    }
+    public void setLeak(boolean leak) { this.leak = leak;}
 
     // Modifying water bill calculate method
     public void setBillMethod(String billMethod) { this.billMethod = billMethod; }
@@ -135,15 +131,7 @@ public class Water {
     @NonNull
     @Override
     public String toString() {
-        return date
-                + "," + time
-                + "," + fixture
-                + "," + waterSpeed
-                + "," + waterExtent
-                + "," + leak
-                + "," + billMethod
-                + "," + waterBill
-                + "," + waterFact
-                + "|";
+        return date + "," + time + "," + fixture + "," + waterSpeed + "," + waterExtent
+                + "," + leak + "," + billMethod + "," + waterBill + "," + waterFact + "|";
     }
 }
