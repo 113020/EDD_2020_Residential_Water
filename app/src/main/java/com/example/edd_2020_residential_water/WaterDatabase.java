@@ -9,22 +9,25 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Splash.class}, version = 2, exportSchema = false)
+import java.util.concurrent.ForkJoinPool;
+
+@Database(entities = {Water.class}, version = 2, exportSchema = false)
 public abstract class WaterDatabase extends RoomDatabase {
+    public static ForkJoinPool databaseWriteExecutor;
+
     public abstract WaterDao waterDao();
     public static final String DB_NAME = "water";
 
     private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-            database.execSQL("ALTER TABLE whooshes ADD COLUMN climbSecs INTEGER");
+//            database.execSQL("ALTER TABLE splashes ADD COLUMN climbSecs INTEGER");
         }
     };
 
     public static WaterDatabase getDatabase(@NonNull Context context) {
         return Room.databaseBuilder(context, WaterDatabase.class, DB_NAME)
                 .addMigrations(WaterDatabase.MIGRATION_1_2)
-                .fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
                 .build(); //build database
     }

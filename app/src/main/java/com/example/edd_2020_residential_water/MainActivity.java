@@ -48,20 +48,20 @@ public class MainActivity extends AppCompatActivity implements Scan.OnFragmentIn
         waterdb = WaterDatabase.getDatabase(getApplicationContext());
     }
 
-    public List<Splash> initWaters() {
-        List<Splash> list = new ArrayList<>();
+    public List<Water> initWaters() {
+        List<Water> list = new ArrayList<>();
         String[] fixtureOpt = getResources().getStringArray(R.array.fixture);
 
-        list.add(new Splash("12/2/19", "6:00", fixtureOpt[1], 25.0, 12.5, "hourly",
+        list.add(new Water("12/2/19", "6:00", fixtureOpt[1], 25.0, 12.5, "hourly",
                 25, 25, 25, 25, 25, 2,
                 "regular", 40.0, "Save 20% of water."));
-        list.add(new Splash("12/3/19", "6:00", fixtureOpt[2], 25.0, 12.5, "hourly",
+        list.add(new Water("12/3/19", "6:00", fixtureOpt[2], 25.0, 12.5, "hourly",
                 25, 25, 25, 25, 25, 2,
                 "regular", 40.0, "Save 20% of water."));
-        list.add(new Splash("12/4/19", "6:00", fixtureOpt[3], 25.0, 12.5, "hourly",
+        list.add(new Water("12/4/19", "6:00", fixtureOpt[3], 25.0, 12.5, "hourly",
                 25, 25, 25, 25, 25, 2,
                 "regular", 40.0, "Save 20% of water."));
-        list.add(new Splash("12/5/19", "6:00", fixtureOpt[4], 25.0, 12.5, "hourly",
+        list.add(new Water("12/5/19", "6:00", fixtureOpt[4], 25.0, 12.5, "hourly",
                 25, 25, 25, 25, 25, 2,
                 "regular", 40.0, "Save 20% of water."));
 
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements Scan.OnFragmentIn
     }
 
     @Override
-    public List<Splash> getByFixture(String fixture) {
+    public List<Water> getByFixture(String fixture) {
         WaterDao waterDao = waterdb.waterDao();
         return waterDao.getByFixture(fixture);
     }

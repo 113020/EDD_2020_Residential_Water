@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="water" type="com.example.edd_2020_residential_water.Water"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutFixtures"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/water_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@{water.date}"
+            app:layout_constraintBottom_toTopOf="@+id/water_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/water_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@{water.time}"
+            app:layout_constraintBottom_toTopOf="@+id/water_fixture"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/water_date"
+            app:layout_constraintVertical_bias=".5" />
+
+        <TextView
+            android:id="@+id/water_fixture"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@{water.fixture}"
+            app:layout_constraintBottom_toTopOf="@+id/water_speed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/water_time"
+            app:layout_constraintVertical_bias="0.04000002" />
+
+        <TextView
+            android:id="@+id/water_speed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@{Double.toString(water.waterSpeed)}"
+            app:layout_constraintBottom_toTopOf="@+id/water_extent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/water_fixture"
+            app:layout_constraintVertical_bias=".5" />
+
+        <TextView
+            android:id="@+id/water_extent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@{Double.toString(water.waterExtent)}"
+            app:layout_constraintBottom_toTopOf="@+id/water_leaking"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/water_speed"
+            app:layout_constraintVertical_bias=".5" />
+
+        <TextView
+            android:id="@+id/water_leaking"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@{Boolean.toString(water.leak)}"
+            app:layout_constraintBottom_toTopOf="@+id/water_bill_method"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/water_extent"
+            app:layout_constraintVertical_bias=".5" />
+
+        <TextView
+            android:id="@+id/water_bill_method"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@{water.billMethod}"
+            app:layout_constraintBottom_toTopOf="@+id/water_total_bill"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/water_leaking"
+            app:layout_constraintVertical_bias=".5" />
+
+        <TextView
+            android:id="@+id/water_total_bill"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@{Double.toString(water.waterBill)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/water_bill_method"
+            app:layout_constraintVertical_bias=".5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

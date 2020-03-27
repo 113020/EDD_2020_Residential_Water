@@ -7,6 +7,13 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
+import androidx.room.Update;
+
 import java.util.List;
 
 /**
@@ -17,34 +24,30 @@ import java.util.List;
  */
 @Dao
 public interface WaterDao {
-    // Insert parameter Splash database entity into the Water Database
+    // Insert parameter Water database entity into the Water Database
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertSplash(Splash splash);
+    public void insertWater(Water water);
 
-    // Update Splash database entity, given as parameter, that matches with the primary key of each database entity
+    // Update Water database entity, given as parameter, that matches with the primary key of each database entity
     @Update
-    public void updateSplash(Splash splash);
+    public void updateWater(Water water);
 
-    // Delete (from the table) the Splash database entity, given as parameter, that matches with the primary key of each database entity
+    // Delete (from the table) the Water database entity, given as parameter, that matches with the primary key of each database entity
     @Delete
-    public void deleteSplash(Splash splash);
+    public void deleteWater(Water water);
 
-    // Get all the Splash entities
-    @Query("SELECT * FROM splash")
-    public List<Splash> getAllSplashes();
+    // Get all the Water entities
+    @Query("SELECT * FROM water")
+    public List<Water> getAllSplashes();
 
-    // Get all the Splash entities that correspond with the fixture parameter
-    @Query("SELECT * FROM splash WHERE fixture=:fixture")
-    public List<Splash> getByFixture(String fixture);
+    // Get all the Water entities that correspond with the fixture parameter
+    @Query("SELECT * FROM water WHERE fixture=:fixture")
+    public List<Water> getByFixture(String fixture);
 
-    // Get all the Splash entities that correspond with the time interval
-    @Query("SELECT * FROM splash WHERE time_interval=:interval")
-    public List<Splash> getByTimeInterval(String interval);
+    // Get all the Water entities that correspond with water bill calculation method
+    @Query("SELECT * FROM water WHERE water_bill_method=:method")
+    public List<Water> getByBillMethod(String method);
 
-    // Get all the Splash entities that correspond with water bill calculation method
-    @Query("SELECT * FROM splash WHERE water_bill_method=:method")
-    public List<Splash> getByBillMethod(String method);
-
-    @Query("DELETE FROM splash")
+    @Query("DELETE FROM water")
     public void deleteAll();
 }

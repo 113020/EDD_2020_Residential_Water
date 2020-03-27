@@ -8,9 +8,9 @@ import java.util.List;
 
 public class WaterViewModel extends AndroidViewModel {
 
-private WaterRepository mRepository;
+    private WaterRepository mRepository;
 
-    private List<Splash> mAllSplashes;
+    private List<Water> mAllSplashes;
 
     public WaterViewModel(Application application) {
         super(application);
@@ -18,19 +18,17 @@ private WaterRepository mRepository;
         mAllSplashes = mRepository.getAllSplashes();
     }
 
-    /*public void insert(Water water) { mRepository.insert(waterOld); }
+    public void insert(Water water) { mRepository.insert(water); }
 
-    public void update(Water water) { mRepository.update(waterOld); }
+    public void update(Water water) { mRepository.update(water); }
 
-    public void delete(Water water) { mRepository.delete(waterOld); }*/
+    public void delete(Water water) { mRepository.delete(water); }
 
-    public List<Splash> getAllSplashes() { return mAllSplashes; }
+    public List<Water> getAllSplashes() { return mAllSplashes; }
 
-    List<Splash> getByFixture(String fixture) { return mRepository.getByFixture(fixture); }
+    public List<Water> getByFixture(String fixture) { return mRepository.getByFixture(fixture); }
 
-    List<Splash> getByTimeInterval(String interval) { return mRepository.getByTimeInterval(interval); }
+    public List<Water> getByBillMethod(String method) { return mRepository.getByBillMethod(method); }
 
-    List<Splash> getByBillMethod(String method) { return mRepository.getByBillMethod(method); }
-
-
+    public void deleteAll() { mRepository.deleteAll(); }
 }

@@ -5,11 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,7 +84,7 @@ public class Fixtures extends Fragment {
 
         final MainActivity conserve = (MainActivity) getActivity();
 
-        final List<Splash> sampleWaterList = conserve.initWaters();
+        final List<Water> sampleWaterList = conserve.initWaters();
         final String[] fixtures = getResources().getStringArray(R.array.fixture);
 
         // Initializing an ArrayAdapter. Also important for custom text size, color, font, etc.through "spinner_fixture"
@@ -179,7 +175,7 @@ public class Fixtures extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        List<Splash> getByFixture(String fixture);
+        List<Water> getByFixture(String fixture);
 
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

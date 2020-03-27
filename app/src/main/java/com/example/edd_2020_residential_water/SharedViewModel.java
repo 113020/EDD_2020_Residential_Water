@@ -4,18 +4,16 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.edd_2020_residential_water.Splash;
-
 import java.util.List;
 
 public class SharedViewModel extends ViewModel {
-    private final MutableLiveData<List<Splash>> selected = new MutableLiveData<List<Splash>>();
+    private final MutableLiveData<List<Water>> selected = new MutableLiveData<List<Water>>();
 
-    public void select(List<Splash> w) {
+    public void select(List<Water> w) {
         selected.setValue(w);
     }
 
-    public LiveData<List<Splash>> getSelected() {
+    public LiveData<List<Water>> getSelected() {
         return selected;
     }
 }

@@ -5,8 +5,8 @@ import android.app.Application;
 import java.util.List;
 
 public class WaterRepository {
-private WaterDao mWaterDao;
-    private List<Splash> mAllSplashes;
+    private WaterDao mWaterDao;
+    private List<Water> mAllSplashes;
     private String fixture;
     private String interval;
     private String method;
@@ -24,30 +24,25 @@ private WaterDao mWaterDao;
     // You must call these methods on a non-UI thread or your app will throw an exception. Room ensures
     // that you're not doing any long running operations on the main thread, blocking the UI.
 //    public void insert(Water waterOld) {WaterDatabase.databaseWriteExecutor.execute(() -> {mWaterDao.insertSplash(waterOld);});}
-
-    /*public void insert(Water water) {WaterDatabase.databaseWriteExecutor.execute(water::getFixture);}
-    public void update(Water water) {WaterDatabase.databaseWriteExecutor.execute(water::getFixture);}
-    public void delete(Water water) {WaterDatabase.databaseWriteExecutor.execute(water::getFixture);}*/
+    public void insert(Water water) {mWaterDao.insertWater(water);}
+    public void update(Water water) {mWaterDao.updateWater(water);}
+    public void delete(Water water) {mWaterDao.deleteWater(water);}
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
-    List<Splash> getAllSplashes() {
+    public List<Water> getAllSplashes() {
         return mAllSplashes;
     }
 
-    List<Splash> getByFixture(String fixture) {
+    public List<Water> getByFixture(String fixture) {
         return mWaterDao.getByFixture(fixture);
     }
 
-    List<Splash> getByTimeInterval(String interval) {
-        return mWaterDao.getByTimeInterval(interval);
-    }
-
-    List<Splash> getByBillMethod(String method) {
+    public List<Water> getByBillMethod(String method) {
         return mWaterDao.getByBillMethod(method);
     }
 
-    void deleteAll() {
+    public void deleteAll() {
         mWaterDao.deleteAll();
     }
 

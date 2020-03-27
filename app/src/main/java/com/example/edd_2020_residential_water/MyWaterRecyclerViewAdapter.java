@@ -6,7 +6,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.edd_2020_residential_water.databinding.ItemWaterBinding;
 
 import java.util.List;
 
@@ -15,73 +18,43 @@ import java.util.List;
  * specified {@link Fixtures.OnFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyWaterRecyclerViewAdapter extends RecyclerView.Adapter<MyWaterRecyclerViewAdapter.ViewHolder> {
+public class MyWaterRecyclerViewAdapter extends RecyclerView.Adapter<MyWaterRecyclerViewAdapter.WaterViewHolder> {
 
-    private final List<Splash> mValues;
-    private final Fixtures.OnFragmentInteractionListener mListener;
+    private List<Water> mValues;
 
-    public MyWaterRecyclerViewAdapter(List<Splash> items, Fixtures.OnFragmentInteractionListener listener) {
+    public MyWaterRecyclerViewAdapter(List<Water> items) {
         mValues = items;
-        mListener = listener;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_fixtures, parent, false);
-        return new ViewHolder(view);
+    public WaterViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        ItemWaterBinding itemWaterBinding = ItemWaterBinding.inflate(layoutInflater, parent, false);
+        return new WaterViewHolder(itemWaterBinding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        Splash w = mValues.get(position);
-
-        holder.mDate.setText(w.getDate());
-        holder.mTime.setText(w.getTime());
-        holder.mFixture.setText(w.getFixture());
-        holder.mSpeed.setText(Double.toString(w.getWaterSpeed()));
-        holder.mExtent.setText(Double.toString(w.getWaterExtent()));
-        holder.mInterval.setText(w.getTimeInterval());
-        holder.mHourF.setText(Integer.toString(w.getHourlyFrequency()));
-        holder.mDayF.setText(Integer.toString(w.getDailyFrequency()));
-        holder.mWeekF.setText(Integer.toString(w.getWeeklyFrequency()));
-        holder.mMonthF.setText(Integer.toString(w.getMonthlyFrequency()));
-        holder.mYearF.setText(Integer.toString(w.getYearlyFrequency()));
-        holder.mLeakF.setText(Integer.toString(w.getLeakFrequency()));
-        holder.mBillMethod.setText(w.getBillMethod());
-        holder.mTotalBill.setText(Double.toString(w.getWaterBill()));
+    public void onBindViewHolder(@NonNull WaterViewHolder holder, int position) {
+        Water w = mValues.get(position);
+        holder.bind(w);
     }
 
     @Override
-    public int getItemCount() { return mValues.size(); }
+    public int getItemCount() { return mValues != null ? mValues.size() : 0; }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mDate, mTime, mFixture, mSpeed, mExtent, mInterval, mHourF, mDayF, mWeekF, mMonthF, mYearF, mLeakF, mBillMethod, mTotalBill;
+    public static class WaterViewHolder extends RecyclerView.ViewHolder {
+        private ItemWaterBinding binding;
 
-        public ViewHolder(View view) {
-            super(view);
-            mView = view;
-            mDate = view.findViewById(R.id.water_date);
-            mTime = view.findViewById(R.id.water_time);
-            mFixture = view.findViewById(R.id.water_fixture);
-            mSpeed = view.findViewById(R.id.water_speed);
-            mExtent = view.findViewById(R.id.water_extent);
-            mInterval = view.findViewById(R.id.water_time_interval);
-            mHourF = view.findViewById(R.id.water_hourly_frequency);
-            mDayF = view.findViewById(R.id.water_daily_frequency);
-            mWeekF = view.findViewById(R.id.water_weekly_frequency);
-            mMonthF = view.findViewById(R.id.water_monthly_frequency);
-            mYearF = view.findViewById(R.id.water_yearly_frequency);
-            mLeakF = view.findViewById(R.id.water_leak_frequency);
-            mBillMethod = view.findViewById(R.id.water_bill_method);
-            mTotalBill = view.findViewById(R.id.water_total_bill);
+        public WaterViewHolder(ItemWaterBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mFixture.getText() + "'";
+        public void bind(Water water) {
+            binding.setVariable(BR.water, water);
+            binding.executePendingBindings();
         }
     }
 
@@ -89,6 +62,5 @@ public class MyWaterRecyclerViewAdapter extends RecyclerView.Adapter<MyWaterRecy
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
-
 
 }
