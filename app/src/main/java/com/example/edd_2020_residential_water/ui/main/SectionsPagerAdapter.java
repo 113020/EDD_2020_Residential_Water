@@ -1,4 +1,4 @@
-package com.example.edd_2020_residential_water;
+package com.example.edd_2020_residential_water.ui.main;
 
 import android.content.Context;
 
@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.edd_2020_residential_water.R;
 import com.example.edd_2020_residential_water.Fixtures;
-import com.example.edd_2020_residential_water.Overall;
-import com.example.edd_2020_residential_water.Scan;
+import com.example.edd_2020_residential_water.Intake;
+import com.example.edd_2020_residential_water.Interval;
+import com.example.edd_2020_residential_water.R;
 import com.example.edd_2020_residential_water.WaterBill;
 
 /**
@@ -35,11 +35,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // Return a PlaceholderFragment (defined as a static inner class below).
         switch(position) {
             case 0:
-                return Scan.newInstance("","");
+                return Intake.newInstance("","");
             case 1:
                 return Fixtures.newInstance("","");
             case 2:
-                return Overall.newInstance("","");
+                return Interval.newInstance("","");
             default:
                 return WaterBill.newInstance("","");
         }
@@ -53,7 +53,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show all tabs.
+        // Show total pages based on number of elements in TAB_TITLES.
         return TAB_TITLES.length;
     }
 }

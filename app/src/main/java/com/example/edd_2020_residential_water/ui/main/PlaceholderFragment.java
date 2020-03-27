@@ -1,4 +1,4 @@
-package com.example.edd_2020_residential_water;
+package com.example.edd_2020_residential_water.ui.main;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+
+import com.example.edd_2020_residential_water.R;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -46,7 +48,7 @@ public class PlaceholderFragment extends Fragment {
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         final TextView textView = root.findViewById(R.id.tabs);
-        pageViewModel.getText().observe(this, new Observer<String>() {
+        pageViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

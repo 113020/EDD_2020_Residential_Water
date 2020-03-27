@@ -1,4 +1,4 @@
-package com.example.edd_2020_residential_water;
+package com.example.edd_2020_residential_water.ui.main;
 
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;

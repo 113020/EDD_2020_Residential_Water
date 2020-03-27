@@ -16,10 +16,10 @@ import android.view.ViewGroup;
  * Activities that contain this fragment must implement the
  * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Overall#newInstance} factory method to
+ * Use the {@link Interval#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Overall extends Fragment {
+public class Interval extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,7 +31,7 @@ public class Overall extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public Overall() {
+    public Interval() {
         // Required empty public constructor
     }
 
@@ -44,8 +44,8 @@ public class Overall extends Fragment {
      * @return A new instance of fragment Overall.
      */
     // TODO: Rename and change types and number of parameters
-    public static Overall newInstance(String param1, String param2) {
-        Overall fragment = new Overall();
+    public static Interval newInstance(String param1, String param2) {
+        Interval fragment = new Interval();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

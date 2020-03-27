@@ -16,10 +16,10 @@ import android.view.ViewGroup;
  * Activities that contain this fragment must implement the
  * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Scan#newInstance} factory method to
+ * Use the {@link Intake#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Scan extends Fragment {
+public class Intake extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,7 +31,7 @@ public class Scan extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public Scan() {
+    public Intake() {
         // Required empty public constructor
     }
 
@@ -41,11 +41,11 @@ public class Scan extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Scan.
+     * @return A new instance of fragment Intake.
      */
     // TODO: Rename and change types and number of parameters
-    public static Scan newInstance(String param1, String param2) {
-        Scan fragment = new Scan();
+    public static Intake newInstance(String param1, String param2) {
+        Intake fragment = new Intake();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,10 +65,8 @@ public class Scan extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_water_bill, container, false);
-
         // Inflate the layout for this fragment
-        return view;
+        return inflater.inflate(R.layout.fragment_intake, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
