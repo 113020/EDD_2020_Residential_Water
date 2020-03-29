@@ -66,4 +66,9 @@ public class MainActivity extends AppCompatActivity implements Intake.OnFragment
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+    @Override
+    public List<Water> getByFixture(String fixture) {
+        return null;
+    }
 }
