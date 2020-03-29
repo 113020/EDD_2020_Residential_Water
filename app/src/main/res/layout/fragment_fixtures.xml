@@ -5,7 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="water_adapter"
+            type="com.example.edd_2020_residential_water.MyWaterRecyclerViewAdapter" />
+        <variable
+            name="water_manager"
+            type="androidx.recyclerview.widget.LinearLayoutManager" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,6 +50,8 @@
             android:id="@+id/water_data"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:adapter="@{water_adapter}"
+            app:layoutManager="@{water_manager}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

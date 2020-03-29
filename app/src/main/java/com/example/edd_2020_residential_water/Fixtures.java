@@ -92,31 +92,42 @@ public class Fixtures extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Bind the layout with water binding to allow data display
         waterBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_fixtures, container, false);
         final View view = waterBinding.getRoot();
         LinearLayoutManager wllm = new LinearLayoutManager(view.getContext());
 
-//        final String[] fixtureOpt = getResources().getStringArray(R.array.fixture);
-//        final RecyclerView fluid = view.findViewById(R.id.water_data);
+        // Fixture options put into an arrayList of strings
+        final String[] fixtureOpt = getResources().getStringArray(R.array.fixture);
         final MainActivity conserve = (MainActivity) getActivity();
 
+        // Get the list of water data and send that data to the adapter
         waterList = conserve.initWaters();
         adapterW = new MyWaterRecyclerViewAdapter(waterList);
+
+        // Bind the recyclerView to the corresponding view in the layout: Cleaner version of findViewById(R.id.water_data)
         final RecyclerView fluid = waterBinding.waterData;
 
-        // Set the adapter
-        fluid.setLayoutManager(wllm);
+        // Set the layout manager
+        waterBinding.setWaterManager(wllm);
 
-        fluid.setAdapter(adapterW);
-//        waterBinding.setWaterAdapt(adapterW);
+        // Set the adapter
+        waterBinding.setWaterAdapter(adapterW);
+
+        getFixtureOption(waterBinding.enterFixture, waterList);
 
         // Inflate the layout for this fragment
         return view;
     }
 
+    /*private void getFixtureOption(Spinner enterFixture) {
+
+    }*/
+
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void getFixtureOption(Spinner enterFixture, List<Water> waterList1) {
         if (mListener != null) {
+            
             mListener.onFragmentInteraction(uri);
         }
     }
@@ -149,9 +160,8 @@ public class Fixtures extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+//        void onFragmentInteraction(Uri uri);
 
-//        List<Water> getByFixture(String fixture);
+        List<Water> getByFixture(String fixture);
     }
 }
