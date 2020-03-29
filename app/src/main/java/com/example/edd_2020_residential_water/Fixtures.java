@@ -120,7 +120,7 @@ public class Fixtures extends Fragment {
                 R.array.fixture,
                 android.R.layout.simple_spinner_item);
         adapterF.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        fixtureSpin.setAdapter(adapterF);
+        waterBinding.setFixtureAdapter(adapterF);
 
         getFixtureOption(fixtureSpin, waterList, fixtureOpt);
 
@@ -134,6 +134,7 @@ public class Fixtures extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(view.getContext(), options[position], Toast.LENGTH_LONG).show();
+                if (position )
             }
 
             @Override
@@ -143,16 +144,16 @@ public class Fixtures extends Fragment {
         });
 
         if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction(uri);
         }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    /*public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
-    }
+    }*/
 
     @Override
     public void onAttach(Context context) {
@@ -182,8 +183,8 @@ public class Fixtures extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+//        void onFragmentInteraction(Uri uri);
 
-//        List<Water> getByFixture(String fixture);
+        List<Water> getByFixture(String fixture);
     }
 }
