@@ -62,7 +62,7 @@ public class ResultTask extends AsyncTask<String, Integer, Boolean> {
 //        Toast t = new Toast(context);
 //        t.makeText()
         if (context.get() != null) {
-            Toast.makeText(context.get(), result ? "QR Scanned Successfully" : "Scan Unsucessful", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context.get(), result ? "QR Scanned Successfully" : "Scan Unsuccessful", Toast.LENGTH_SHORT).show();
         }
     }
 }
