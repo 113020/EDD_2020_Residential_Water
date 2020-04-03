@@ -114,42 +114,20 @@ public class Fixtures extends Fragment {
         // Set the adapter
         waterBinding.setWaterAdapter(adapterW);
 
-        // Add spinner and array adapter
-        Spinner fixtureSpin = waterBinding.enterFixture;
-        ArrayAdapter<CharSequence> adapterF = ArrayAdapter.createFromResource(view.getContext(),
-                R.array.fixture,
-                android.R.layout.simple_spinner_item);
-        adapterF.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        fixtureSpin.setAdapter(adapterF);
-
-        getFixtureOption(fixtureSpin, waterList, fixtureOpt);
+        getFixtureOption(waterBinding.enterFixture, waterList);
 
         // Inflate the layout for this fragment
         return view;
     }
 
+    /*private void getFixtureOption(Spinner enterFixture) {
 
-    public void getFixtureOption(Spinner fixSpin, List<Water> waterList1, final String[] options) {
-        fixSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(view.getContext(), options[position], Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-        }
-    }
+    }*/
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void getFixtureOption(Spinner enterFixture, List<Water> waterList1) {
         if (mListener != null) {
+            
             mListener.onFragmentInteraction(uri);
         }
     }
@@ -182,8 +160,8 @@ public class Fixtures extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+//        void onFragmentInteraction(Uri uri);
 
-//        List<Water> getByFixture(String fixture);
+        List<Water> getByFixture(String fixture);
     }
 }
