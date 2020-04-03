@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.edd_2020_residential_water.databinding.ItemWaterBinding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,23 +20,10 @@ import java.util.List;
  */
 public class MyWaterRecyclerViewAdapter extends RecyclerView.Adapter<MyWaterRecyclerViewAdapter.WaterViewHolder> {
 
-    private List<Water> mValues = new ArrayList<Water>();
+    private List<Water> mValues;
 
     public MyWaterRecyclerViewAdapter(List<Water> items) {
         mValues = items;
-        notifyDataSetChanged();
-    }
-
-    public MyWaterRecyclerViewAdapter(List<Water> items, int position) {
-        mValues.clear();
-        List<Water> fixtureList = new ArrayList<Water>();
-        final String[] options = {"Choose a fixture", "Shower 1", "Shower 2", "Sink Faucet 1", "Sink Faucet 2"};
-        for (Water water: items) {
-            if (water.getFixture() == options[position]) {
-                fixtureList.add(water);
-            }
-        }
-        mValues = fixtureList;
         notifyDataSetChanged();
     }
 
