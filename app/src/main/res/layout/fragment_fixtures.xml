@@ -11,6 +11,9 @@
         <variable
             name="water_manager"
             type="androidx.recyclerview.widget.LinearLayoutManager" />
+        <variable
+            name="fixture_adapter"
+            type="android.widget.ArrayAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,18 +29,19 @@
             android:layout_height="wrap_content"
             android:dropDownWidth="wrap_content"
             android:entries="@array/fixture"
-            app:layout_constraintBottom_toBottomOf="@+id/btnSearch"
-            app:layout_constraintEnd_toStartOf="@+id/btnSearch"
+            android:adapter="@{fixture_adapter}"
+            app:layout_constraintBottom_toBottomOf="@+id/btnClear"
+            app:layout_constraintEnd_toStartOf="@+id/btnClear"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
         <Button
-            android:id="@+id/btnSearch"
+            android:id="@+id/btnClear"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/example_button"
-            android:text="Search"
+            android:text="Clear"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@id/enterFixture"
             app:layout_constraintEnd_toEndOf="parent"

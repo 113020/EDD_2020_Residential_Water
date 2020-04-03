@@ -3,6 +3,7 @@ package com.example.edd_2020_residential_water;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ import java.util.List;
 public class MyWaterRecyclerViewAdapter extends RecyclerView.Adapter<MyWaterRecyclerViewAdapter.WaterViewHolder> {
 
     private List<Water> mValues;
+    private AdapterView.OnItemClickListener mClickListener;
 
     public MyWaterRecyclerViewAdapter(List<Water> items) {
         mValues = items;

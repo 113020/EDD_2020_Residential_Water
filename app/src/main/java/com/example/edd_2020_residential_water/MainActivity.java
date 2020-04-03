@@ -16,10 +16,13 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements Intake.OnFragmentInteractionListener, Fixtures.OnFragmentInteractionListener, Interval.OnFragmentInteractionListener, WaterBill.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements Intake.OnFragmentInteractionListener, Fixtures.OnFragmentInteractionListener,
+        Interval.OnFragmentInteractionListener, WaterBill.OnFragmentInteractionListener {
 
-    public WaterDatabase waterdb;
-    public String[] waterdbCols;
+    private WaterDatabase waterdb;
+    private String[] waterdbCols;
+    private WaterDao waterDao;
+    private List<Water> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +47,11 @@ public class MainActivity extends AppCompatActivity implements Intake.OnFragment
         method of every Activity that uses the database. waterdb can be a class-wide variable or local
         within onCreate. */
         waterdb = WaterDatabase.getDatabase(getApplicationContext());
+        waterDao = waterdb.waterDao();
     }
 
     public List<Water> initWaters() {
-        List<Water> list = new ArrayList<>();
+        list = new ArrayList<>();
         String[] fixtureOpt = getResources().getStringArray(R.array.fixture);
 
         list.add(new Water("12/2/19", "6:00", fixtureOpt[1], 25.0, 12.5,true,
@@ -62,8 +66,26 @@ public class MainActivity extends AppCompatActivity implements Intake.OnFragment
         return list;
     }
 
+    public void clearWaterList(List<Water> wl) {
+        list.clear();
+    }
+
+    public void setWaterList(List<Water> wl) {
+        list.addAll(wl);
+    }
+
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public List<Water> getByFixture(String fixture) {
+        return waterDao.getByFixture(fixture);
+    }
+
+    @Override
+    public List<Water> getAllSplashes() {
+        return waterDao.getAllSplashes();
     }
 }
