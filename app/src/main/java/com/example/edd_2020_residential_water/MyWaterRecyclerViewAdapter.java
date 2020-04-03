@@ -1,5 +1,6 @@
 package com.example.edd_2020_residential_water;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,23 +23,11 @@ import java.util.List;
 public class MyWaterRecyclerViewAdapter extends RecyclerView.Adapter<MyWaterRecyclerViewAdapter.WaterViewHolder> {
 
     private List<Water> mValues = new ArrayList<Water>();
+    private Context context;
 
-    public MyWaterRecyclerViewAdapter(List<Water> items) {
+    public MyWaterRecyclerViewAdapter(List<Water> items, Context c) {
         mValues = items;
-        notifyDataSetChanged();
-    }
-
-    public MyWaterRecyclerViewAdapter(List<Water> items, int position) {
-        mValues.clear();
-        List<Water> fixtureList = new ArrayList<Water>();
-        final String[] options = {"Choose a fixture", "Shower 1", "Shower 2", "Sink Faucet 1", "Sink Faucet 2"};
-        for (Water water: items) {
-            if (water.getFixture() == options[position]) {
-                fixtureList.add(water);
-            }
-        }
-        mValues = fixtureList;
-        notifyDataSetChanged();
+        context = c;
     }
 
     @NonNull
@@ -46,19 +35,19 @@ public class MyWaterRecyclerViewAdapter extends RecyclerView.Adapter<MyWaterRecy
     public WaterViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         ItemWaterBinding itemWaterBinding = ItemWaterBinding.inflate(layoutInflater, parent, false);
-        return new WaterViewHolder(itemWaterBinding);
+        return new WaterViewHolder(itemWaterBinding.getRoot());
     }
 
     @Override
     public void onBindViewHolder(@NonNull WaterViewHolder holder, int position) {
         Water w = mValues.get(position);
-        holder.bind(w);
+        holder.binding.setWater(w);
     }
 
     @Override
     public int getItemCount() { return mValues != null ? mValues.size() : 0; }
 
-    public static class WaterViewHolder extends RecyclerView.ViewHolder {
+    /*public static class WaterViewHolder extends RecyclerView.ViewHolder {
         private ItemWaterBinding binding;
 
         public WaterViewHolder(ItemWaterBinding binding) {
@@ -69,6 +58,15 @@ public class MyWaterRecyclerViewAdapter extends RecyclerView.Adapter<MyWaterRecy
         public void bind(Water water) {
             binding.setVariable(BR.water, water);
             binding.executePendingBindings();
+        }
+    }*/
+
+    public static class WaterViewHolder extends RecyclerView.ViewHolder{
+        public ItemWaterBinding binding;
+
+        public WaterViewHolder(View itemView) {
+            super(itemView);
+            binding = DataBindingUtil.bind(itemView);
         }
     }
 
