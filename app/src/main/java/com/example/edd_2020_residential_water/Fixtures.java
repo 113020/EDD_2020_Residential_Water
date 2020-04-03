@@ -10,11 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainer;
-import androidx.fragment.app.FragmentContainerView;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -56,9 +51,6 @@ public class Fixtures extends Fragment {
 
     FragmentFixturesBinding waterBinding;
     MyWaterRecyclerViewAdapter adapterW;
-    FragmentManager fm;
-    FragmentTransaction fragmentTransaction;
-
 
     private WaterViewModel waterViewModel;
     private SharedViewModel svm;
@@ -92,42 +84,49 @@ public class Fixtures extends Fragment {
         }
     }
 
+    public void setWaterList(List<Water> wl) {
+        waterList.clear();
+        waterList.addAll(wl);
+        adapterW.notifyDataSetChanged();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Bind the layout with water binding to allow data display
         waterBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_fixtures, container, false);
         final View view = waterBinding.getRoot();
-
-        // Declare needed objects and bind them to the corresponding elements in the layout: Cleaner version of findViewById(R.id....)
-        final Spinner fixtureSpin = waterBinding.enterFixture;
-        final Button fixtureSearch = waterBinding.btnSearch;
-        final LinearLayoutManager wllm = new LinearLayoutManager(view.getContext());
-        final MainActivity conserve = (MainActivity) getActivity();
+        LinearLayoutManager wllm = new LinearLayoutManager(view.getContext());
 
         // Fixture options put into an arrayList of strings
         final String[] fixtureOpt = getResources().getStringArray(R.array.fixture);
 
+        // Set waterList to initWaters() from Main Activity
+        final MainActivity conserve = (MainActivity) getActivity();
+        waterList = conserve.initWaters();
+        adapterW = new MyWaterRecyclerViewAdapter(waterList);
+
+        // Bind the recyclerView to the corresponding view in the layout: Cleaner version of findViewById(R.id.water_data)
+        final RecyclerView fluid = waterBinding.waterData;
+
+        // Set the layout manager
+        waterBinding.setWaterManager(wllm);
+
         // Add spinner and array adapter
+        Spinner fixtureSpin = waterBinding.enterFixture;
         final ArrayAdapter<CharSequence> adapterF = ArrayAdapter.createFromResource(view.getContext(),
                 R.array.fixture,
                 android.R.layout.simple_spinner_item);
         adapterF.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         waterBinding.setFixtureAdapter(adapterF);
 
-        // Set waterList to initWaters() from Main Activity
-        waterList = conserve.initWaters();
-        adapterW = new MyWaterRecyclerViewAdapter(waterList, view.getContext());
-
-        // Set the layout manager
-        waterBinding.setWaterManager(wllm);
-
         fixtureSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
                 Toast.makeText(v.getContext(), fixtureOpt[position], Toast.LENGTH_LONG).show();
 
-                setFixtureList(fixtureOpt[position]);
+                // Send the data to the adapter
+                adapterW = new MyWaterRecyclerViewAdapter(waterList, position);
             }
 
             @Override
@@ -136,30 +135,25 @@ public class Fixtures extends Fragment {
             }
         });
 
-        // Fragment Manager and adding new FixturesList Fragment into the Fragment Container View
-        fm = getChildFragmentManager();
-        fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.frag_water_filter, Fixtures.newInstance("", ""));
+        // Set the adapter
+        waterBinding.setWaterAdapter(adapterW);
 
+//        getFixtureOption(fixtureSpin, waterList, fixtureOpt);
         // Inflate the layout for this fragment
         return view;
     }
 
 
-    public void setFixtureList(String option) {
-        if (mListener != null) {
-            List<Water> data = mListener.getByFixture(option);
-            FixturesList fragment = new FixturesList();
-            if (data.isEmpty()) {
-                Toast.makeText(getContext(), "No Matches Found", Toast.LENGTH_LONG).show();
-            }
-            fragment.setWaterList(data, adapterW);;
+    public void setFixtureList(int position, String[] options, List<Water> list) {
 
-            svm = new ViewModelProvider(this).get(SharedViewModel.class);
-            svm.select(data);
-
-        }
     }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    /*public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }*/
 
     @Override
     public void onAttach(Context context) {
@@ -189,6 +183,8 @@ public class Fixtures extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
+//        void onFragmentInteraction(Uri uri);
+
         List<Water> getByFixture(String fixture);
     }
 }

@@ -8,10 +8,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
-import androidx.annotation.NonNull;
-import androidx.room.DatabaseConfiguration;
-import androidx.room.InvalidationTracker;
-import androidx.sqlite.db.SupportSQLiteOpenHelper;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,11 +16,10 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements Intake.OnFragmentInteractionListener, Fixtures.OnFragmentInteractionListener, Interval.OnFragmentInteractionListener, WaterBill.OnFragmentInteractionListener, FixturesList.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements Intake.OnFragmentInteractionListener, Fixtures.OnFragmentInteractionListener, Interval.OnFragmentInteractionListener, WaterBill.OnFragmentInteractionListener {
 
-    private WaterDatabase waterdb;
-    private String[] waterdbCols;
-    private WaterDao waterDao;
+    public WaterDatabase waterdb;
+    public String[] waterdbCols;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements Intake.OnFragment
         method of every Activity that uses the database. waterdb can be a class-wide variable or local
         within onCreate. */
         waterdb = WaterDatabase.getDatabase(getApplicationContext());
-        waterDao = waterdb.waterDao();
     }
 
     public List<Water> initWaters() {
@@ -65,10 +59,6 @@ public class MainActivity extends AppCompatActivity implements Intake.OnFragment
         list.add(new Water("12/5/19", "6:00", fixtureOpt[4], 25.0, 12.5,true,
                 "regular", 40.0, "Save 20% of water."));
 
-        for (Water water: list) {
-            waterDao.insertWater(water);
-        }
-
         return list;
     }
 
@@ -77,14 +67,8 @@ public class MainActivity extends AppCompatActivity implements Intake.OnFragment
 
     }
 
-    /**
-     *
-     * @param fixture
-     * @return
-     */
     @Override
     public List<Water> getByFixture(String fixture) {
-//        waterDao = waterdb.waterDao();
-        return waterDao.getByFixture(fixture);
+        return null;
     }
 }
