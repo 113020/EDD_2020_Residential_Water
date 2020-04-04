@@ -102,6 +102,7 @@ public class Fixtures extends Fragment {
         conserve = (MainActivity) getActivity();
         fluid = waterBinding.waterData;
 
+        // Listener attached to the button to clear the old recyclerView displays: good for updating the display once data is filtered
         fixtureClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,6 +124,7 @@ public class Fixtures extends Fragment {
         // Get the list of water data and send that data to the adapter
         waterList = conserve.initWaters();
 
+        // Create the listener for the spinner: responsible for getting the list based on the option
         fixtureSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
@@ -137,6 +139,7 @@ public class Fixtures extends Fragment {
             }
         });
 
+        // Initialize the adapter
         adapterW = new MyWaterRecyclerViewAdapter(waterList);
 
         // Set the layout manager
@@ -153,13 +156,17 @@ public class Fixtures extends Fragment {
         return view;
     }
 
+    /**
+     * Allow the user to search for water use entries for a specified fixture in the dropdown
+     * @param option: Fixture option chosen by the user
+     * @return List of data that only concerns the specified fixture
+     */
     public List<Water> getFixtureList(String option) {
         List<Water> data = mListener.getByFixture(option);
         if (mListener != null) {
             int i = data.size();
             if (data.isEmpty()) {
                 Toast.makeText(getContext(), "No Water Uses Found", Toast.LENGTH_LONG).show();
-                data = mListener.getAllSplashes();
             } else {
                 Toast.makeText(getContext(), i + " Water Uses Found", Toast.LENGTH_SHORT).show();
             }
