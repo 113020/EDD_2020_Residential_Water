@@ -130,6 +130,9 @@ public class Fixtures extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
                 Toast.makeText(v.getContext(), fixtureOpt[position], Toast.LENGTH_LONG).show();
 
+                conserve.clearWaterList(waterList);
+                fluid.removeAllViews();
+
                 waterList = getFixtureList(fixtureOpt[position]);
             }
 
