@@ -169,7 +169,7 @@ public class Fixtures extends Fragment {
         if (mListener != null) {
             int i = data.size();
             if (data.isEmpty()) {
-                Toast.makeText(getContext(), "No Water Uses Found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "No Water Uses Found", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getContext(), i + " Water Uses Found", Toast.LENGTH_SHORT).show();
             }
