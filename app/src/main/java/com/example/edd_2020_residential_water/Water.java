@@ -21,11 +21,13 @@ public class Water {
     @NonNull @ColumnInfo(name = "fixture") // Column for household fixture: either sink faucet or shower
     private String fixture; // Private string for fixture
     @NonNull @ColumnInfo(name = "water_speed") // Column for the detected water speed
-    @NonNull @ColumnInfo(name = "extent_of_use") // Column for how long the faucet was on: in seconds
     private double flowRate; // Private double value for the detected water speed
+    @NonNull @ColumnInfo(name = "extent_of_use") // Column for how long the faucet was on: in seconds
     private double extent; // Private double value for length of faucet run time
     @ColumnInfo(name = "leak") // Column for leak occurring.
     private boolean leak; // Private boolean for detecting leaks
+    @NonNull @ColumnInfo(name = "volume_flow") // Column for leak occurring.
+    private double volumeFlow; // Private boolean for detecting leaks
     @ColumnInfo(name = "water_bill_method") // Method of calculating water bill
     private String billMethod; // Private string for method to calculate water bill
     @ColumnInfo(name = "final_bill") // Projected water bill from water use data
@@ -49,18 +51,20 @@ public class Water {
      * @param flowRate
      * @param extent
      * @param leak
+     * @param volumeFlow
      * @param billMethod
      * @param waterBill
      * @param waterFact
      */
     public Water(String date, String time, String fixture, double flowRate, double extent,
-                 boolean leak, String billMethod, double waterBill, String waterFact) {
+                 boolean leak, double volumeFlow, String billMethod, double waterBill, String waterFact) {
         this.date = date;
         this.time = time;
         this.fixture = fixture;
         this.flowRate = flowRate;
         this.extent = extent;
         this.leak = leak;
+        this.volumeFlow = volumeFlow;
         this.billMethod = billMethod;
         this.waterBill = waterBill;
         this.waterFact = waterFact;
@@ -91,6 +95,9 @@ public class Water {
     // Return whether leak is occurring
     public boolean isLeak() { return leak; }
 
+    // Return total volume of water
+    public double getVolumeFlow() { return volumeFlow; }
+
     // Return water bill calculation method
     public String getBillMethod() { return billMethod; }
 
@@ -117,7 +124,10 @@ public class Water {
     public void setExtent(double extent) { this.extent = extent; }
 
     // Modifying boolean value of leak occurring
-    public void setLeak(boolean leak) { this.leak = leak;}
+    public void setLeak(boolean leak) { this.leak = leak; }
+
+    // Modifying volume flow
+    public void setVolumeFlow(double volumeFlow) { this.volumeFlow = volumeFlow; }
 
     // Modifying water bill calculate method
     public void setBillMethod(String billMethod) { this.billMethod = billMethod; }
@@ -132,6 +142,6 @@ public class Water {
     @Override
     public String toString() {
         return date + "," + time + "," + fixture + "," + flowRate + "," + extent
-                + "," + leak + "," + billMethod + "," + waterBill + "," + waterFact + "|";
+                + "," + leak + "," + volumeFlow + "," + billMethod + "," + waterBill + "," + waterFact + "|";
     }
 }

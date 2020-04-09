@@ -173,7 +173,7 @@ public class Fixtures extends Fragment {
             } else {
                 Toast.makeText(getContext(), i + " Water Uses Found", Toast.LENGTH_SHORT).show();
             }
-            conserve.setWaterList(data);
+            conserve.clearWaterList(data);
             adapterW.notifyDataSetChanged();
 
             svm = new ViewModelProvider(this).get(SharedViewModel.class);

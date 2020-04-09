@@ -54,25 +54,41 @@ public class MainActivity extends AppCompatActivity implements Intake.OnFragment
         list = new ArrayList<>();
         String[] fixtureOpt = getResources().getStringArray(R.array.fixture);
 
-        list.add(new Water("12/2/19", "6:00", fixtureOpt[1], 25.0, 12.5,true,
+        list.add(new Water("12/2/19", "6:00", fixtureOpt[1], 25.0, 12.5, true, 0,
                 "regular", 40.0, "Save 20% of water."));
-        list.add(new Water("12/3/19", "6:00", fixtureOpt[2], 25.0, 12.5,true,
+        list.add(new Water("12/3/19", "6:00", fixtureOpt[2], 25.0, 12.5,true, 0,
                 "regular", 40.0, "Save 20% of water."));
-        list.add(new Water("12/4/19", "6:00", fixtureOpt[3], 25.0, 12.5,true,
+        list.add(new Water("12/4/19", "6:00", fixtureOpt[3], 25.0, 12.5,true, 0,
                 "regular", 40.0, "Save 20% of water."));
-        list.add(new Water("12/5/19", "6:00", fixtureOpt[4], 25.0, 12.5,true,
+        list.add(new Water("12/5/19", "6:00", fixtureOpt[4], 25.0, 12.5,true, 0,
                 "regular", 40.0, "Save 20% of water."));
 
+        for (Water water: list) {
+            water.setVolumeFlow(water.getFlowRate() * water.getExtent());
+        }
         return list;
     }
 
-    public void clearWaterList(List<Water> wl) {
-        list.clear();
+    public List<Water> initWaters1() {
+        list = new ArrayList<>();
+        String[] fixtureOpt = getResources().getStringArray(R.array.fixture);
+
+        list.add(new Water("12/2/19", "6:00", fixtureOpt[1], 25.0, 12.5, true, 0,
+                "regular", 40.0, "Save 20% of water."));
+        list.add(new Water("12/3/19", "6:00", fixtureOpt[2], 25.0, 12.5,true, 0,
+                "regular", 40.0, "Save 20% of water."));
+        list.add(new Water("12/4/19", "6:00", fixtureOpt[3], 25.0, 12.5,true, 0,
+                "regular", 40.0, "Save 20% of water."));
+        list.add(new Water("12/5/19", "6:00", fixtureOpt[4], 25.0, 12.5,true, 0,
+                "regular", 40.0, "Save 20% of water."));
+
+        for (Water water: list) {
+            water.setVolumeFlow(water.getFlowRate() * water.getExtent());
+        }
+        return list;
     }
 
-    public void setWaterList(List<Water> wl) {
-        list.addAll(wl);
-    }
+    public void clearWaterList(List<Water> wl) { list.clear(); }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
