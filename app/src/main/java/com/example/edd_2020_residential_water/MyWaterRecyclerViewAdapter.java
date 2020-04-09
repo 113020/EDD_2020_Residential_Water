@@ -1,5 +1,6 @@
 package com.example.edd_2020_residential_water;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.edd_2020_residential_water.databinding.ItemWaterBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,5 +66,4 @@ public class MyWaterRecyclerViewAdapter extends RecyclerView.Adapter<MyWaterRecy
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
-
 }

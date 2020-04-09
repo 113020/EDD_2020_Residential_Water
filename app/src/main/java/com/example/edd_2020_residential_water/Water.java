@@ -21,9 +21,9 @@ public class Water {
     @NonNull @ColumnInfo(name = "fixture") // Column for household fixture: either sink faucet or shower
     private String fixture; // Private string for fixture
     @NonNull @ColumnInfo(name = "water_speed") // Column for the detected water speed
-    private double waterSpeed; // Private double value for the detected water speed
     @NonNull @ColumnInfo(name = "extent_of_use") // Column for how long the faucet was on: in seconds
-    private double waterExtent; // Private double value for length of faucet run time
+    private double flowRate; // Private double value for the detected water speed
+    private double extent; // Private double value for length of faucet run time
     @ColumnInfo(name = "leak") // Column for leak occurring.
     private boolean leak; // Private boolean for detecting leaks
     @ColumnInfo(name = "water_bill_method") // Method of calculating water bill
@@ -46,20 +46,20 @@ public class Water {
      * @param date
      * @param time
      * @param fixture
-     * @param waterSpeed
-     * @param waterExtent
+     * @param flowRate
+     * @param extent
      * @param leak
      * @param billMethod
      * @param waterBill
      * @param waterFact
      */
-    public Water(String date, String time, String fixture, double waterSpeed, double waterExtent,
+    public Water(String date, String time, String fixture, double flowRate, double extent,
                  boolean leak, String billMethod, double waterBill, String waterFact) {
         this.date = date;
         this.time = time;
         this.fixture = fixture;
-        this.waterSpeed = waterSpeed;
-        this.waterExtent = waterExtent;
+        this.flowRate = flowRate;
+        this.extent = extent;
         this.leak = leak;
         this.billMethod = billMethod;
         this.waterBill = waterBill;
@@ -83,10 +83,10 @@ public class Water {
     public String getFixture() { return fixture; }
 
     // Return detected water speed
-    public double getWaterSpeed() { return waterSpeed; }
+    public double getFlowRate() { return flowRate; }
 
     // Return faucet run time
-    public double getWaterExtent() { return waterExtent; }
+    public double getExtent() { return extent; }
 
     // Return whether leak is occurring
     public boolean isLeak() { return leak; }
@@ -111,10 +111,10 @@ public class Water {
     public void setFixture(String fixture) { this.fixture = fixture; }
 
     // Modifying the water speed
-    public void setWaterSpeed(double waterSpeed) { this.waterSpeed = waterSpeed; }
+    public void setFlowRate(double flowRate) { this.flowRate = flowRate; }
 
     // Modifying how long fixture is being used
-    public void setWaterExtent(double waterExtent) { this.waterExtent = waterExtent; }
+    public void setExtent(double extent) { this.extent = extent; }
 
     // Modifying boolean value of leak occurring
     public void setLeak(boolean leak) { this.leak = leak;}
@@ -131,7 +131,7 @@ public class Water {
     @NonNull
     @Override
     public String toString() {
-        return date + "," + time + "," + fixture + "," + waterSpeed + "," + waterExtent
+        return date + "," + time + "," + fixture + "," + flowRate + "," + extent
                 + "," + leak + "," + billMethod + "," + waterBill + "," + waterFact + "|";
     }
 }
