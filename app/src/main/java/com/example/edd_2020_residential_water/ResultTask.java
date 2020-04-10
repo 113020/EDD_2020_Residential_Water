@@ -3,18 +3,10 @@ package com.example.edd_2020_residential_water;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.example.edd_2020_residential_water.WaterDao;
-import com.example.edd_2020_residential_water.Water;
 
 import java.lang.ref.WeakReference;
 import java.util.regex.Pattern;
 
-/**
- * This class is responsible for taking in the data from external sources and inserting it into the datasets.
- * The data is parsed and put into
- */
 public class ResultTask extends AsyncTask<String, Integer, Boolean> {
     WaterDatabase db;
     WeakReference<Context> context;
@@ -43,6 +35,11 @@ public class ResultTask extends AsyncTask<String, Integer, Boolean> {
                 w.setFixture(waterSub[2]);
                 w.setFlowRate(Double.parseDouble(waterSub[3]));
                 w.setExtent(Double.parseDouble(waterSub[4]));
+                w.setLeak(Boolean.parseBoolean(waterSub[5]));
+                w.setVolumeFlow(Double.parseDouble(waterSub[6]));
+                w.setBillMethod(waterSub[7]);
+                w.setWaterBill(Double.parseDouble(waterSub[8]));
+                w.setWaterFact(waterSub[9]);
                 waterDao.insertWater(w);
             }
 
@@ -61,8 +58,8 @@ public class ResultTask extends AsyncTask<String, Integer, Boolean> {
         //showDialog("Downloaded " + result + " bytes");
 //        Toast t = new Toast(context);
 //        t.makeText()
-        if (context.get() != null) {
-            Toast.makeText(context.get(), result ? "QR Scanned Successfully" : "Scan Unsuccessful", Toast.LENGTH_SHORT).show();
-        }
+//        if (context.get() != null) {
+//            Toast.makeText(context.get(), result ? "QR Scanned Successfully" : "Scan Unsuccessful", Toast.LENGTH_SHORT).show();
+//        }
     }
 }

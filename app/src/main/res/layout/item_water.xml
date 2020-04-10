@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="water" type="com.example.edd_2020_residential_water.Water"/>
+        <variable
+            name="water"
+            type="com.example.edd_2020_residential_water.Water"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

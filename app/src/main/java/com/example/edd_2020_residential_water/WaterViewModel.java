@@ -7,7 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import java.util.List;
 
 public class WaterViewModel extends AndroidViewModel {
-
     private WaterRepository mRepository;
 
     private List<Water> mAllSplashes;
