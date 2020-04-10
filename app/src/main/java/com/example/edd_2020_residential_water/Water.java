@@ -13,8 +13,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "water")
 public class Water {
 
-    @NonNull
-    @PrimaryKey
+    @NonNull @PrimaryKey
     @ColumnInfo(name = "date") // Column for date: month, day, year
     private String date; // Private string for date
     @NonNull @ColumnInfo(name = "time") // Column for time when fixture turns on
@@ -27,20 +26,14 @@ public class Water {
     private double extent; // Private double value for length of faucet run time
     @ColumnInfo(name = "leak") // Column for leak occurring.
     private boolean leak; // Private boolean for detecting leaks
-    @NonNull @ColumnInfo(name = "volume_flow") // Column for total volume.
-    private double volumeFlow; // Private double for total volume
+    @NonNull @ColumnInfo(name = "volume_flow") // Column for leak occurring.
+    private double volumeFlow; // Private boolean for detecting leaks
     @ColumnInfo(name = "water_bill_method") // Method of calculating water bill
     private String billMethod; // Private string for method to calculate water bill
     @ColumnInfo(name = "final_bill") // Projected water bill from water use data
     private double waterBill; // Private double value for total projected water bill (in $$)
     @ColumnInfo(name = "water_fact") // Facts about conserving water, tips and tricks
     private String waterFact; // Private string for water conservation facts
-
-    /**
-     * Blank constructor
-     */
-    @Ignore
-    public Water() {}
 
     /**
      * Water class constructor
@@ -77,108 +70,73 @@ public class Water {
         this.waterFact = waterFact;
     }
 
+    /**
+     * Blank constructor
+     */
+    @Ignore
+    public Water() {}
+
+    // ***** Get methods for returning values ***** //
     // Return date of fixture use
-    @NonNull
-    public String getDate() {
-        return date;
-    }
+    public String getDate() { return date; }
 
-    // Modify date
-    public void setDate(@NonNull String date) {
-        this.date = date;
-    }
+    // Return clock time when fixture is first turned on
+    public String getTime() { return time; }
 
-    // Return time of fixture use
-    @NonNull
-    public String getTime() {
-        return time;
-    }
+    // Return fixture being used
+    public String getFixture() { return fixture; }
 
-    // Modify time
-    public void setTime(@NonNull String time) {
-        this.time = time;
-    }
+    // Return detected water speed
+    public double getFlowRate() { return flowRate; }
 
-    // Return fixture
-    @NonNull
-    public String getFixture() {
-        return fixture;
-    }
+    // Return faucet run time
+    public double getExtent() { return extent; }
 
-    // Modify fixture
-    public void setFixture(@NonNull String fixture) {
-        this.fixture = fixture;
-    }
+    // Return whether leak is occurring
+    public boolean isLeak() { return leak; }
 
-    // Return volumetric flow rate
-    public double getFlowRate() {
-        return flowRate;
-    }
+    // Return total volume of water
+    public double getVolumeFlow() { return volumeFlow; }
 
-    // Modify volumetric flow rate
-    public void setFlowRate(double flowRate) {
-        this.flowRate = flowRate;
-    }
+    // Return water bill calculation method
+    public String getBillMethod() { return billMethod; }
 
-    // Return extent of water use
-    public double getExtent() {
-        return extent;
-    }
+    // Return calculated water bill total in $$
+    public double getWaterBill() { return waterBill; }
 
-    // Modify extent
-    public void setExtent(double extent) {
-        this.extent = extent;
-    }
+    // Return water fact
+    public String getWaterFact() { return waterFact; }
 
-    // Return boolean (true = yes leaking, false = no leaks)
-    public boolean isLeak() {
-        return leak;
-    }
+    // ***** Set methods for modifying the values ***** //
+    // Modifying the date value (month, day, year)
+    public void setDate(String date) { this.date = date; }
 
-    // Modify leak
-    public void setLeak(boolean leak) {
-        this.leak = leak;
-    }
+    // Modifying the time
+    public void setTime(String time) { this.time = time; }
 
-    // Return total volume
-    public double getVolumeFlow() {
-        return volumeFlow;
-    }
+    // Modifying the fixture
+    public void setFixture(String fixture) { this.fixture = fixture; }
 
-    // Modify total volume
-    public void setVolumeFlow(double volumeFlow) {
-        this.volumeFlow = volumeFlow;
-    }
+    // Modifying the water speed
+    public void setFlowRate(double flowRate) { this.flowRate = flowRate; }
 
-    // Return bill method
-    public String getBillMethod() {
-        return billMethod;
-    }
+    // Modifying how long fixture is being used
+    public void setExtent(double extent) { this.extent = extent; }
 
-    // Modify bill method
-    public void setBillMethod(String billMethod) {
-        this.billMethod = billMethod;
-    }
+    // Modifying boolean value of leak occurring
+    public void setLeak(boolean leak) { this.leak = leak; }
 
-    // Return water bill
-    public double getWaterBill() {
-        return waterBill;
-    }
+    // Modifying volume flow
+    public void setVolumeFlow(double volumeFlow) { this.volumeFlow = volumeFlow; }
 
-    // Modify water bill
-    public void setWaterBill(double waterBill) {
-        this.waterBill = waterBill;
-    }
+    // Modifying water bill calculate method
+    public void setBillMethod(String billMethod) { this.billMethod = billMethod; }
 
-    // Return water fact/suggestion
-    public String getWaterFact() {
-        return waterFact;
-    }
+    // Modifying water bill calculated
+    public void setWaterBill(double waterBill) { this.waterBill = waterBill; }
 
-    // Modify water fact/suggestion
-    public void setWaterFact(String waterFact) {
-        this.waterFact = waterFact;
-    }
+    // Modifying water fact
+    public void setWaterFact(String waterFact) { this.waterFact = waterFact; }
 
     @NonNull
     @Override
@@ -186,5 +144,4 @@ public class Water {
         return date + "," + time + "," + fixture + "," + flowRate + "," + extent
                 + "," + leak + "," + volumeFlow + "," + billMethod + "," + waterBill + "," + waterFact + "|";
     }
-
 }

@@ -66,9 +66,7 @@ public class Intake extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_intake, container, false);
-
-        return view;
+        return inflater.inflate(R.layout.fragment_intake, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

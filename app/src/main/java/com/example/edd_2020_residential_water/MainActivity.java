@@ -3,6 +3,7 @@ package com.example.edd_2020_residential_water;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.example.edd_2020_residential_water.ui.main.SectionsPagerAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -10,11 +11,7 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-
-import com.example.edd_2020_residential_water.ui.main.SectionsPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,15 +65,10 @@ public class MainActivity extends AppCompatActivity implements Intake.OnFragment
 
         for (Water water: list) {
             water.setVolumeFlow(water.getFlowRate() * water.getExtent());
-            waterDao.insertWater(water);
         }
         return list;
     }
 
-    /**
-     * To be modified for data intake purpose
-     * @return list
-     */
     public List<Water> initWaters1() {
         list = new ArrayList<>();
         String[] fixtureOpt = getResources().getStringArray(R.array.fixture);
@@ -92,14 +84,11 @@ public class MainActivity extends AppCompatActivity implements Intake.OnFragment
 
         for (Water water: list) {
             water.setVolumeFlow(water.getFlowRate() * water.getExtent());
-            waterDao.insertWater(water);
         }
         return list;
     }
 
     public void clearWaterList(List<Water> wl) { list.clear(); }
-
-    public void setWaterList(List<Water> wl) { list.addAll(wl); }
 
     @Override
     public void onFragmentInteraction(Uri uri) {

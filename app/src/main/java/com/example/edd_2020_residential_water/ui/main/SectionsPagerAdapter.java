@@ -43,7 +43,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             default:
                 return WaterBill.newInstance("","");
         }
-//        return Fixtures.newInstance("","");
     }
 
     @Nullable
