@@ -45,5 +45,4 @@ public class WaterRepository {
     public void deleteAll() {
         mWaterDao.deleteAll();
     }
-
 }

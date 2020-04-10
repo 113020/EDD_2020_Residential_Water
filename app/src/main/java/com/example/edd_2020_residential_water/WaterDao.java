@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-
 import java.util.List;
 
 /**
@@ -18,6 +17,7 @@ import java.util.List;
  */
 @Dao
 public interface WaterDao {
+
     // Insert parameter Water database entity into the Water Database
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insertWater(Water water);
@@ -44,4 +44,5 @@ public interface WaterDao {
 
     @Query("DELETE FROM water")
     public void deleteAll();
+
 }

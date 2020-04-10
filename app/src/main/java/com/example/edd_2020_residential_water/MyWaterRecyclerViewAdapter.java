@@ -1,19 +1,14 @@
 package com.example.edd_2020_residential_water;
 
-import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.edd_2020_residential_water.databinding.ItemWaterBinding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +17,6 @@ import java.util.List;
  * TODO: Replace the implementation with code for your data type.
  */
 public class MyWaterRecyclerViewAdapter extends RecyclerView.Adapter<MyWaterRecyclerViewAdapter.WaterViewHolder> {
-
     private List<Water> mValues;
     private AdapterView.OnItemClickListener mClickListener;
 

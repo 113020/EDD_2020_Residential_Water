@@ -3,11 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="water" type="com.example.edd_2020_residential_water.Water"/>
+        <variable
+            name="water"
+            type="com.example.edd_2020_residential_water.Water" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayoutFixtures"
+        android:id="@+id/constraintItemWater"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -40,14 +42,14 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@{water.fixture}"
-            app:layout_constraintBottom_toTopOf="@+id/water_speed"
+            app:layout_constraintBottom_toTopOf="@+id/water_flow_rate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/water_time"
             app:layout_constraintVertical_bias="0.5" />
 
         <TextView
-            android:id="@+id/water_speed"
+            android:id="@+id/water_flow_rate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -67,7 +69,7 @@
             app:layout_constraintBottom_toTopOf="@+id/water_leaking"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/water_speed"
+            app:layout_constraintTop_toBottomOf="@+id/water_flow_rate"
             app:layout_constraintVertical_bias=".5" />
 
         <TextView
@@ -117,5 +119,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/water_bill_method"
             app:layout_constraintVertical_bias=".5" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
