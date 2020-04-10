@@ -20,9 +20,9 @@ public class Water {
     private String time; // Private string for time when fixture turns on
     @NonNull @ColumnInfo(name = "fixture") // Column for household fixture: either sink faucet or shower
     private String fixture; // Private string for fixture
-    @NonNull @ColumnInfo(name = "flow_rate") // Column for the detected water speed
+    @NonNull @ColumnInfo(name = "water_speed") // Column for the detected water speed
     private double flowRate; // Private double value for the detected water speed
-    @NonNull @ColumnInfo(name = "extent") // Column for how long the faucet was on: in seconds
+    @NonNull @ColumnInfo(name = "extent_of_use") // Column for how long the faucet was on: in seconds
     private double extent; // Private double value for length of faucet run time
     @ColumnInfo(name = "leak") // Column for leak occurring.
     private boolean leak; // Private boolean for detecting leaks
