@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.edd_2020_residential_water.databinding.ItemWaterBinding;
-import com.example.edd_2020_residential_water.databinding.FixturesTableBinding;
 
 import java.util.List;
 
@@ -17,11 +16,11 @@ import java.util.List;
  * specified {@link Fixtures.OnFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyWaterRecyclerViewAdapter extends RecyclerView.Adapter<MyWaterRecyclerViewAdapter.WaterViewHolder> {
+public class MyWaterRecyclerViewAdapter2 extends RecyclerView.Adapter<MyWaterRecyclerViewAdapter2.WaterViewHolder> {
     private List<Water> mValues;
     private AdapterView.OnItemClickListener mClickListener;
 
-    public MyWaterRecyclerViewAdapter(List<Water> items) {
+    public MyWaterRecyclerViewAdapter2(List<Water> items) {
         mValues = items;
         notifyDataSetChanged();
     }
@@ -30,8 +29,8 @@ public class MyWaterRecyclerViewAdapter extends RecyclerView.Adapter<MyWaterRecy
     @Override
     public WaterViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        FixturesTableBinding fixturesTableBinding = FixturesTableBinding.inflate(layoutInflater, parent, false);
-        return new WaterViewHolder(fixturesTableBinding);
+        ItemWaterBinding itemWaterBinding = ItemWaterBinding.inflate(layoutInflater, parent, false);
+        return new WaterViewHolder(itemWaterBinding);
     }
 
     @Override
@@ -44,9 +43,9 @@ public class MyWaterRecyclerViewAdapter extends RecyclerView.Adapter<MyWaterRecy
     public int getItemCount() { return mValues != null ? mValues.size() : 0; }
 
     public static class WaterViewHolder extends RecyclerView.ViewHolder {
-        private FixturesTableBinding binding;
+        private ItemWaterBinding binding;
 
-        public WaterViewHolder(FixturesTableBinding binding) {
+        public WaterViewHolder(ItemWaterBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
