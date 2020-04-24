@@ -7,16 +7,10 @@ import android.widget.AdapterView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.edd_2020_residential_water.databinding.ItemWaterBinding;
 import com.example.edd_2020_residential_water.databinding.FixturesTableBinding;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that makes a call to the
- * specified {@link Fixtures.OnFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class MyWaterRecyclerViewAdapter extends RecyclerView.Adapter<MyWaterRecyclerViewAdapter.WaterViewHolder> {
     private List<Water> mValues;
     private AdapterView.OnItemClickListener mClickListener;

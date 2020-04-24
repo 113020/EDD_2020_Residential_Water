@@ -1,5 +1,6 @@
 package com.example.edd_2020_residential_water;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -10,22 +11,22 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.edd_2020_residential_water.ui.main.SectionsPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements Intake.OnFragmentInteractionListener, Fixtures.OnFragmentInteractionListener,
         Interval.OnFragmentInteractionListener, WaterBill.OnFragmentInteractionListener {
 
-    private WaterDatabase waterdb;
-    private String[] waterdbCols;
-    private WaterDao waterDao;
-    private List<Water> list = new ArrayList<Water>();
-    private MyWaterRecyclerViewAdapter adapterW;
+    private List<Water> list;
+    SQLiteDatabase sql;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,49 +47,15 @@ public class MainActivity extends AppCompatActivity implements Intake.OnFragment
             }
         });
 
-        /* get database, or build if it doesn't exist. This exact line must be included in the onCreate
-        method of every Activity that uses the database. waterdb can be a class-wide variable or local
-        within onCreate. */
-        waterdb = WaterDatabase.getDatabase(getApplicationContext());
-        waterDao = waterdb.waterDao();
     }
 
     public List<Water> initWaters() {
-        list.clear();
-
-        String[] fixtureOpt = getResources().getStringArray(R.array.fixture);
-
-        list.add(new Water("", "6:00", fixtureOpt[1], 20.0, 12.5, true, 0,
-                "regular", 40.0, "Save 20% of water."));
-        list.add(new Water("", "6:00", fixtureOpt[2], 25.0, 12.5,true, 0,
-                "regular", 40.0, "Save 20% of water."));
-        list.add(new Water("", "6:00", fixtureOpt[3], 25.0, 12.5,true, 0,
-                "regular", 40.0, "Save 20% of water."));
-        list.add(new Water("", "6:00", fixtureOpt[4], 25.0, 12.5,true, 0,
-                "regular", 40.0, "Save 20% of water."));
-
-        for (Water water: list) {
-            water.setVolumeFlow(water.getFlowRate() * water.getExtent());
-            water.setWaterBill((Math.round((water.getVolumeFlow() * 0.01116696697) * 100.0)) / 100.0);
-            water.setDate(dateFormat());
-            waterDao.insertWater(water);
-        }
-        adapterW = new MyWaterRecyclerViewAdapter(list);
-
-        return list;
-    }
-
-    /**
-     * To be modified for data intake purpose
-     * @return list
-     */
-    public List<Water> initWaters1() {
         list = new ArrayList<>();
         String[] fixtureOpt = getResources().getStringArray(R.array.fixture);
 
-        list.add(new Water("", "6:00", fixtureOpt[1], 20.0, 12.5, true, 0,
+        list.add(new Water("", "6:00", fixtureOpt[1], 40.0, 12.5, true, 0,
                 "regular", 40.0, "Save 20% of water."));
-        list.add(new Water("", "6:00", fixtureOpt[2], 25.0, 12.5,true, 0,
+        list.add(new Water("", "6:00", fixtureOpt[2], 30.0, 12.5,true, 0,
                 "regular", 40.0, "Save 20% of water."));
         list.add(new Water("", "6:00", fixtureOpt[3], 25.0, 12.5,true, 0,
                 "regular", 40.0, "Save 20% of water."));
@@ -99,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements Intake.OnFragment
             water.setVolumeFlow(water.getFlowRate() * water.getExtent());
             water.setWaterBill((Math.round((water.getVolumeFlow() * 0.01116696697) * 100.0)) / 100.0);
             water.setDate(dateFormat());
-            waterDao.insertWater(water);
+
         }
 
         return list;
@@ -118,22 +85,12 @@ public class MainActivity extends AppCompatActivity implements Intake.OnFragment
         return day + "/" + (month + 1) + "/" + year;
     }
 
-    public void clearWaterList(List<Water> wl) { list.clear(); }
+    public void clearWaterList(List<Water> wl) { wl.clear(); }
 
-    public void setWaterList(List<Water> wl) { list.addAll(wl); }
+    public void setWaterList(List<Water> wl) { wl.addAll(wl); }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
 
-    }
-
-    @Override
-    public List<Water> getByFixture(String fixture) {
-        return waterDao.getByFixture(fixture);
-    }
-
-    @Override
-    public List<Water> getAllSplashes() {
-        return waterDao.getAllSplashes();
     }
 }

@@ -26,28 +26,13 @@
             style="@style/Platform.Widget.AppCompat.Spinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:adapter="@{fixture_adapter}"
             android:dropDownWidth="wrap_content"
             android:entries="@array/interval"
-            android:adapter="@{fixture_adapter}"
-            app:layout_constraintBottom_toBottomOf="@+id/btnClear"
-            app:layout_constraintEnd_toStartOf="@+id/btnClear"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <Button
-            android:id="@+id/btnClear"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/example_button"
-            android:text="Clear"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@id/enterFixture"
+            app:layout_constraintBottom_toTopOf="@+id/water_data"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@id/enterFixture"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/water_data"

@@ -4,23 +4,11 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.example.edd_2020_residential_water.databinding.FragmentIntakeBinding;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -41,17 +29,7 @@ public class Intake extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private Intake.OnFragmentInteractionListener mListener;
-    private List<Water> waterList;
-    private WaterDao waterDao;
-
-    private FragmentIntakeBinding waterBinding;
-    private MyWaterRecyclerViewAdapter adapterW;
-    private RecyclerView fluid;
-    private MainActivity conserve;
-
-    private WaterViewModel waterViewModel;
-    private SharedViewModel svm;
+    private OnFragmentInteractionListener mListener;
 
     public Intake() {
         // Required empty public constructor
@@ -87,33 +65,9 @@ public class Intake extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Bind the layout with water binding to allow data display
-        waterBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_intake, container, false);
-        final View view = waterBinding.getRoot();
-
-        // Declare needed objects and bind them to the corresponding elements in the layout: Cleaner version of findViewById(R.id....)
-        final LinearLayoutManager wllm = new LinearLayoutManager(view.getContext());
-        waterList = new ArrayList<Water>();
-        conserve = (MainActivity) getActivity();
-        fluid = waterBinding.waterDataIntake;
-
-        // Get the list of water data and send that data to the adapter
-        waterList = conserve.initWaters();
-
-        // Initialize the adapter
-        adapterW = new MyWaterRecyclerViewAdapter(waterList);
-
-        // Set the layout manager
-        waterBinding.setWaterManager(wllm);
-
-        // Set the adapter
-        waterBinding.setWaterAdapter(adapterW);
-
-//        FragmentManager fm = getChildFragmentManager();
-//        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-//        fragmentTransaction.replace(fluid.getId(), Intake.newInstance("", ""));
-
         // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_intake, container, false);
+
         return view;
     }
 
@@ -154,7 +108,5 @@ public class Intake extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-        List<Water> getByFixture(String fixture);
-        List<Water> getAllSplashes();
     }
 }

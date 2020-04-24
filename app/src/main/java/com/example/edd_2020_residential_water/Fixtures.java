@@ -1,6 +1,7 @@
 package com.example.edd_2020_residential_water;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
@@ -22,6 +23,8 @@ import android.widget.Toast;
 
 import com.example.edd_2020_residential_water.databinding.FragmentFixturesBinding;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -44,17 +47,19 @@ public class Fixtures extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    private List<Water> waterList;
+    private List<Water> waterList; // Original list of Water objects
+    private List<Water> list; // To be modified by the onSelectedItemListener()
 
     private FragmentFixturesBinding waterBinding;
     private MyWaterRecyclerViewAdapter adapterW;
     private RecyclerView fluid;
     private MainActivity conserve;
 
-    private WaterViewModel waterViewModel;
     private SharedViewModel svm;
 
-    public Fixtures() { /* Required empty public constructor */ }
+    public Fixtures() {
+        // Required empty public constructor
+    }
 
     /**
      * Use this factory method to create a new instance of
@@ -92,19 +97,10 @@ public class Fixtures extends Fragment {
 
         // Declare needed objects and bind them to the corresponding elements in the layout: Cleaner version of findViewById(R.id....)
         final Spinner fixtureSpin = waterBinding.enterFixture;
-        final Button fixtureClear = waterBinding.btnClear;
         final LinearLayoutManager wllm = new LinearLayoutManager(view.getContext());
+        list = new ArrayList<Water>();
         conserve = (MainActivity) getActivity();
         fluid = waterBinding.waterData;
-
-        // Listener attached to the button to clear the old recyclerView displays: good for updating the display once data is filtered
-        fixtureClear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                conserve.clearWaterList(waterList);
-                fluid.removeAllViews();
-            }
-        });
 
         // Fixture options put into an arrayList of strings
         final String[] fixtureOpt = getResources().getStringArray(R.array.fixture);
@@ -124,11 +120,20 @@ public class Fixtures extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
                 Toast.makeText(v.getContext(), fixtureOpt[position], Toast.LENGTH_SHORT).show();
+                conserve.clearWaterList(list);
 
-                conserve.clearWaterList(waterList);
-                fluid.removeAllViews();
+                /*list.addAll(getFixtureList(fixtureOpt[position], waterList));
+                adapterW.notifyDataSetChanged();*/
 
-                waterList = getFixtureList(fixtureOpt[position]);
+                for (int i = 0; i < waterList.size(); i++) {
+                    if (waterList.get(i).getFixture().equals(fixtureOpt[position])) {
+                        list.add(waterList.get(i));
+                        adapterW.notifyDataSetChanged();
+                    }
+                }
+                if (list.isEmpty() == true) {
+                    fluid.removeAllViews();
+                }
             }
 
             @Override
@@ -138,7 +143,7 @@ public class Fixtures extends Fragment {
         });
 
         // Initialize the adapter
-        adapterW = new MyWaterRecyclerViewAdapter(waterList);
+        adapterW = new MyWaterRecyclerViewAdapter(list);
 
         // Set the layout manager
         waterBinding.setWaterManager(wllm);
@@ -154,27 +159,11 @@ public class Fixtures extends Fragment {
         return view;
     }
 
-    /**
-     * Allow the user to search for water use entries for a specified fixture in the dropdown
-     * @param option: Fixture option chosen by the user
-     * @return List of data that only concerns the specified fixture
-     */
-    public List<Water> getFixtureList(String option) {
-        List<Water> data = mListener.getByFixture(option);
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            int i = data.size();
-            if (data.isEmpty()) {
-                Toast.makeText(getContext(), "No Water Uses Found", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getContext(), i + " Water Uses Found", Toast.LENGTH_SHORT).show();
-            }
-            conserve.setWaterList(data);
-            adapterW.notifyDataSetChanged();
-
-            svm = new ViewModelProvider(this).get(SharedViewModel.class);
-            svm.select(data);
+            mListener.onFragmentInteraction(uri);
         }
-        return data;
     }
 
     @Override
@@ -205,7 +194,6 @@ public class Fixtures extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        List<Water> getByFixture(String fixture);
-        List<Water> getAllSplashes();
+        void onFragmentInteraction(Uri uri);
     }
 }
