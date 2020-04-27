@@ -1,6 +1,5 @@
 package com.example.edd_2020_residential_water;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -11,22 +10,18 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.example.edd_2020_residential_water.ui.main.SectionsPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements Intake.OnFragmentInteractionListener, Fixtures.OnFragmentInteractionListener,
         Interval.OnFragmentInteractionListener, WaterBill.OnFragmentInteractionListener {
 
     private List<Water> list;
-    SQLiteDatabase sql;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,20 +48,19 @@ public class MainActivity extends AppCompatActivity implements Intake.OnFragment
         list = new ArrayList<>();
         String[] fixtureOpt = getResources().getStringArray(R.array.fixture);
 
-        list.add(new Water("", "6:00", fixtureOpt[1], 40.0, 12.5, true, 0,
+        list.add(new Water(14,12,2019, 6, 00, 00, 00, fixtureOpt[1], 40.0, 12.5, true, 0,
                 "regular", 40.0, "Save 20% of water."));
-        list.add(new Water("", "6:00", fixtureOpt[2], 30.0, 12.5,true, 0,
+        list.add(new Water(14,12,2019, 7, 00, 00, 00, fixtureOpt[1], 30.0, 12.5,true, 0,
                 "regular", 40.0, "Save 20% of water."));
-        list.add(new Water("", "6:00", fixtureOpt[3], 25.0, 12.5,true, 0,
+        list.add(new Water(14,12,2019, 8, 00, 00, 00, fixtureOpt[1], 25.0, 12.5,true, 0,
                 "regular", 40.0, "Save 20% of water."));
-        list.add(new Water("", "6:00", fixtureOpt[4], 25.0, 12.5,true, 0,
+        list.add(new Water(14,12,2019, 9, 00, 00, 00, fixtureOpt[1], 25.0, 12.5,true, 0,
                 "regular", 40.0, "Save 20% of water."));
 
         for (Water water: list) {
             water.setVolumeFlow(water.getFlowRate() * water.getExtent());
             water.setWaterBill((Math.round((water.getVolumeFlow() * 0.01116696697) * 100.0)) / 100.0);
-            water.setDate(dateFormat());
-
+//            water.setDate(dateFormat());
         }
 
         return list;

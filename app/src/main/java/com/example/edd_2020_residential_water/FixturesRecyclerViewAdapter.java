@@ -11,11 +11,11 @@ import com.example.edd_2020_residential_water.databinding.FixturesTableBinding;
 
 import java.util.List;
 
-public class MyWaterRecyclerViewAdapter extends RecyclerView.Adapter<MyWaterRecyclerViewAdapter.WaterViewHolder> {
+public class FixturesRecyclerViewAdapter extends RecyclerView.Adapter<FixturesRecyclerViewAdapter.WaterViewHolder> {
     private List<Water> mValues;
     private AdapterView.OnItemClickListener mClickListener;
 
-    public MyWaterRecyclerViewAdapter(List<Water> items) {
+    public FixturesRecyclerViewAdapter(List<Water> items) {
         mValues = items;
         notifyDataSetChanged();
     }

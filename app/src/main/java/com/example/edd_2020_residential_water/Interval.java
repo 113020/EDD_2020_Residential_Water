@@ -4,11 +4,20 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
+
+import com.example.edd_2020_residential_water.databinding.FragmentIntervalBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -30,6 +39,15 @@ public class Interval extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private List<Water> waterList; // Original list of Water objects
+    private List<Water> list; // To be modified by the onSelectedItemListener()
+
+    private FragmentIntervalBinding waterBinding;
+    private FixturesRecyclerViewAdapter adapterW;
+    private RecyclerView fluid;
+    private MainActivity conserve;
+
+    private SharedViewModel svm;
 
     public Interval() {
         // Required empty public constructor
@@ -65,7 +83,15 @@ public class Interval extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_interval, container, false);
+        waterBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_interval, container, false);
+        final View view = waterBinding.getRoot();
+
+        // Declare needed objects and bind them to the corresponding elements in the layout: Cleaner version of findViewById(R.id....)
+        final Spinner fixtureSpin = waterBinding.enterFixture;
+        final LinearLayoutManager wllm = new LinearLayoutManager(view.getContext());
+        list = new ArrayList<Water>();
+        conserve = (MainActivity) getActivity();
+        fluid = waterBinding.waterDataInterval;
 
         // Inflate the layout for this fragment
         return view;

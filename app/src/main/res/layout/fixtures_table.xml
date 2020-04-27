@@ -36,7 +36,7 @@
                     android:layout_width="0dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="3dip"
-                    android:text="@{water.date}" />
+                    android:text="@{water.toDateString()}" />
             </TableRow>
 
             <TableRow>
@@ -52,7 +52,7 @@
                     android:layout_width="0dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="3dip"
-                    android:text="@{water.time}" />
+                    android:text="@{water.toTimeString()}" />
             </TableRow>
 
             <TableRow>

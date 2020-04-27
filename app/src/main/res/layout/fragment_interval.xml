@@ -6,7 +6,7 @@
     <data>
         <variable
             name="water_adapter"
-            type="com.example.edd_2020_residential_water.MyWaterRecyclerViewAdapter" />
+            type="com.example.edd_2020_residential_water.FixturesRecyclerViewAdapter" />
         <variable
             name="water_manager"
             type="androidx.recyclerview.widget.LinearLayoutManager" />

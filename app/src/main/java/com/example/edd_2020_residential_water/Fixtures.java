@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,14 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.edd_2020_residential_water.databinding.FragmentFixturesBinding;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -51,7 +48,7 @@ public class Fixtures extends Fragment {
     private List<Water> list; // To be modified by the onSelectedItemListener()
 
     private FragmentFixturesBinding waterBinding;
-    private MyWaterRecyclerViewAdapter adapterW;
+    private FixturesRecyclerViewAdapter adapterW;
     private RecyclerView fluid;
     private MainActivity conserve;
 
@@ -143,7 +140,7 @@ public class Fixtures extends Fragment {
         });
 
         // Initialize the adapter
-        adapterW = new MyWaterRecyclerViewAdapter(list);
+        adapterW = new FixturesRecyclerViewAdapter(list);
 
         // Set the layout manager
         waterBinding.setWaterManager(wllm);
