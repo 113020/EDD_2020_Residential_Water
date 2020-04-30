@@ -52,9 +52,9 @@ public class MainActivity extends AppCompatActivity implements Intake.OnFragment
                 "regular", 40.0, "Save 20% of water."));
         list.add(new Water(14,12,2019, 7, 00, 00, 00, fixtureOpt[1], 30.0, 12.5,true, 0,
                 "regular", 40.0, "Save 20% of water."));
-        list.add(new Water(14,12,2019, 8, 00, 00, 00, fixtureOpt[1], 25.0, 12.5,true, 0,
+        list.add(new Water(15,12,2019, 8, 00, 00, 00, fixtureOpt[1], 25.0, 12.5,true, 0,
                 "regular", 40.0, "Save 20% of water."));
-        list.add(new Water(14,12,2019, 9, 00, 00, 00, fixtureOpt[1], 25.0, 12.5,true, 0,
+        list.add(new Water(15,12,2019, 9, 00, 00, 00, fixtureOpt[1], 25.0, 12.5,true, 0,
                 "regular", 40.0, "Save 20% of water."));
 
         for (Water water: list) {

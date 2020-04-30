@@ -2,7 +2,7 @@
     <string name="app_name">EDD_2020_Residential_Water</string>
     <string name="tab_text_1">Intake</string>
     <string name="tab_text_2">Fixtures</string>
-    <string name="tab_text_3">Overall</string>
+    <string name="tab_text_3">Interval</string>
     <string name="tab_text_4">Water Bill</string>
     <string-array name="fixture">
         <item>Choose a fixture</item>
@@ -10,13 +10,13 @@
         <item>Shower 2</item>
         <item>Sink Faucet 1</item>
         <item>Sink Faucet 2</item>
+        <item>All Fixtures</item>
     </string-array>
 
     <string-array name="interval">
         <item>Choose an interval</item>
         <item>Hourly</item>
         <item>Daily</item>
-        <item>Weekly</item>
         <item>Monthly</item>
     </string-array>
 

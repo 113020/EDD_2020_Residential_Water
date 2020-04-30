@@ -122,12 +122,18 @@ public class Fixtures extends Fragment {
                 /*list.addAll(getFixtureList(fixtureOpt[position], waterList));
                 adapterW.notifyDataSetChanged();*/
 
-                for (int i = 0; i < waterList.size(); i++) {
-                    if (waterList.get(i).getFixture().equals(fixtureOpt[position])) {
-                        list.add(waterList.get(i));
-                        adapterW.notifyDataSetChanged();
+                if (position != fixtureOpt.length - 1) {
+                    for (int i = 0; i < waterList.size(); i++) {
+                        if (waterList.get(i).getFixture().equals(fixtureOpt[position])) {
+                            list.add(waterList.get(i));
+                            adapterW.notifyDataSetChanged();
+                        }
                     }
+                } else {
+                    list.addAll(waterList);
+                    adapterW.notifyDataSetChanged();
                 }
+
                 if (list.isEmpty() == true) {
                     fluid.removeAllViews();
                 }

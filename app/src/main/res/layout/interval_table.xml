@@ -6,6 +6,9 @@
         <variable
             name="water"
             type="com.example.edd_2020_residential_water.Water" />
+        <variable
+            name="conserve"
+            type="com.example.edd_2020_residential_water.MainActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,109 +31,13 @@
                     android:layout_width="0dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="3dip"
-                    android:text="Interval" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/water_date"
                     android:layout_width="0dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="3dip" />
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:id="@+id/txtLabelFixture"
-                    android:layout_width="0dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:padding="3dip"
-                    android:text="Fixture"/>
-
-                <TextView
-                    android:id="@+id/water_fixture"
-                    android:layout_width="0dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:padding="3dip"
-                    android:text="@{water.fixture}"/>
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:id="@+id/txtLabelFlowRate"
-                    android:layout_width="0dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:padding="3dip"
-                    android:text="FLow Rate (L/min)"/>
-
-                <TextView
-                    android:id="@+id/water_flow_rate"
-                    android:layout_width="0dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:padding="3dip"
-                    android:text="@{Double.toString(water.flowRate)}"/>
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:id="@+id/txtLabelExtent"
-                    android:layout_width="0dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:padding="3dip"
-                    android:text="Extent (minutes)"/>
-
-                <TextView
-                    android:id="@+id/water_extent"
-                    android:layout_width="0dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:padding="3dip"
-                    android:text="@{Double.toString(water.extent)}"/>
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:id="@+id/txtLabelLeak"
-                    android:layout_width="0dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:padding="3dip"
-                    android:text="Leaking"/>
-
-                <TextView
-                    android:id="@+id/water_leaking"
-                    android:layout_width="0dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:padding="3dip"
-                    android:text="@{Boolean.toString(water.leak)}"/>
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:id="@+id/txtLabelVolumeFlow"
-                    android:layout_width="0dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:padding="3dip"
-                    android:text="Total Water Flow (L)"/>
-
-                <TextView
-                    android:id="@+id/water_volume_flow"
-                    android:layout_width="0dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:padding="3dip"
-                    android:text="@{Double.toString(water.volumeFlow)}"/>
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:id="@+id/txtLabelTotalBill"
-                    android:layout_width="0dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:padding="3dip"
-                    android:text="Total Water Bill ($$)"/>
-
-                <TextView
-                    android:id="@+id/water_total_bill"
-                    android:layout_width="0dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:padding="3dip"
-                    android:text="@{Double.toString(water.waterBill)}"/>
             </TableRow>
         </TableLayout>
 
