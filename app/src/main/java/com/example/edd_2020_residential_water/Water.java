@@ -15,7 +15,7 @@ public class Water {
     private int millisecond; // Private 3-digit integer for milliseconds (000 to 999)
     private String fixture; // Private string for fixture
     private double flowRate; // Private double value for the detected water speed
-    private double extent; // Private double value for length of faucet run time
+    private double extent; // Private double value for length of faucet run time (in seconds)
     private boolean leak; // Private boolean for detecting leaks
     private double volumeFlow; // Private boolean for detecting leaks
     private String billMethod; // Private string for method to calculate water bill
