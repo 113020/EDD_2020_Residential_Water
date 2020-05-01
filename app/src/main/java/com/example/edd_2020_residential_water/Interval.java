@@ -44,10 +44,14 @@ public class Interval extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private String fixture;
+    private String interval;
+
     private OnFragmentInteractionListener mListener;
     private List<Water> waterList; // Original list of Water objects
     private List<Water> listByFixture; // To be modified by the fixture spinner's onSelectedItemListener()
     private List<Water> listByInterval; // To be modified by the interval spinner's onSelectedItemListener()
+    private List<Track> tracks; // List of track objects for the Interval data binding layout
 
     private FragmentIntervalBinding waterBinding;
     private FixturesRecyclerViewAdapter mAdapterF;
@@ -56,75 +60,6 @@ public class Interval extends Fragment {
     private MainActivity conserve;
 
     private SharedViewModel svm;
-
-    // Variables for Interval model
-    private String interval;
-    private String fixture;
-    private int dateOrTime;
-    private double leakPercent;
-    private double totalVolume;
-    private double totalBill;
-
-    public Interval() {
-        // Required empty public constructor
-    }
-
-    public Interval(String interval, String fixture, int dateOrTime, double leakPercent, double totalVolume, double totalBill) {
-        this.interval = interval;
-        this.fixture = fixture;
-        this.dateOrTime = dateOrTime;
-        this.leakPercent = leakPercent;
-        this.totalVolume = totalVolume;
-        this.totalBill = totalBill;
-    }
-
-    public String getInterval() {
-        return interval;
-    }
-
-    public void setInterval(String interval) {
-        this.interval = interval;
-    }
-
-    public String getFixture() {
-        return fixture;
-    }
-
-    public void setFixture(String fixture) {
-        this.fixture = fixture;
-    }
-
-    public int getDateOrTime() {
-        return dateOrTime;
-    }
-
-    public void setDateOrTime(int dateOrTime) {
-        this.dateOrTime = dateOrTime;
-    }
-
-    public double getLeakPercent() {
-        return leakPercent;
-    }
-
-    public void setLeakPercent(double leakPercent) {
-        this.leakPercent = leakPercent;
-    }
-
-    public double getTotalVolume() {
-        return totalVolume;
-    }
-
-    public void setTotalVolume(double totalVolume) {
-        this.totalVolume = totalVolume;
-    }
-
-    public double getTotalBill() {
-        return totalBill;
-    }
-
-    public void setTotalBill(double totalBill) {
-        this.totalBill = totalBill;
-    }
 
     /**
      * Use this factory method to create a new instance of
@@ -164,7 +99,8 @@ public class Interval extends Fragment {
         final Spinner intervalSpin = waterBinding.enterInterval;
         final LinearLayoutManager wllm = new LinearLayoutManager(view.getContext());
         listByFixture = new ArrayList<Water>();
-        listByInterval = new ArrayList<Water>()
+        listByInterval = new ArrayList<Water>();
+        tracks = new ArrayList<Track>();
         conserve = (MainActivity) getActivity();
         fluid = waterBinding.waterDataInterval;
 
@@ -180,7 +116,6 @@ public class Interval extends Fragment {
 
         // Interval options put into an arrayList of strings
         final String[] intervalOpt = getResources().getStringArray(R.array.interval);
-        int dateOrTime;
 
         // Add spinner and array adapter for time interval
         final ArrayAdapter<CharSequence> adapterT = ArrayAdapter.createFromResource(view.getContext(),
@@ -196,11 +131,12 @@ public class Interval extends Fragment {
         fixtureSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
+                listByFixture.clear();
+                tracks.clear();
                 if (position == 0) {
                     intervalSpin.setVisibility(View.INVISIBLE);
                 } else {
                     intervalSpin.setVisibility(View.VISIBLE);
-                    setFixture(fixtureOpt[position]);
                 }
 
                 if (position != fixtureOpt.length - 1) {
@@ -219,6 +155,7 @@ public class Interval extends Fragment {
                     fluid.removeAllViews();
                 }
                 Toast.makeText(v.getContext(), fixtureOpt[position], Toast.LENGTH_SHORT).show();
+                setFixture(fixtureOpt[position]);
             }
 
             @Override
@@ -230,28 +167,85 @@ public class Interval extends Fragment {
         intervalSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
-                if (position != 0 ) {
-                    setInterval(intervalOpt[position]);
-                    if (position == 1) { // Option is "hourly"
-                        setDateOrTime(listByFixture.get(listByFixture.size() - 1).getDay());
-                    } else if (position == 2) { // Option is "daily"
-                        setDateOrTime(list.get(list.size() - 1).getMonth());
-                    } else if (position == 3) {
-                        setDateOrTime(list.get(list.size() - 1).getYear());
-                    } else {}
-
+                listByInterval.clear();
+                tracks.clear();
+                fluid.removeAllViews();
+                if (!listByFixture.isEmpty()) {
+                    int secondExtent;
+                    int secondExtent2;
+                    int second = listByFixture.get(listByFixture.size() - 1).getSecond();
+                    int minute = listByFixture.get(listByFixture.size() - 1).getMinute();
+                    int hour = listByFixture.get(listByFixture.size() - 1).getHour();
+                    int day = listByFixture.get(listByFixture.size() - 1).getDay();
+                    int month = listByFixture.get(listByFixture.size() - 1).getMonth();
+                    int year = listByFixture.get(listByFixture.size() - 1).getYear();
                     int leak = 0;
                     double vol = 0;
-                    double bill = 0;
 
-                    for (Water water: list) {
-                        if ()
+                    if (position == 1) { // Option is "hourly"
+                        for (int i = 0; i < listByFixture.size(); i++) {
+                            if (listByFixture.get(i).getDay() == day && listByFixture.get(i).getHour() >= 0 && listByFixture.get(i).getHour() <= hour) {
+                                secondExtent = listByFixture.get(i).getSecondExtent();
+                                second = listByFixture.get(i).getSecond();
+                                minute = listByFixture.get(i).getMinute();
+                                hour = listByFixture.get(i).getHour();
+                                if (secondExtent + second >= 60) {
+                                    if (secondExtent + minute * 60 + second >= 3600) {
+                                        second = listByFixture.get(i).getSecond() + secondExtent - 60;
+                                        listByFixture.get(i).setSecondExtent(secondExtent);
+                                        listByFixture.get(i).setVolumeFlow(listByFixture.get(i).getFlowRate() * (secondExtent - second));
+                                        listByInterval.add(listByFixture.get(i));
+                                        mAdapterF.notifyDataSetChanged();
+
+                                        secondExtent = second;
+                                        hour++;
+                                        minute = 0;
+                                        second = 0;
+                                        listByInterval.add(new Water(listByFixture.get(i).getDay(), listByFixture.get(i).getMonth(), listByFixture.get(i).getYear(),
+                                                hour, minute, second, listByFixture.get(i).getMillisecond(), listByFixture.get(i).getFixture(),
+                                                listByFixture.get(i).getFlowRate(), second, listByFixture.get(i).isLeak(), listByFixture.get(i).getFlowRate() * secondExtent,
+                                                listByFixture.get(i).getBillMethod(), Math.round((listByFixture.get(i).getVolumeFlow() * 0.01116696697) * 100.0) / 100.0,
+                                                listByFixture.get(i).getWaterFact()));
+//                                        listByFixture.get(i).setSecondExtent(Math.abs(secondExtent + second - 60));
+//                                        listByFixture.get(i).setVolumeFlow(listByFixture.get(i).getFlowRate() * second);
+//                                        listByFixture.get(i).setHour(hour);
+//                                        listByFixture.get(i).setMinute(minute);
+//                                        listByFixture.get(i).setSecond(second);
+//                                        mAdapterF.notifyDataSetChanged();
+                                    } else {
+                                        minute++;
+                                        secondExtent = Math.abs(secondExtent + second - 60);
+                                        listByFixture.get(i).setSecondExtent(secondExtent);
+                                        listByFixture.get(i).setMinute(minute);
+                                        listByFixture.get(i).setVolumeFlow(listByFixture.get(i).getFlowRate() * secondExtent);
+                                        listByInterval.add(listByFixture.get(i));
+                                        mAdapterF.notifyDataSetChanged();
+                                    }
+                                } else {
+                                    listByInterval.add(listByFixture.get(i));
+                                    mAdapterF.notifyDataSetChanged();
+                                }
+                            }
+                        }
+                    } else if (position == 2) { // Option is "daily"
+//                    dateOrTime = listByFixture.get(listByFixture.size() - 1).getMonth();
+                    } else if (position == 3) {
+//                    dateOrTime = listByFixture.get(listByFixture.size() - 1).getYear();
+                    } else {
                     }
-                    setLeakPercent(leak / list.size());
-                    setTotalVolume(vol);
-                    setTotalBill(bill);
+
+                    for (Water water : listByInterval) {
+                        if (water.isLeak()) {
+                            leak++;
+                        }
+                        vol = water.getVolumeFlow();
+                        tracks.add(new Track(water.toDateString(), ((double) leak / listByInterval.size()), vol));
+                        mAdapterT.notifyDataSetChanged();
+                    }
+                    Toast.makeText(v.getContext(), intervalOpt[position], Toast.LENGTH_SHORT).show();
+                } else {
+                    fluid.removeAllViews();
                 }
-                Toast.makeText(v.getContext(), intervalOpt[position], Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -261,8 +255,8 @@ public class Interval extends Fragment {
         });
 
         // Initialize the adapter
-        mAdapterF = new FixturesRecyclerViewAdapter(list);
-        mAdapterT = new IntervalRecyclerViewAdapter();
+        mAdapterF = new FixturesRecyclerViewAdapter(listByFixture);
+        mAdapterT = new IntervalRecyclerViewAdapter(tracks);
 
         // Set the layout manager
         waterBinding.setWaterManager(wllm);
@@ -276,6 +270,10 @@ public class Interval extends Fragment {
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    public void setFixture(String fixture) {
+        this.fixture = fixture;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -100,7 +100,7 @@
                     android:layout_width="0dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="3dip"
-                    android:text="@{Double.toString(water.extent) + ` sec`}"/>
+                    android:text="@{Double.toString(water.secondExtent) + ` sec`}"/>
             </TableRow>
 
             <TableRow>

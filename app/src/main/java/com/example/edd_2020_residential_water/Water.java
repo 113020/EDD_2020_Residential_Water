@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
  * This class is a blueprint for the Water object.
  */
 public class Water {
-    private int day; // Private 2-digit integer for day (01-31)
+    private int day; // Private 2-digit integer for day (01 to 31)
     private int month; // Private 2-digit integer for month (01 to 12)
     private int year; // Private 4-digit integer for year (1900 to 9999)
     private int hour; // Private 2-digit integer for hours (00 to 23)
@@ -15,7 +15,7 @@ public class Water {
     private int millisecond; // Private 3-digit integer for milliseconds (000 to 999)
     private String fixture; // Private string for fixture
     private double flowRate; // Private double value for the detected water speed
-    private double extent; // Private double value for length of faucet run time (in seconds)
+    private int secondExtent; // Private integer value for length of faucet run time (in seconds)
     private boolean leak; // Private boolean for detecting leaks
     private double volumeFlow; // Private boolean for detecting leaks
     private String billMethod; // Private string for method to calculate water bill
@@ -33,7 +33,7 @@ public class Water {
      * @param millisecond
      * @param fixture
      * @param flowRate
-     * @param extent
+     * @param secondExtent
      * @param leak
      * @param volumeFlow
      * @param billMethod
@@ -41,7 +41,7 @@ public class Water {
      * @param waterFact
      */
     public Water(int day, int month, int year, int hour, int minute, int second, int millisecond,
-                 String fixture, double flowRate, double extent, boolean leak,
+                 String fixture, double flowRate, int secondExtent, boolean leak,
                  double volumeFlow, String billMethod, double waterBill, String waterFact) {
         this.day = day;
         this.month = month;
@@ -52,7 +52,7 @@ public class Water {
         this.millisecond = millisecond;
         this.fixture = fixture;
         this.flowRate = flowRate;
-        this.extent = extent;
+        this.secondExtent = secondExtent;
         this.leak = leak;
         this.volumeFlow = volumeFlow;
         this.billMethod = billMethod;
@@ -151,13 +151,13 @@ public class Water {
     }
 
     // Return extent of water use
-    public double getExtent() {
-        return extent;
+    public int getSecondExtent() {
+        return secondExtent;
     }
 
     // Modify extent
-    public void setExtent(double extent) {
-        this.extent = extent;
+    public void setSecondExtent(int secondExtent) {
+        this.secondExtent = secondExtent;
     }
 
     // Return boolean (true = yes leaking, false = no leaks)
@@ -249,7 +249,7 @@ public class Water {
 
     @Override
     public String toString() {
-        return toDateString() + "," + toTimeString() + "," + fixture + "," + flowRate + "," + extent
+        return toDateString() + "," + toTimeString() + "," + fixture + "," + flowRate + "," + secondExtent
                 + "," + leak + "," + volumeFlow + "," + billMethod + "," + waterBill + "," + waterFact + "|";
     }
 
