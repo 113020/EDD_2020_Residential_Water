@@ -1,4 +1,4 @@
-package com.example.edd_2020_residential_water;
+package com.example.edd_2020_residential_water.models;
 
 public class Track {
 

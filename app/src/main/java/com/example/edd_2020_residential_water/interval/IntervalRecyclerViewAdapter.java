@@ -1,4 +1,4 @@
-package com.example.edd_2020_residential_water;
+package com.example.edd_2020_residential_water.interval;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -7,15 +7,17 @@ import android.widget.AdapterView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.edd_2020_residential_water.databinding.BillCalcTableBinding;
+import com.example.edd_2020_residential_water.BR;
+import com.example.edd_2020_residential_water.models.Track;
+import com.example.edd_2020_residential_water.databinding.IntervalTableBinding;
 
 import java.util.List;
 
-public class WaterBillRecyclerViewAdapter extends RecyclerView.Adapter<WaterBillRecyclerViewAdapter.WaterViewHolder> {
+public class IntervalRecyclerViewAdapter extends RecyclerView.Adapter<IntervalRecyclerViewAdapter.WaterViewHolder> {
     private List<Track> mValues;
     private AdapterView.OnItemClickListener mClickListener;
 
-    public WaterBillRecyclerViewAdapter(List<Track> items) {
+    public IntervalRecyclerViewAdapter(List<Track> items) {
         mValues = items;
         notifyDataSetChanged();
     }
@@ -24,8 +26,8 @@ public class WaterBillRecyclerViewAdapter extends RecyclerView.Adapter<WaterBill
     @Override
     public WaterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        BillCalcTableBinding billCalcTableBinding = BillCalcTableBinding.inflate(layoutInflater, parent, false);
-        return new WaterViewHolder(billCalcTableBinding);
+        IntervalTableBinding intervalTableBinding = IntervalTableBinding.inflate(layoutInflater, parent, false);
+        return new WaterViewHolder(intervalTableBinding);
     }
 
     @Override
@@ -38,9 +40,9 @@ public class WaterBillRecyclerViewAdapter extends RecyclerView.Adapter<WaterBill
     public int getItemCount() { return mValues != null ? mValues.size() : 0; }
 
     public class WaterViewHolder extends RecyclerView.ViewHolder {
-        private BillCalcTableBinding binding;
+        private IntervalTableBinding binding;
 
-        public WaterViewHolder(@NonNull BillCalcTableBinding binding) {
+        public WaterViewHolder(@NonNull IntervalTableBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

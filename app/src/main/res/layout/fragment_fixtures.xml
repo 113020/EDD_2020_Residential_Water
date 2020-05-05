@@ -6,7 +6,7 @@
     <data>
         <variable
             name="water_adapter"
-            type="com.example.edd_2020_residential_water.FixturesRecyclerViewAdapter" />
+            type="com.example.edd_2020_residential_water.fixtures.FixturesRecyclerViewAdapter" />
         <variable
             name="water_manager"
             type="androidx.recyclerview.widget.LinearLayoutManager" />
@@ -19,7 +19,7 @@
         android:id="@+id/constraintLayoutFixtures"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Fixtures">
+        tools:context=".fixtures.Fixtures">
 
         <Spinner
             android:id="@+id/enterFixture"

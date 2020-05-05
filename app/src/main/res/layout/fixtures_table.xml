@@ -6,7 +6,7 @@
     <data>
         <variable
             name="water"
-            type="com.example.edd_2020_residential_water.Water" />
+            type="com.example.edd_2020_residential_water.models.Water" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

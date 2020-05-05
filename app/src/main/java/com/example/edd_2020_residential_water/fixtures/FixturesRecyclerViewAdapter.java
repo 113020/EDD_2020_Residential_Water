@@ -1,4 +1,4 @@
-package com.example.edd_2020_residential_water;
+package com.example.edd_2020_residential_water.fixtures;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -7,6 +7,8 @@ import android.widget.AdapterView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.edd_2020_residential_water.BR;
+import com.example.edd_2020_residential_water.models.Water;
 import com.example.edd_2020_residential_water.databinding.FixturesTableBinding;
 
 import java.util.List;

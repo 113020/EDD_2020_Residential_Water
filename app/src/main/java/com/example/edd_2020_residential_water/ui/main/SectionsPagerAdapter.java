@@ -8,11 +8,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.edd_2020_residential_water.Fixtures;
-import com.example.edd_2020_residential_water.Intake;
-import com.example.edd_2020_residential_water.Interval;
+import com.example.edd_2020_residential_water.fixtures.Fixtures;
+import com.example.edd_2020_residential_water.intaking.Intake;
+import com.example.edd_2020_residential_water.interval.Interval;
 import com.example.edd_2020_residential_water.R;
-import com.example.edd_2020_residential_water.WaterBill;
+import com.example.edd_2020_residential_water.overall.Overall;
+import com.example.edd_2020_residential_water.waterBill.WaterBill;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -21,7 +22,7 @@ import com.example.edd_2020_residential_water.WaterBill;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3, R.string.tab_text_4};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3, R.string.tab_text_4, R.string.tab_text_5};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -40,6 +41,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return Fixtures.newInstance("","");
             case 2:
                 return Interval.newInstance("","");
+            case 3:
+                return Overall.newInstance("","");
             default:
                 return WaterBill.newInstance("","");
         }

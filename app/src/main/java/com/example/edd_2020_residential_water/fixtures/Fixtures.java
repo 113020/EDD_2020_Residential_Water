@@ -1,4 +1,4 @@
-package com.example.edd_2020_residential_water;
+package com.example.edd_2020_residential_water.fixtures;
 
 import android.content.Context;
 import android.net.Uri;
@@ -19,6 +19,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.edd_2020_residential_water.MainActivity;
+import com.example.edd_2020_residential_water.R;
+import com.example.edd_2020_residential_water.SharedViewModel;
+import com.example.edd_2020_residential_water.models.Water;
 import com.example.edd_2020_residential_water.databinding.FragmentFixturesBinding;
 
 import java.util.ArrayList;
@@ -64,7 +68,7 @@ public class Fixtures extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Fixtures.
+     * @return A new instance of fragment com.example.edd_2020_residential_water.Fixtures.Fixtures.
      */
     // TODO: Rename and change types and number of parameters
     public static Fixtures newInstance(String param1, String param2) {

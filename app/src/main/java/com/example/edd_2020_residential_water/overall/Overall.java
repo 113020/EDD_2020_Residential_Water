@@ -1,4 +1,4 @@
-package com.example.edd_2020_residential_water;
+package com.example.edd_2020_residential_water.overall;
 
 import android.content.Context;
 import android.net.Uri;
@@ -6,10 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -18,7 +15,13 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.edd_2020_residential_water.databinding.FragmentFixturesBinding;
+import com.example.edd_2020_residential_water.models.FixturePercentage;
+import com.example.edd_2020_residential_water.fixtures.FixturesRecyclerViewAdapter;
+import com.example.edd_2020_residential_water.MainActivity;
+import com.example.edd_2020_residential_water.R;
+import com.example.edd_2020_residential_water.SharedViewModel;
+import com.example.edd_2020_residential_water.models.Water;
+import com.example.edd_2020_residential_water.databinding.FragmentOverallBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,10 +47,12 @@ public class Overall extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private List<Water> waterList; // Original list of Water objects
-    private List<Water> list; // To be modified by the onSelectedItemListener()
+    private List<Water> list;
+    private List<FixturePercentage> fixturePercentages;
 
-    private FragmentFixturesBinding waterBinding;
-    private FixturesRecyclerViewAdapter adapterW;
+    private FragmentOverallBinding waterBinding;
+    private FixturesRecyclerViewAdapter mAdapterW;
+    private OverallRecyclerViewAdapter mAdapterO;
     private RecyclerView fluid;
     private MainActivity conserve;
 
@@ -63,7 +68,7 @@ public class Overall extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Fixtures.
+     * @return A new instance of fragment com.example.edd_2020_residential_water.Fixtures.Fixtures.
      */
     // TODO: Rename and change types and number of parameters
     public static Overall newInstance(String param1, String param2) {
@@ -88,76 +93,111 @@ public class Overall extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Bind the layout with water binding to allow data display
-        waterBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_fixtures, container, false);
+        waterBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_overall, container, false);
         final View view = waterBinding.getRoot();
 
         // Declare needed objects and bind them to the corresponding elements in the layout: Cleaner version of findViewById(R.id....)
-        final Spinner fixtureSpin = waterBinding.enterFixture;
         final LinearLayoutManager wllm = new LinearLayoutManager(view.getContext());
         list = new ArrayList<Water>();
+        fixturePercentages = new ArrayList<FixturePercentage>();
         conserve = (MainActivity) getActivity();
-        fluid = waterBinding.waterData;
+        fluid = waterBinding.overallData;
 
         // Fixture options put into an arrayList of strings
         final String[] fixtureOpt = getResources().getStringArray(R.array.fixture);
+        final String[] allFixtures = new String[getResources().getStringArray(R.array.fixture).length - 2];
+        int j = 0;
+        for (int i = 0; i < fixtureOpt.length; i++) {
+            if (i > 0 && i < fixtureOpt.length - 1) {
+                allFixtures[j] = fixtureOpt[i];
+                j++;
+            } else {
 
-        // Add spinner and array adapter
-        final ArrayAdapter<CharSequence> adapterF = ArrayAdapter.createFromResource(view.getContext(),
-                R.array.fixture,
-                android.R.layout.simple_spinner_item);
-        adapterF.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        waterBinding.setFixtureAdapter(adapterF);
-
+            }
+            int l = 0;
+        }
         // Get the list of water data and send that data to the adapter
         waterList = conserve.initWaters();
 
-        // Fixture options put into an arrayList of strings
-        double[] fixtureVol = new double[fixtureOpt.length];
-        double[] fixturePercent = new double[fixtureOpt.length];
-        double totalVol = 0;
-        int k;
-        int monthChecked = 1;
-        /*while (monthChecked <= waterList.get(waterList.size() - 1).getMonth()) {
-            k = 0;
-            for (Water water: waterList) {
-                totalVol += water.getVolumeFlow();
+        for (Water water: waterList) {
+            if (water.getYear() == waterList.get(waterList.size() - 1).getYear()) {
+                list.add(water);
             }
+        }
 
-            for (String s: fixtureOpt) {
-                for (Water water: waterList) {
-                    if (water.getFixture() == s) {
-                        fixtureVol[k] += water.getVolumeFlow();
+        String[] months = {"January", "February", "March", "April,",
+                "May", "June", "July", "August", "September",
+                "October", "November", "December"};
+        double fixtureVol[] = new double[allFixtures.length];
+        double fixturePercent[] = new double[fixtureVol.length];
+        double totalVol[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        int monthChecked = 1;
+
+        while (monthChecked <= list.get(list.size() - 1).getMonth()) {
+            for (Water water: list) {
+                if (water.getMonth() == monthChecked) {
+                    totalVol[monthChecked - 1] += water.getVolumeFlow();
+                }
+            }
+            monthChecked++;
+        }
+        monthChecked = 1;
+
+        while (monthChecked <= list.get(list.size() - 1).getMonth()) {
+
+            for (int i = 0; i < allFixtures.length; i++) {
+                for (Water water: list) {
+                    if (water.getFixture().equals(allFixtures[i])) {
+                        if (water.getMonth() == monthChecked) {
+                            fixtureVol[i] += water.getVolumeFlow();
+                        }
                     }
+                }
+                fixturePercent[i] = fixtureVol[i] / totalVol[monthChecked - 1] * 100;
+                fixturePercentages.add(new FixturePercentage(months[monthChecked - 1], allFixtures[i], fixtureVol[i], fixturePercent[i]));
+                fixturePercent[i] = 0;
+                fixtureVol[i] = 0;
+            }
+            totalVol[monthChecked - 1] = 0;
+            monthChecked++;
+        }
+
+        /*while (monthChecked <= list.get(list.size() - 1).getMonth()) {
+            for (int s = 0;s < allFixtures.length; s++) {
+                for (int i = 0; i < list.size(); i++) {
+                    if (allFixtures[s] == "Shower 1") {
+
+                    }
+                    fixtureVol += list.get(i).getVolumeFlow();
+                }
+                fixturePercent = fixtureVol / totalVol;
+                fixturePercentages.add(new FixturePercentage(months[monthChecked - 1], allFixtures[s], fixtureVol, fixturePercent));
+                if (k < fixtureOpt.length) {
+                    totalVol = 0;
                 }
                 k++;
             }
 
-            for (int i = 0; i < fixtureOpt.length; i++) {
-                fixturePercent[i] = fixtureVol[i] / totalVol;
-                if (i < fixtureOpt.length) {
-                    totalVol = 0;
-                }
-            }
             monthChecked++;
         }*/
 
 
 
         // Create the listener for the spinner: responsible for getting the list based on the option
-        fixtureSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        /*fixtureSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
                 Toast.makeText(v.getContext(), fixtureOpt[position], Toast.LENGTH_SHORT).show();
                 conserve.clearWaterList(list);
 
-                /*list.addAll(getFixtureList(fixtureOpt[position], waterList));
-                adapterW.notifyDataSetChanged();*/
+                *//*list.addAll(getFixtureList(fixtureOpt[position], waterList));
+                adapterW.notifyDataSetChanged();*//*
 
                 if (position != fixtureOpt.length - 1) {
                     for (int i = 0; i < waterList.size(); i++) {
                         if (waterList.get(i).getFixture().equals(fixtureOpt[position])) {
                             list.add(waterList.get(i));
-                            adapterW.notifyDataSetChanged();
+                            madapterW.notifyDataSetChanged();
                         }
                     }
                 } else {
@@ -174,16 +214,17 @@ public class Overall extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });
+        });*/
 
         // Initialize the adapter
-        adapterW = new FixturesRecyclerViewAdapter(list);
+        mAdapterW = new FixturesRecyclerViewAdapter(list);
+        mAdapterO = new OverallRecyclerViewAdapter(fixturePercentages);
 
         // Set the layout manager
-        waterBinding.setWaterManager(wllm);
+        waterBinding.setPercentManager(wllm);
 
         // Set the adapter
-        waterBinding.setWaterAdapter(adapterW);
+        waterBinding.setPercentAdapter(mAdapterO);
 
         FragmentManager fm = getChildFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();

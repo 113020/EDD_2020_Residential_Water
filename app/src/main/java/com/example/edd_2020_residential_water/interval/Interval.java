@@ -1,4 +1,4 @@
-package com.example.edd_2020_residential_water;
+package com.example.edd_2020_residential_water.interval;
 
 import android.content.Context;
 import android.net.Uri;
@@ -19,7 +19,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.edd_2020_residential_water.databinding.FragmentFixturesBinding;
+import com.example.edd_2020_residential_water.fixtures.Fixtures;
+import com.example.edd_2020_residential_water.fixtures.FixturesRecyclerViewAdapter;
+import com.example.edd_2020_residential_water.MainActivity;
+import com.example.edd_2020_residential_water.R;
+import com.example.edd_2020_residential_water.SharedViewModel;
+import com.example.edd_2020_residential_water.models.Track;
+import com.example.edd_2020_residential_water.models.Water;
 import com.example.edd_2020_residential_water.databinding.FragmentIntervalBinding;
 
 import java.util.ArrayList;
@@ -51,7 +57,7 @@ public class Interval extends Fragment {
     private List<Water> waterList; // Original list of Water objects
     private List<Water> listByFixture; // To be modified by the fixture spinner's onSelectedItemListener()
     private List<Water> listByInterval; // To be modified by the interval spinner's onSelectedItemListener()
-    private List<Track> tracks; // List of track objects for the Interval data binding layout
+    private List<Track> tracks; // List of track objects for the interval data binding layout
 
     private FragmentIntervalBinding waterBinding;
     private FixturesRecyclerViewAdapter mAdapterF;
@@ -67,7 +73,7 @@ public class Interval extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Overall.
+     * @return A new instance of fragment overall.
      */
     // TODO: Rename and change types and number of parameters
     public static Interval newInstance(String param1, String param2) {
@@ -114,7 +120,7 @@ public class Interval extends Fragment {
         adapterF.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         waterBinding.setFixtureAdapter(adapterF);
 
-        // Interval options put into an arrayList of strings
+        // interval options put into an arrayList of strings
         final String[] intervalOpt = getResources().getStringArray(R.array.interval);
 
         // Add spinner and array adapter for time interval

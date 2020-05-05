@@ -3,6 +3,12 @@ package com.example.edd_2020_residential_water;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.example.edd_2020_residential_water.fixtures.Fixtures;
+import com.example.edd_2020_residential_water.intaking.Intake;
+import com.example.edd_2020_residential_water.interval.Interval;
+import com.example.edd_2020_residential_water.models.Water;
+import com.example.edd_2020_residential_water.overall.Overall;
+import com.example.edd_2020_residential_water.waterBill.WaterBill;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -19,7 +25,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements Intake.OnFragmentInteractionListener, Fixtures.OnFragmentInteractionListener,
-        Interval.OnFragmentInteractionListener, WaterBill.OnFragmentInteractionListener {
+        Interval.OnFragmentInteractionListener, Overall.OnFragmentInteractionListener, WaterBill.OnFragmentInteractionListener {
 
     private List<Water> list;
 

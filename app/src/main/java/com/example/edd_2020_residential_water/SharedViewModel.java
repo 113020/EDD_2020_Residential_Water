@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.edd_2020_residential_water.models.Water;
+
 import java.util.List;
 
 public class SharedViewModel extends ViewModel {

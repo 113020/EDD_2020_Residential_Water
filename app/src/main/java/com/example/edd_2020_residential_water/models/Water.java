@@ -1,6 +1,4 @@
-package com.example.edd_2020_residential_water;
-
-import java.text.SimpleDateFormat;
+package com.example.edd_2020_residential_water.models;
 
 /**
  * This class is a blueprint for the Water object.

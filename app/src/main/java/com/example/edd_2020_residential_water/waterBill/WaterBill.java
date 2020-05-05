@@ -1,4 +1,4 @@
-package com.example.edd_2020_residential_water;
+package com.example.edd_2020_residential_water.waterBill;
 
 import android.content.Context;
 import android.net.Uri;
@@ -19,6 +19,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.edd_2020_residential_water.fixtures.Fixtures;
+import com.example.edd_2020_residential_water.fixtures.FixturesRecyclerViewAdapter;
+import com.example.edd_2020_residential_water.interval.IntervalRecyclerViewAdapter;
+import com.example.edd_2020_residential_water.MainActivity;
+import com.example.edd_2020_residential_water.R;
+import com.example.edd_2020_residential_water.SharedViewModel;
+import com.example.edd_2020_residential_water.models.Track;
+import com.example.edd_2020_residential_water.models.Water;
 import com.example.edd_2020_residential_water.databinding.FragmentWaterBillBinding;
 
 import java.util.ArrayList;
@@ -45,7 +53,7 @@ public class WaterBill extends Fragment {
     private WaterBill.OnFragmentInteractionListener mListener;
     private List<Water> waterList; // Original list of Water objects
     private List<Water> list; // List of water objects
-    private List<Track> tracks; // List of track objects for the Interval data binding layout
+    private List<Track> tracks; // List of track objects for the interval data binding layout
 
     private FragmentWaterBillBinding waterBinding;
     private FixturesRecyclerViewAdapter mAdapterF;
@@ -66,7 +74,7 @@ public class WaterBill extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment WaterBill.
+     * @return A new instance of fragment waterBill.
      */
     // TODO: Rename and change types and number of parameters
     public static WaterBill newInstance(String param1, String param2) {
