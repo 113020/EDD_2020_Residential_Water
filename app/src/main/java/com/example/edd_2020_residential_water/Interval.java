@@ -232,6 +232,8 @@ public class Interval extends Fragment {
                             }
                             tracks.add(new Track(hourChecked + ":00", leak, vol));
                             mAdapterT.notifyDataSetChanged();
+                            vol = 0;
+                            leak = false;
                             hourChecked++;
                         }
                     } else if (position == 2) { // Option is "daily"
@@ -240,14 +242,72 @@ public class Interval extends Fragment {
                                 listByInterval.add(listByFixture.get(i));
                             }
                         }
-                        int dayChecked = 0;
+                        int dayChecked = 1;
+                        while (dayChecked <= listByInterval.get(listByInterval.size() - 1).getDay()) {
+                            for (int i = 0; i < listByInterval.size(); i++) {
+                                if (listByInterval.get(i).getDay() == dayChecked) {
+                                    if (listByInterval.get(i).isLeak()) {
+                                        leak = true;
+                                    }
+                                    vol += listByInterval.get(i).getVolumeFlow();
+                                }
+                            }
+                            tracks.add(new Track(dayChecked + "/" +
+                                    listByInterval.get(listByInterval.size() - 1).getMonth() + "/" +
+                                    listByInterval.get(listByInterval.size() - 1).getYear(), leak, vol));
+                            mAdapterT.notifyDataSetChanged();
+                            vol = 0;
+                            leak = false;
+                            dayChecked++;
+                        }
                     } else if (position == 3) { // Option is "monthly"
-
-                    } else {                    // Option is yearly
-
+                        for (int i = 0; i < listByFixture.size(); i++) {
+                            if (listByFixture.get(i).getYear() == year) {
+                                listByInterval.add(listByFixture.get(i));
+                            }
+                        }
+                        String[] months = {"January", "February", "March", "April,",
+                                "May", "June", "July", "August", "September",
+                                "October", "November", "December"};
+                        int monthChecked = 1;
+                        while (monthChecked <= listByInterval.get(listByInterval.size() - 1).getMonth()) {
+                            for (int i = 0; i < listByInterval.size(); i++) {
+                                if (listByInterval.get(i).getMonth() == monthChecked) {
+                                    if (listByInterval.get(i).isLeak()) {
+                                        leak = true;
+                                    }
+                                    vol += listByInterval.get(i).getVolumeFlow();
+                                }
+                            }
+                            tracks.add(new Track(months[monthChecked - 1] + " " + listByInterval.get(listByInterval.size() - 1).getYear(), leak, vol));
+                            mAdapterT.notifyDataSetChanged();
+                            vol = 0;
+                            leak = false;
+                            monthChecked++;
+                        }
+                    } else { // Option is yearly
+                        for (int i = year - 19; i <= year; i++) {
+                            for (Water water: listByFixture) {
+                                if (water.getYear() == i) {
+                                    listByInterval.add(water);
+                                }
+                            }
+                        }
+                        for (int i = year - 19; i <= year; i++) {
+                            for (int j = 0; j < listByInterval.size(); j++) {
+                                if (listByInterval.get(j).getYear() == i) {
+                                    if (listByInterval.get(j).isLeak()) {
+                                        leak = true;
+                                    }
+                                    vol += listByInterval.get(j).getVolumeFlow();
+                                }
+                            }
+                            tracks.add(new Track("" + i, leak, vol));
+                            mAdapterT.notifyDataSetChanged();
+                            vol = 0;
+                            leak = false;
+                        }
                     }
-
-
                     Toast.makeText(v.getContext(), intervalOpt[position], Toast.LENGTH_SHORT).show();
                 } else {
                     fluid.removeAllViews();

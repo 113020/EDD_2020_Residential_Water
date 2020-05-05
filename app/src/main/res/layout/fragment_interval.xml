@@ -68,7 +68,7 @@
                     android:layout_width="0dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="3dip"
-                    android:text="Time (hh/mm)" />
+                    android:text="Date (dd/mm/yyyy) Time (hh/mm)" />
 
                 <TextView
                     android:id="@+id/txtLeak"
