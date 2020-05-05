@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements Intake.OnFragment
         list = new ArrayList<>();
         String[] fixtureOpt = getResources().getStringArray(R.array.fixture);
 
-        list.add(new Water(14,12,2019, 6, 00, 00, 00, fixtureOpt[1], 40.0, 12, true, 0,
+        list.add(new Water(14,1,2019, 6, 00, 00, 00, fixtureOpt[1], 40.0, 12, true, 0,
                 "regular", 40.0, "Save 20% of water."));
         list.add(new Water(14,12,2019, 7, 00, 00, 00, fixtureOpt[1], 30.0, 12, true, 0,
                 "regular", 40.0, "Save 30% of water."));

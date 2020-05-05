@@ -6,15 +6,17 @@ public class Track {
     private String dateOrTime;
     private boolean leak;
     private double totalVolume;
+    private double totalBill;
 
     public Track() {
         // Required empty public constructor
     }
 
-    public Track(String dateOrTime, boolean leak, double totalVolume) {
+    public Track(String dateOrTime, boolean leak, double totalVolume, double totalBill) {
         this.dateOrTime = dateOrTime;
         this.leak = leak;
         this.totalVolume = totalVolume;
+        this.totalBill = totalBill;
     }
 
     public String getDateOrTime() {
@@ -39,5 +41,13 @@ public class Track {
 
     public void setTotalVolume(double totalVolume) {
         this.totalVolume = totalVolume;
+    }
+
+    public double getTotalBill() {
+        return totalBill;
+    }
+
+    public void setTotalBill(double totalBill) {
+        this.totalBill = totalBill;
     }
 }

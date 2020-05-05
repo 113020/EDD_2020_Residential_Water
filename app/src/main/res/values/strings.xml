@@ -21,6 +21,13 @@
         <item>Yearly</item>
     </string-array>
 
+    <string-array name="water_bill_method">
+        <item>Determine your water bill rate.</item>
+        <item>Uniform Rate</item>
+        <item>Increasing Rate</item>
+        <item>Decreasing Rate</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search">Search</string>

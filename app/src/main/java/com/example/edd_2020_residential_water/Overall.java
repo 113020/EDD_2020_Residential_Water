@@ -3,14 +3,6 @@ package com.example.edd_2020_residential_water;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +10,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.edd_2020_residential_water.databinding.FragmentFixturesBinding;
 
@@ -28,12 +27,12 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Fixtures.OnFragmentInteractionListener} interface
+ * {@link Overall.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Fixtures#newInstance} factory method to
+ * Use the {@link Overall#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fixtures extends Fragment {
+public class Overall extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -54,7 +53,7 @@ public class Fixtures extends Fragment {
 
     private SharedViewModel svm;
 
-    public Fixtures() {
+    public Overall() {
         // Required empty public constructor
     }
 
@@ -67,8 +66,8 @@ public class Fixtures extends Fragment {
      * @return A new instance of fragment Fixtures.
      */
     // TODO: Rename and change types and number of parameters
-    public static Fixtures newInstance(String param1, String param2) {
-        Fixtures fragment = new Fixtures();
+    public static Overall newInstance(String param1, String param2) {
+        Overall fragment = new Overall();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -188,7 +187,7 @@ public class Fixtures extends Fragment {
 
         FragmentManager fm = getChildFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(fluid.getId(), Fixtures.newInstance("", ""));
+        fragmentTransaction.replace(fluid.getId(), Overall.newInstance("", ""));
 
         // Inflate the layout for this fragment
         return view;

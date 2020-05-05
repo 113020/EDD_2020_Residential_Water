@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="track"
+            type="com.example.edd_2020_residential_water.Track" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:stretchColumns="*">
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/txtLabelMonth"
+                    android:layout_width="0dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:padding="3dip"
+                    android:text="Month" />
+
+                <TextView
+                    android:id="@+id/txtTime"
+                    android:layout_width="0dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:padding="3dip"
+                    android:text="@{track.dateOrTime}" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/txtLabelVolume"
+                    android:layout_width="0dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:padding="3dip"
+                    android:text="Total Volume Water (gallons)"/>
+
+                <TextView
+                    android:id="@+id/txtVolume"
+                    android:layout_width="0dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:padding="3dip"
+                    android:text="@{Double.toString(track.totalVolume * 0.264)}"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/txtLabelWaterBill"
+                    android:layout_width="0dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:padding="3dip"
+                    android:text="Water Bill (monthly)"/>
+                <TextView
+                    android:id="@+id/txtWaterBill"
+                    android:layout_width="0dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:padding="3dip"
+                    android:text="@{Double.toString(track.totalBill)}"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/txtBlank"
+                    android:layout_width="0dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:padding="3dip"
+                    android:text=""/>
+
+                <TextView
+                    android:id="@+id/txtBlank2"
+                    android:layout_width="0dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:padding="3dip"
+                    android:text=""/>
+            </TableRow>
+
+        </TableLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

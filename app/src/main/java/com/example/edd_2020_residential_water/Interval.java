@@ -127,7 +127,7 @@ public class Interval extends Fragment {
         // Get the list of water data and send that data to the adapter
         waterList = conserve.initWaters();
 
-        // Create the listener for the fixture spinner: responsible for getting the list based on the option
+        // Create the listener for the fixture spinner: responsible for getting the list based on the fixture option
         fixtureSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
@@ -164,6 +164,7 @@ public class Interval extends Fragment {
             }
         });
 
+        // Create the listener for the interval spinner: responsible for displaying the data based on the chosen time interval
         intervalSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
@@ -230,7 +231,7 @@ public class Interval extends Fragment {
                                     listByInterval.get(i).setMinute(0);
                                 }
                             }
-                            tracks.add(new Track(hourChecked + ":00", leak, vol));
+                            tracks.add(new Track(hourChecked + ":00", leak, vol, 0));
                             mAdapterT.notifyDataSetChanged();
                             vol = 0;
                             leak = false;
@@ -254,7 +255,7 @@ public class Interval extends Fragment {
                             }
                             tracks.add(new Track(dayChecked + "/" +
                                     listByInterval.get(listByInterval.size() - 1).getMonth() + "/" +
-                                    listByInterval.get(listByInterval.size() - 1).getYear(), leak, vol));
+                                    listByInterval.get(listByInterval.size() - 1).getYear(), leak, vol, 0));
                             mAdapterT.notifyDataSetChanged();
                             vol = 0;
                             leak = false;
@@ -279,7 +280,7 @@ public class Interval extends Fragment {
                                     vol += listByInterval.get(i).getVolumeFlow();
                                 }
                             }
-                            tracks.add(new Track(months[monthChecked - 1] + " " + listByInterval.get(listByInterval.size() - 1).getYear(), leak, vol));
+                            tracks.add(new Track(months[monthChecked - 1] + " " + listByInterval.get(listByInterval.size() - 1).getYear(), leak, vol, 0));
                             mAdapterT.notifyDataSetChanged();
                             vol = 0;
                             leak = false;
@@ -302,7 +303,7 @@ public class Interval extends Fragment {
                                     vol += listByInterval.get(j).getVolumeFlow();
                                 }
                             }
-                            tracks.add(new Track("" + i, leak, vol));
+                            tracks.add(new Track("" + i, leak, vol, 0));
                             mAdapterT.notifyDataSetChanged();
                             vol = 0;
                             leak = false;
