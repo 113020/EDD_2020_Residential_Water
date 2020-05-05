@@ -171,15 +171,12 @@ public class Interval extends Fragment {
                 tracks.clear();
                 fluid.removeAllViews();
                 if (!listByFixture.isEmpty()) {
-                    int secondExtent;
-                    int secondExtent2;
-                    int second = listByFixture.get(listByFixture.size() - 1).getSecond();
-                    int minute = listByFixture.get(listByFixture.size() - 1).getMinute();
+                    int secondExtent, second, minute;
                     int hour = listByFixture.get(listByFixture.size() - 1).getHour();
                     int day = listByFixture.get(listByFixture.size() - 1).getDay();
                     int month = listByFixture.get(listByFixture.size() - 1).getMonth();
                     int year = listByFixture.get(listByFixture.size() - 1).getYear();
-                    int leak = 0;
+                    boolean leak = false;
                     double vol = 0;
 
                     if (position == 1) { // Option is "hourly"
@@ -191,27 +188,22 @@ public class Interval extends Fragment {
                                 hour = listByFixture.get(i).getHour();
                                 if (secondExtent + second >= 60) {
                                     if (secondExtent + minute * 60 + second >= 3600) {
+                                        // 1st entry
                                         second = listByFixture.get(i).getSecond() + secondExtent - 60;
                                         listByFixture.get(i).setSecondExtent(secondExtent);
                                         listByFixture.get(i).setVolumeFlow(listByFixture.get(i).getFlowRate() * (secondExtent - second));
                                         listByInterval.add(listByFixture.get(i));
                                         mAdapterF.notifyDataSetChanged();
-
+                                        // 2nd entry
                                         secondExtent = second;
                                         hour++;
                                         minute = 0;
                                         second = 0;
                                         listByInterval.add(new Water(listByFixture.get(i).getDay(), listByFixture.get(i).getMonth(), listByFixture.get(i).getYear(),
-                                                hour, minute, second, listByFixture.get(i).getMillisecond(), listByFixture.get(i).getFixture(),
-                                                listByFixture.get(i).getFlowRate(), second, listByFixture.get(i).isLeak(), listByFixture.get(i).getFlowRate() * secondExtent,
+                                                hour, minute, second, listByFixture.get(i).getMillisecond(), listByFixture.get(i).getFixture(), listByFixture.get(i).getFlowRate(),
+                                                second, listByFixture.get(i).isLeak(), listByFixture.get(i).getFlowRate() * secondExtent,
                                                 listByFixture.get(i).getBillMethod(), Math.round((listByFixture.get(i).getVolumeFlow() * 0.01116696697) * 100.0) / 100.0,
                                                 listByFixture.get(i).getWaterFact()));
-//                                        listByFixture.get(i).setSecondExtent(Math.abs(secondExtent + second - 60));
-//                                        listByFixture.get(i).setVolumeFlow(listByFixture.get(i).getFlowRate() * second);
-//                                        listByFixture.get(i).setHour(hour);
-//                                        listByFixture.get(i).setMinute(minute);
-//                                        listByFixture.get(i).setSecond(second);
-//                                        mAdapterF.notifyDataSetChanged();
                                     } else {
                                         minute++;
                                         secondExtent = Math.abs(secondExtent + second - 60);
@@ -227,21 +219,35 @@ public class Interval extends Fragment {
                                 }
                             }
                         }
+                        int hourChecked = 0;
+                        while (hourChecked <= hour) {
+                            for (int i = 0; i < listByInterval.size(); i++) {
+                                if (listByInterval.get(i).getHour() == hourChecked) {
+                                    if (listByInterval.get(i).isLeak()) {
+                                        leak = true;
+                                    }
+                                    vol += listByInterval.get(i).getVolumeFlow();
+                                    listByInterval.get(i).setMinute(0);
+                                }
+                            }
+                            tracks.add(new Track(hourChecked + ":00", leak, vol));
+                            mAdapterT.notifyDataSetChanged();
+                            hourChecked++;
+                        }
                     } else if (position == 2) { // Option is "daily"
-//                    dateOrTime = listByFixture.get(listByFixture.size() - 1).getMonth();
-                    } else if (position == 3) {
-//                    dateOrTime = listByFixture.get(listByFixture.size() - 1).getYear();
-                    } else {
+                        for (int i = 0; i < listByFixture.size(); i++) {
+                            if (listByFixture.get(i).getMonth() == month) {
+                                listByInterval.add(listByFixture.get(i));
+                            }
+                        }
+                        int dayChecked = 0;
+                    } else if (position == 3) { // Option is "monthly"
+
+                    } else {                    // Option is yearly
+
                     }
 
-                    for (Water water : listByInterval) {
-                        if (water.isLeak()) {
-                            leak++;
-                        }
-                        vol = water.getVolumeFlow();
-                        tracks.add(new Track(water.toDateString(), ((double) leak / listByInterval.size()), vol));
-                        mAdapterT.notifyDataSetChanged();
-                    }
+
                     Toast.makeText(v.getContext(), intervalOpt[position], Toast.LENGTH_SHORT).show();
                 } else {
                     fluid.removeAllViews();

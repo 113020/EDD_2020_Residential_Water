@@ -4,16 +4,16 @@ public class Track {
 
     // Variables for Track model
     private String dateOrTime;
-    private double leakPercent;
+    private boolean leak;
     private double totalVolume;
 
     public Track() {
         // Required empty public constructor
     }
 
-    public Track(String dateOrTime, double leakPercent, double totalVolume) {
+    public Track(String dateOrTime, boolean leak, double totalVolume) {
         this.dateOrTime = dateOrTime;
-        this.leakPercent = leakPercent;
+        this.leak = leak;
         this.totalVolume = totalVolume;
     }
 
@@ -25,12 +25,12 @@ public class Track {
         this.dateOrTime = dateOrTime;
     }
 
-    public double getLeakPercent() {
-        return leakPercent;
+    public boolean isLeak() {
+        return leak;
     }
 
-    public void setLeakPercent(double leakPercent) {
-        this.leakPercent = leakPercent;
+    public void setLeak(boolean leak) {
+        this.leak = leak;
     }
 
     public double getTotalVolume() {

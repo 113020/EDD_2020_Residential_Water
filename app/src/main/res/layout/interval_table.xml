@@ -35,7 +35,7 @@
                     android:layout_width="0dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="3dip"
-                    android:text="@{Double.toString(track.leakPercent)}"/>
+                    android:text="@{Boolean.toString(track.leak)}"/>
 
                 <TextView
                     android:id="@+id/txtVolume"
