@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "272044756645",
+    "firebase_url": "https://water-saver-3b7f3.firebaseio.com",
+    "project_id": "water-saver-3b7f3",
+    "storage_bucket": "water-saver-3b7f3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272044756645:android:7be5b171c3c47b4987074c",
+        "android_client_info": {
+          "package_name": "com.example.edd_2020_residential_water"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "272044756645-tv8r4j9ur8kg21qp20e5l6j05jakkjos.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2g3Yfbzr0EUrMUzGTIsZqPKQiJCRHN88"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "272044756645-tv8r4j9ur8kg21qp20e5l6j05jakkjos.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
