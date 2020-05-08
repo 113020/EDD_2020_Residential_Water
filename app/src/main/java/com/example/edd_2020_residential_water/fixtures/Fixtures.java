@@ -116,38 +116,6 @@ public class Fixtures extends Fragment {
         // Get the list of water data and send that data to the adapter
         waterList = conserve.initWaters();
 
-        // Fixture options put into an arrayList of strings
-        double[] fixtureVol = new double[fixtureOpt.length];
-        double[] fixturePercent = new double[fixtureOpt.length];
-        double totalVol = 0;
-        int k;
-        int monthChecked = 1;
-        /*while (monthChecked <= waterList.get(waterList.size() - 1).getMonth()) {
-            k = 0;
-            for (Water water: waterList) {
-                totalVol += water.getVolumeFlow();
-            }
-
-            for (String s: fixtureOpt) {
-                for (Water water: waterList) {
-                    if (water.getFixture() == s) {
-                        fixtureVol[k] += water.getVolumeFlow();
-                    }
-                }
-                k++;
-            }
-
-            for (int i = 0; i < fixtureOpt.length; i++) {
-                fixturePercent[i] = fixtureVol[i] / totalVol;
-                if (i < fixtureOpt.length) {
-                    totalVol = 0;
-                }
-            }
-            monthChecked++;
-        }*/
-
-
-
         // Create the listener for the spinner: responsible for getting the list based on the option
         fixtureSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

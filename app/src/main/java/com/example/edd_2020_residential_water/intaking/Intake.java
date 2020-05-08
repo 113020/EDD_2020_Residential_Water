@@ -4,13 +4,36 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.edd_2020_residential_water.MainActivity;
 import com.example.edd_2020_residential_water.R;
+import com.example.edd_2020_residential_water.SharedViewModel;
+import com.example.edd_2020_residential_water.databinding.FragmentFixturesBinding;
+import com.example.edd_2020_residential_water.databinding.FragmentIntakeBinding;
+import com.example.edd_2020_residential_water.fixtures.Fixtures;
+import com.example.edd_2020_residential_water.fixtures.FixturesRecyclerViewAdapter;
+import com.example.edd_2020_residential_water.models.Water;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -30,6 +53,16 @@ public class Intake extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    Water mWater2;
+    List<Water> waterList;
+
+    private FragmentIntakeBinding waterBinding;
+    private IntakeRecyclerViewAdapter mAdapterI;
+    private RecyclerView fluid;
+    private MainActivity conserve;
+
+    private SharedViewModel svm;
 
     private OnFragmentInteractionListener mListener;
 
@@ -68,8 +101,47 @@ public class Intake extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_intake, container, false);
+        waterBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_intake, container, false);
+        final View view = waterBinding.getRoot();
 
+        final LinearLayoutManager wllm = new LinearLayoutManager(view.getContext());
+
+        fluid = waterBinding.waterDataIntake;
+
+        waterList = new ArrayList<Water>();
+
+        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference mGetReference = mDatabase.getReference();
+
+        mGetReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                String fixture = dataSnapshot.child("Fixture").getValue().toString();
+                long vol = (long) dataSnapshot.child("totalVolume").getValue();
+
+                Toast.makeText(view.getContext(), fixture + ": " + vol, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(view.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Initialize the adapter
+        mAdapterI = new IntakeRecyclerViewAdapter(mWater2);
+
+        // Set the layout manager
+        waterBinding.setWaterManager(wllm);
+
+        // Set the adapter
+        waterBinding.setWaterAdapter(mAdapterI);
+
+        FragmentManager fm = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(fluid.getId(), Fixtures.newInstance("", ""));
+        waterList.add(mWater2);
         return view;
     }
 
