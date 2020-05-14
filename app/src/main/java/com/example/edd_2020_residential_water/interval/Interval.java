@@ -207,10 +207,10 @@ public class Interval extends Fragment {
                                         minute = 0;
                                         second = 0;
                                         listByInterval.add(new Water(listByFixture.get(i).getDay(), listByFixture.get(i).getMonth(), listByFixture.get(i).getYear(),
-                                                hour, minute, second, listByFixture.get(i).getMillisecond(), listByFixture.get(i).getFixture(), listByFixture.get(i).getFlowRate(),
+                                                hour, minute, second, listByFixture.get(i).getFixture(), listByFixture.get(i).getFlowRate(),
                                                 second, listByFixture.get(i).isLeak(), listByFixture.get(i).getFlowRate() * secondExtent,
-                                                listByFixture.get(i).getBillMethod(), Math.round((listByFixture.get(i).getVolumeFlow() * 0.01116696697) * 100.0) / 100.0,
-                                                listByFixture.get(i).getWaterFact()));
+                                                Math.round((listByFixture.get(i).getVolumeFlow() * 0.01116696697) * 100.0) / 100.0
+                                                ));
                                     } else {
                                         minute++;
                                         secondExtent = Math.abs(secondExtent + second - 60);

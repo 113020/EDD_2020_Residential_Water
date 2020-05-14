@@ -10,15 +10,12 @@ public class Water {
     private int hour; // Private 2-digit integer for hours (00 to 23)
     private int minute; // Private 2-digit integer for minutes (00 to 59)
     private int second; // Private 2-digit integer for seconds (00 to 59)
-    private int millisecond; // Private 3-digit integer for milliseconds (000 to 999)
     private String fixture; // Private string for fixture
     private double flowRate; // Private double value for the detected water speed
     private int secondExtent; // Private integer value for length of faucet run time (in seconds)
     private boolean leak; // Private boolean for detecting leaks
     private double volumeFlow; // Private boolean for detecting leaks
-    private String billMethod; // Private string for method to calculate water bill
     private double waterBill; // Private double value for total projected water bill (in $$)
-    private String waterFact; // Private string for water conservation facts
 
     /**
      * Water class constructor, for testing data display
@@ -28,34 +25,28 @@ public class Water {
      * @param hour
      * @param minute
      * @param second
-     * @param millisecond
      * @param fixture
      * @param flowRate
      * @param secondExtent
      * @param leak
      * @param volumeFlow
-     * @param billMethod
      * @param waterBill
-     * @param waterFact
      */
-    public Water(int day, int month, int year, int hour, int minute, int second, int millisecond,
+    public Water(int day, int month, int year, int hour, int minute, int second,
                  String fixture, double flowRate, int secondExtent, boolean leak,
-                 double volumeFlow, String billMethod, double waterBill, String waterFact) {
+                 double volumeFlow, double waterBill) {
         this.day = day;
         this.month = month;
         this.year = year;
         this.hour = hour;
         this.minute = minute;
         this.second = second;
-        this.millisecond = millisecond;
         this.fixture = fixture;
         this.flowRate = flowRate;
         this.secondExtent = secondExtent;
         this.leak = leak;
         this.volumeFlow = volumeFlow;
-        this.billMethod = billMethod;
         this.waterBill = waterBill;
-        this.waterFact = waterFact;
     }
 
     // Return the day (01-31)
@@ -118,16 +109,6 @@ public class Water {
         this.second = second;
     }
 
-    // Return the millisecond (000 to 999)
-    public int getMillisecond() {
-        return millisecond;
-    }
-
-    // Modify the millisecond (000 to 999)
-    public void setMillisecond(int millisecond) {
-        this.millisecond = millisecond;
-    }
-
     // Return fixture
     public String getFixture() {
         return fixture;
@@ -178,16 +159,6 @@ public class Water {
         this.volumeFlow = volumeFlow;
     }
 
-    // Return bill method
-    public String getBillMethod() {
-        return billMethod;
-    }
-
-    // Modify bill method
-    public void setBillMethod(String billMethod) {
-        this.billMethod = billMethod;
-    }
-
     // Return water bill
     public double getWaterBill() {
         return waterBill;
@@ -196,16 +167,6 @@ public class Water {
     // Modify water bill
     public void setWaterBill(double waterBill) {
         this.waterBill = waterBill;
-    }
-
-    // Return water fact/suggestion
-    public String getWaterFact() {
-        return waterFact;
-    }
-
-    // Modify water fact/suggestion
-    public void setWaterFact(String waterFact) {
-        this.waterFact = waterFact;
     }
 
     //****** These methods return "dd/mm/yyyy...." and "hh:mm ******//
@@ -222,12 +183,10 @@ public class Water {
 
         return d + "/" + m + "/" + year;
     }
-
     public String toTimeString() {
         String h = hour + "";
         String m = minute + "";
         String s = second + "";
-        String ms = millisecond + "";
 
         if (hour < 10) {
             h = "0" + hour;
@@ -238,21 +197,13 @@ public class Water {
         if (second < 10) {
             s = "0" + second;
         }
-        if (millisecond < 10) {
-            ms = "0" + millisecond;
-        }
 
-        return h + ":" + m + ":" + s + ":" + ms;
+        return h + ":" + m + ":" + s;
     }
 
     @Override
     public String toString() {
         return toDateString() + "," + toTimeString() + "," + fixture + "," + flowRate + "," + secondExtent
-                + "," + leak + "," + volumeFlow + "," + billMethod + "," + waterBill + "," + waterFact + "|";
+                + "," + leak + "," + volumeFlow + "," + waterBill + "|";
     }
-
-    /*@Override
-    public String toString() {
-            return day + "/" + month + "/" + year + ": " + (hour) + ":" + (minute);
-    }*/
 }

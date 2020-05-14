@@ -32,6 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -56,6 +57,14 @@ public class Intake extends Fragment {
 
     Water mWater2;
     List<Water> waterList;
+    List<Integer> day;
+    List<Integer> month;
+    List<Integer> year;
+    List<Integer> hour;
+    List<Integer> min;
+    List<Integer> sec;
+    List<String> fixtures;
+    List<Double> volume;
 
     private FragmentIntakeBinding waterBinding;
     private IntakeRecyclerViewAdapter mAdapterI;
@@ -108,8 +117,9 @@ public class Intake extends Fragment {
 
         fluid = waterBinding.waterDataIntake;
 
+        final Calendar cal = Calendar.getInstance();
         waterList = new ArrayList<Water>();
-
+        waterList.clear();
         FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
         DatabaseReference mGetReference = mDatabase.getReference();
 
@@ -117,10 +127,21 @@ public class Intake extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                String fixture = dataSnapshot.child("Fixture").getValue().toString();
+//                day.add(cal.get(Calendar.DAY_OF_MONTH));
+//                month.add(cal.get(Calendar.MONTH));
+//                year.add(cal.get(Calendar.YEAR));
+//                hour.add(cal.get(Calendar.HOUR));
+//                min.add(cal.get(Calendar.MINUTE));
+//                sec.add(cal.get(Calendar.SECOND));
+//                fixtures.add(dataSnapshot.child("Fixture").getValue().toString());
+//                volume.add((double) vol);
                 long vol = (long) dataSnapshot.child("totalVolume").getValue();
+                waterList.add(new Water(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR),
+                        cal.get(Calendar.HOUR), cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND),
+                        dataSnapshot.child("Fixture").getValue().toString(),
+                        0, 0, true, (double) vol, 0));
 
-                Toast.makeText(view.getContext(), fixture + ": " + vol, Toast.LENGTH_LONG).show();
+                Toast.makeText(view.getContext(), "" + vol, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -130,7 +151,7 @@ public class Intake extends Fragment {
         });
 
         // Initialize the adapter
-        mAdapterI = new IntakeRecyclerViewAdapter(mWater2);
+        mAdapterI = new IntakeRecyclerViewAdapter(waterList);
 
         // Set the layout manager
         waterBinding.setWaterManager(wllm);
