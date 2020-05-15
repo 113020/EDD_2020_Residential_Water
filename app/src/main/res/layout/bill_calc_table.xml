@@ -4,8 +4,8 @@
 
     <data>
         <variable
-            name="track"
-            type="com.example.edd_2020_residential_water.models.Track" />
+            name="bill"
+            type="com.example.edd_2020_residential_water.models.Bill" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,67 +24,19 @@
 
             <TableRow>
                 <TextView
-                    android:id="@+id/txtLabelMonth"
-                    android:layout_width="0dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:padding="3dip"
-                    android:text="Month" />
-
-                <TextView
                     android:id="@+id/txtTime"
                     android:layout_width="0dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="3dip"
-                    android:text="@{track.dateOrTime}" />
-            </TableRow>
+                    android:text="@{bill.place}" />
 
-            <TableRow>
-                <TextView
-                    android:id="@+id/txtLabelVolume"
-                    android:layout_width="0dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:padding="3dip"
-                    android:text="Total Volume Water (gallons)"/>
-
-                <TextView
-                    android:id="@+id/txtVolume"
-                    android:layout_width="0dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:padding="3dip"
-                    android:text="@{Double.toString(track.totalVolume * 0.264)}"/>
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:id="@+id/txtLabelWaterBill"
-                    android:layout_width="0dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:padding="3dip"
-                    android:text="Water Bill (monthly)"/>
                 <TextView
                     android:id="@+id/txtWaterBill"
                     android:layout_width="0dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="3dip"
-                    android:text="@{Double.toString(track.totalBill)}"/>
+                    android:text="@{Double.toString(bill.totalBill)}"/>
             </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:id="@+id/txtBlank"
-                    android:layout_width="0dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:padding="3dip"
-                    android:text=""/>
-
-                <TextView
-                    android:id="@+id/txtBlank2"
-                    android:layout_width="0dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:padding="3dip"
-                    android:text=""/>
-            </TableRow>
-
         </TableLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -127,19 +127,19 @@ public class Interval extends Fragment {
                 listByInterval.clear();
                 tracks.clear();
                 fluid.removeAllViews();
-                int latestDay = waterList.get(0).getDay();
-                int latestMonth = waterList.get(0).getMonth();
-                int latestYear = waterList.get(0).getYear();
-                int latestHour = waterList.get(0).getHour();
+                int latestDay = 1;
+                int latestMonth = 1;
+                int latestYear = 1970;
+                int latestHour = 0;
 
                 for (Water water: waterList) {
-                    if (water.getYear() > latestYear) {
+                    if (water.getYear() >= latestYear) {
                         latestYear = water.getYear();
-                        if (water.getMonth() > latestMonth) {
+                        if (water.getMonth() >= latestMonth) {
                             latestMonth = water.getMonth();
-                            if (water.getDay() > latestDay) {
+                            if (water.getDay() >= latestDay) {
                                 latestDay = water.getDay();
-                                if (water.getHour() > latestHour) {
+                                if (water.getHour() >= latestHour) {
                                     latestHour = water.getHour();
                                 }
                             }
@@ -152,7 +152,7 @@ public class Interval extends Fragment {
 
                 if (position == 1) { // Option is "hourly"
                     for (int i = 0; i < waterList.size(); i++) {
-                        if (waterList.get(i).getDay() == latestDay && waterList.get(i).getHour() >= 0 && waterList.get(i).getHour() <= latestHour) {
+                        if (waterList.get(i).getDay() == latestDay && waterList.get(i).getHour() <= latestHour) {
                             listByInterval.add(waterList.get(i));
                             mAdapterT.notifyDataSetChanged();
                         }
@@ -208,7 +208,7 @@ public class Interval extends Fragment {
                             "May", "June", "July", "August", "September",
                             "October", "November", "December"};
                     int monthChecked = 1;
-                    while (monthChecked <= listByInterval.get(listByInterval.size() - 1).getMonth()) {
+                    while (monthChecked <= latestMonth) {
                         for (int i = 0; i < listByInterval.size(); i++) {
                             if (listByInterval.get(i).getMonth() == monthChecked) {
                                 if (listByInterval.get(i).isLeak()) {

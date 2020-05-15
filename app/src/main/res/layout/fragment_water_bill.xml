@@ -10,9 +10,6 @@
         <variable
             name="water_manager"
             type="androidx.recyclerview.widget.LinearLayoutManager" />
-        <variable
-            name="fixture_adapter"
-            type="android.widget.ArrayAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,26 +18,45 @@
         android:layout_height="match_parent"
         tools:context=".waterBill.WaterBill">
 
-        <Spinner
-            android:id="@+id/enterWaterBill"
-            style="@style/Platform.Widget.AppCompat.Spinner"
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/enterPlace"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:dropDownWidth="wrap_content"
-            android:entries="@array/water_bill_method"
-            android:adapter="@{fixture_adapter}"
-            app:layout_constraintBottom_toTopOf="@+id/water_bill_data"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:hint="Enter the city you live in."
+            android:inputType="text"
+            app:layout_constraintBottom_toTopOf="@+id/enterWaterBill"
+            app:layout_constraintEnd_toStartOf="@+id/btnDisplayBill"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/enterWaterBill"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Calculate Water Bill."
+            android:inputType="numberDecimal"
+            app:layout_constraintBottom_toTopOf="@+id/water_bill_data"
+            app:layout_constraintEnd_toStartOf="@+id/btnDisplayBill"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/enterPlace"
             app:layout_constraintVertical_bias="0.0" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <Button
+            android:id="@+id/btnDisplayBill"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/example_button"
+            android:text="Show"
+            app:layout_constraintBottom_toBottomOf="@+id/enterWaterBill"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/enterWaterBill"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
             android:id="@+id/water_bill_data"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:adapter="@{water_adapter}"
-            app:layoutManager="@{water_manager}"
+            android:gravity="center_horizontal|center_vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

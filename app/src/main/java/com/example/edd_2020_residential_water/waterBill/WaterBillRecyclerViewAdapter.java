@@ -8,16 +8,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.edd_2020_residential_water.BR;
+import com.example.edd_2020_residential_water.models.Bill;
 import com.example.edd_2020_residential_water.models.Track;
 import com.example.edd_2020_residential_water.databinding.BillCalcTableBinding;
 
 import java.util.List;
 
 public class WaterBillRecyclerViewAdapter extends RecyclerView.Adapter<WaterBillRecyclerViewAdapter.WaterViewHolder> {
-    private List<Track> mValues;
+    private List<Bill> mValues;
     private AdapterView.OnItemClickListener mClickListener;
 
-    public WaterBillRecyclerViewAdapter(List<Track> items) {
+    public WaterBillRecyclerViewAdapter(List<Bill> items) {
         mValues = items;
         notifyDataSetChanged();
     }
@@ -32,8 +33,8 @@ public class WaterBillRecyclerViewAdapter extends RecyclerView.Adapter<WaterBill
 
     @Override
     public void onBindViewHolder(@NonNull WaterViewHolder holder, int position) {
-        Track t = mValues.get(position);
-        holder.bind(t);
+        Bill b = mValues.get(position);
+        holder.bind(b);
     }
 
     @Override
@@ -47,8 +48,8 @@ public class WaterBillRecyclerViewAdapter extends RecyclerView.Adapter<WaterBill
             this.binding = binding;
         }
 
-        public void bind(Track track) {
-            binding.setVariable(BR.track, track);
+        public void bind(Bill bill) {
+            binding.setVariable(BR.bill, bill);
             binding.executePendingBindings();
         }
     }
