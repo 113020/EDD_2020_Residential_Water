@@ -11,9 +11,6 @@
             name="water_manager"
             type="androidx.recyclerview.widget.LinearLayoutManager" />
         <variable
-            name="fixture_adapter"
-            type="android.widget.ArrayAdapter" />
-        <variable
             name="interval_adapter"
             type="android.widget.ArrayAdapter" />
     </data>
@@ -25,20 +22,6 @@
         tools:context=".interval.Interval">
 
         <Spinner
-            android:id="@+id/enterFixture"
-            style="@style/Platform.Widget.AppCompat.Spinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:dropDownWidth="wrap_content"
-            android:entries="@array/fixture"
-            android:adapter="@{fixture_adapter}"
-            app:layout_constraintBottom_toTopOf="@+id/table_label_interval"
-            app:layout_constraintEnd_toStartOf="@+id/enterInterval"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <Spinner
             android:id="@+id/enterInterval"
             style="@style/Platform.Widget.AppCompat.Spinner"
             android:layout_width="0dp"
@@ -46,11 +29,10 @@
             android:adapter="@{interval_adapter}"
             android:dropDownWidth="wrap_content"
             android:entries="@array/interval"
-            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/table_label_interval"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/enterFixture"
-            app:layout_constraintTop_toTopOf="@+id/enterFixture" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TableLayout
             android:id="@+id/table_label_interval"
@@ -68,7 +50,7 @@
                     android:layout_width="0dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="3dip"
-                    android:text="Date (dd/mm/yyyy) Time (hh/mm)" />
+                    android:text="Date/Time" />
 
                 <TextView
                     android:id="@+id/txtLeak"

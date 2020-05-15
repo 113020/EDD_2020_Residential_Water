@@ -131,6 +131,26 @@ public class Fixtures extends Fragment {
                 conserve.clearWaterList(list);
                 fixturePercentages.clear();
 
+                int latestDay = waterList.get(0).getDay();
+                int latestMonth = waterList.get(0).getMonth();
+                int latestYear = waterList.get(0).getYear();
+                int latestHour = waterList.get(0).getHour();
+
+                for (Water water: waterList) {
+                    if (water.getYear() > latestYear) {
+                        latestYear = water.getYear();
+                        if (water.getMonth() > latestMonth) {
+                            latestMonth = water.getMonth();
+                            if (water.getDay() > latestDay) {
+                                latestDay = water.getDay();
+                                if (water.getHour() > latestHour) {
+                                    latestHour = water.getHour();
+                                }
+                            }
+                        }
+                    }
+                }
+
                 for (int i = 0; i < waterList.size(); i++) {
                     if (waterList.get(i).getFixture().equals(fixtureOpt[position])) {
                         list.add(waterList.get(i));
@@ -143,23 +163,27 @@ public class Fixtures extends Fragment {
                         "October", "November", "December"};
                 double totalVol[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
                 double fixtureVol[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+                boolean leak = false;
                 double fixturePercent[] = new double[fixtureVol.length];
-                int monthChecked = 0;
+                int monthChecked = 1;
 
                 if (!list.isEmpty()) {
-                    while (monthChecked <= list.get(list.size() - 1).getMonth()) {
+                    while (monthChecked <= latestMonth) {
                         for (Water water: waterList) {
                             if (water.getMonth() == monthChecked) {
-                                totalVol[monthChecked] += water.getVolumeFlow();
+                                totalVol[monthChecked - 1] += water.getVolumeFlow();
                             }
                         }
                         for (Water water: list) {
                             if (water.getMonth() == monthChecked) {
-                                fixtureVol[monthChecked] += water.getVolumeFlow();
+                                fixtureVol[monthChecked - 1] += water.getVolumeFlow();
+                            }
+                            if (water.isLeak()) {
+                                leak = true;
                             }
                         }
-                        fixturePercent[monthChecked] = fixtureVol[monthChecked] / totalVol[monthChecked] * 100;
-                        fixturePercentages.add(new FixturePercentage(months[monthChecked], fixtureOpt[position], fixtureVol[monthChecked], fixturePercent[monthChecked]));
+                        fixturePercent[monthChecked - 1] = fixtureVol[monthChecked - 1] / totalVol[monthChecked - 1] * 100;
+                        fixturePercentages.add(new FixturePercentage(months[monthChecked - 1], leak, fixtureVol[monthChecked - 1], fixturePercent[monthChecked - 1]));
                         monthChecked++;
                     }
                     // Initialize the adapter

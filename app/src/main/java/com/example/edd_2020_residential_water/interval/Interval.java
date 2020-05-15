@@ -55,7 +55,6 @@ public class Interval extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private List<Water> waterList; // Original list of Water objects
-    private List<Water> listByFixture; // To be modified by the fixture spinner's onSelectedItemListener()
     private List<Water> listByInterval; // To be modified by the interval spinner's onSelectedItemListener()
     private List<Track> tracks; // List of track objects for the interval data binding layout
 
@@ -101,24 +100,12 @@ public class Interval extends Fragment {
         final View view = waterBinding.getRoot();
 
         // Declare needed objects and bind them to the corresponding elements in the layout: Cleaner version of findViewById(R.id....)
-        final Spinner fixtureSpin = waterBinding.enterFixture;
         final Spinner intervalSpin = waterBinding.enterInterval;
         final LinearLayoutManager wllm = new LinearLayoutManager(view.getContext());
-        listByFixture = new ArrayList<Water>();
         listByInterval = new ArrayList<Water>();
         tracks = new ArrayList<Track>();
         conserve = (MainActivity) getActivity();
         fluid = waterBinding.waterDataInterval;
-
-        // Fixture options put into an arrayList of strings
-        final String[] fixtureOpt = getResources().getStringArray(R.array.fixture);
-
-        // Add spinner and array adapter for fixture
-        final ArrayAdapter<CharSequence> adapterF = ArrayAdapter.createFromResource(view.getContext(),
-                R.array.fixture,
-                android.R.layout.simple_spinner_item);
-        adapterF.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        waterBinding.setFixtureAdapter(adapterF);
 
         // interval options put into an arrayList of strings
         final String[] intervalOpt = getResources().getStringArray(R.array.interval);
@@ -133,43 +120,6 @@ public class Interval extends Fragment {
         // Get the list of water data and send that data to the adapter
         waterList = conserve.initWaters();
 
-        // Create the listener for the fixture spinner: responsible for getting the list based on the fixture option
-        fixtureSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
-                listByFixture.clear();
-                tracks.clear();
-                if (position == 0) {
-                    intervalSpin.setVisibility(View.INVISIBLE);
-                } else {
-                    intervalSpin.setVisibility(View.VISIBLE);
-                }
-
-                if (position != fixtureOpt.length - 1) {
-                    for (int i = 0; i < waterList.size(); i++) {
-                        if (waterList.get(i).getFixture().equals(fixtureOpt[position])) {
-                            listByFixture.add(waterList.get(i));
-                            mAdapterF.notifyDataSetChanged();
-                        }
-                    }
-                } else {
-                    listByFixture.addAll(waterList);
-                    mAdapterF.notifyDataSetChanged();
-                }
-
-                if (listByFixture.isEmpty() == true) {
-                    fluid.removeAllViews();
-                }
-                Toast.makeText(v.getContext(), fixtureOpt[position], Toast.LENGTH_SHORT).show();
-                setFixture(fixtureOpt[position]);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
         // Create the listener for the interval spinner: responsible for displaying the data based on the chosen time interval
         intervalSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -177,146 +127,126 @@ public class Interval extends Fragment {
                 listByInterval.clear();
                 tracks.clear();
                 fluid.removeAllViews();
-                if (!listByFixture.isEmpty()) {
-                    int secondExtent, second, minute;
-                    int hour = listByFixture.get(listByFixture.size() - 1).getHour();
-                    int day = listByFixture.get(listByFixture.size() - 1).getDay();
-                    int month = listByFixture.get(listByFixture.size() - 1).getMonth();
-                    int year = listByFixture.get(listByFixture.size() - 1).getYear();
-                    boolean leak = false;
-                    double vol = 0;
+                int latestDay = waterList.get(0).getDay();
+                int latestMonth = waterList.get(0).getMonth();
+                int latestYear = waterList.get(0).getYear();
+                int latestHour = waterList.get(0).getHour();
 
-                    if (position == 1) { // Option is "hourly"
-                        for (int i = 0; i < listByFixture.size(); i++) {
-                            if (listByFixture.get(i).getDay() == day && listByFixture.get(i).getHour() >= 0 && listByFixture.get(i).getHour() <= hour) {
-                                secondExtent = listByFixture.get(i).getSecondExtent();
-                                second = listByFixture.get(i).getSecond();
-                                minute = listByFixture.get(i).getMinute();
-                                hour = listByFixture.get(i).getHour();
-                                if (secondExtent + second >= 60) {
-                                    if (secondExtent + minute * 60 + second >= 3600) {
-                                        // 1st entry
-                                        second = listByFixture.get(i).getSecond() + secondExtent - 60;
-                                        listByFixture.get(i).setSecondExtent(secondExtent);
-                                        listByFixture.get(i).setVolumeFlow(listByFixture.get(i).getFlowRate() * (secondExtent - second));
-                                        listByInterval.add(listByFixture.get(i));
-                                        mAdapterF.notifyDataSetChanged();
-                                        // 2nd entry
-                                        secondExtent = second;
-                                        hour++;
-                                        minute = 0;
-                                        second = 0;
-                                        listByInterval.add(new Water(listByFixture.get(i).getDay(), listByFixture.get(i).getMonth(), listByFixture.get(i).getYear(),
-                                                hour, minute, second, listByFixture.get(i).getFixture(), listByFixture.get(i).getFlowRate(),
-                                                second, listByFixture.get(i).isLeak(), listByFixture.get(i).getFlowRate() * secondExtent));
-                                    } else {
-                                        minute++;
-                                        secondExtent = Math.abs(secondExtent + second - 60);
-                                        listByFixture.get(i).setSecondExtent(secondExtent);
-                                        listByFixture.get(i).setMinute(minute);
-                                        listByFixture.get(i).setVolumeFlow(listByFixture.get(i).getFlowRate() * secondExtent);
-                                        listByInterval.add(listByFixture.get(i));
-                                        mAdapterF.notifyDataSetChanged();
-                                    }
-                                } else {
-                                    listByInterval.add(listByFixture.get(i));
-                                    mAdapterF.notifyDataSetChanged();
+                for (Water water: waterList) {
+                    if (water.getYear() > latestYear) {
+                        latestYear = water.getYear();
+                        if (water.getMonth() > latestMonth) {
+                            latestMonth = water.getMonth();
+                            if (water.getDay() > latestDay) {
+                                latestDay = water.getDay();
+                                if (water.getHour() > latestHour) {
+                                    latestHour = water.getHour();
                                 }
                             }
-                        }
-                        int hourChecked = 0;
-                        while (hourChecked <= hour) {
-                            for (int i = 0; i < listByInterval.size(); i++) {
-                                if (listByInterval.get(i).getHour() == hourChecked) {
-                                    if (listByInterval.get(i).isLeak()) {
-                                        leak = true;
-                                    }
-                                    vol += listByInterval.get(i).getVolumeFlow();
-                                    listByInterval.get(i).setMinute(0);
-                                }
-                            }
-                            tracks.add(new Track(hourChecked + ":00", leak, vol, 0));
-                            mAdapterT.notifyDataSetChanged();
-                            vol = 0;
-                            leak = false;
-                            hourChecked++;
-                        }
-                    } else if (position == 2) { // Option is "daily"
-                        for (int i = 0; i < listByFixture.size(); i++) {
-                            if (listByFixture.get(i).getMonth() == month) {
-                                listByInterval.add(listByFixture.get(i));
-                            }
-                        }
-                        int dayChecked = 1;
-                        while (dayChecked <= listByInterval.get(listByInterval.size() - 1).getDay()) {
-                            for (int i = 0; i < listByInterval.size(); i++) {
-                                if (listByInterval.get(i).getDay() == dayChecked) {
-                                    if (listByInterval.get(i).isLeak()) {
-                                        leak = true;
-                                    }
-                                    vol += listByInterval.get(i).getVolumeFlow();
-                                }
-                            }
-                            tracks.add(new Track(dayChecked + "/" +
-                                    listByInterval.get(listByInterval.size() - 1).getMonth() + "/" +
-                                    listByInterval.get(listByInterval.size() - 1).getYear(), leak, vol, 0));
-                            mAdapterT.notifyDataSetChanged();
-                            vol = 0;
-                            leak = false;
-                            dayChecked++;
-                        }
-                    } else if (position == 3) { // Option is "monthly"
-                        for (int i = 0; i < listByFixture.size(); i++) {
-                            if (listByFixture.get(i).getYear() == year) {
-                                listByInterval.add(listByFixture.get(i));
-                            }
-                        }
-                        String[] months = {"January", "February", "March", "April,",
-                                "May", "June", "July", "August", "September",
-                                "October", "November", "December"};
-                        int monthChecked = 1;
-                        while (monthChecked <= listByInterval.get(listByInterval.size() - 1).getMonth()) {
-                            for (int i = 0; i < listByInterval.size(); i++) {
-                                if (listByInterval.get(i).getMonth() == monthChecked) {
-                                    if (listByInterval.get(i).isLeak()) {
-                                        leak = true;
-                                    }
-                                    vol += listByInterval.get(i).getVolumeFlow();
-                                }
-                            }
-                            tracks.add(new Track(months[monthChecked - 1] + " " + listByInterval.get(listByInterval.size() - 1).getYear(), leak, vol, 0));
-                            mAdapterT.notifyDataSetChanged();
-                            vol = 0;
-                            leak = false;
-                            monthChecked++;
-                        }
-                    } else { // Option is yearly
-                        for (int i = year - 19; i <= year; i++) {
-                            for (Water water: listByFixture) {
-                                if (water.getYear() == i) {
-                                    listByInterval.add(water);
-                                }
-                            }
-                        }
-                        for (int i = year - 19; i <= year; i++) {
-                            for (int j = 0; j < listByInterval.size(); j++) {
-                                if (listByInterval.get(j).getYear() == i) {
-                                    if (listByInterval.get(j).isLeak()) {
-                                        leak = true;
-                                    }
-                                    vol += listByInterval.get(j).getVolumeFlow();
-                                }
-                            }
-                            tracks.add(new Track("" + i, leak, vol, 0));
-                            mAdapterT.notifyDataSetChanged();
-                            vol = 0;
-                            leak = false;
                         }
                     }
-                    Toast.makeText(v.getContext(), intervalOpt[position], Toast.LENGTH_SHORT).show();
-                } else {
-                    fluid.removeAllViews();
                 }
+
+                boolean leak = false;
+                double vol = 0;
+
+                if (position == 1) { // Option is "hourly"
+                    for (int i = 0; i < waterList.size(); i++) {
+                        if (waterList.get(i).getDay() == latestDay && waterList.get(i).getHour() >= 0 && waterList.get(i).getHour() <= latestHour) {
+                            listByInterval.add(waterList.get(i));
+                            mAdapterT.notifyDataSetChanged();
+                        }
+                    }
+                    int hourChecked = 0;
+                    while (hourChecked <= latestHour) {
+                        for (int i = 0; i < listByInterval.size(); i++) {
+                            if (listByInterval.get(i).getHour() == hourChecked) {
+                                if (listByInterval.get(i).isLeak()) {
+                                    leak = true;
+                                }
+                                vol += listByInterval.get(i).getVolumeFlow();
+                                listByInterval.get(i).setMinute(0);
+                            }
+                        }
+                        tracks.add(new Track(hourChecked + ":00", leak, vol, 0));
+                        mAdapterT.notifyDataSetChanged();
+                        vol = 0;
+                        leak = false;
+                        hourChecked++;
+                    }
+                } else if (position == 2) { // Option is "daily"
+                    for (int i = 0; i < waterList.size(); i++) {
+                        if (waterList.get(i).getMonth() == latestMonth) {
+                            listByInterval.add(waterList.get(i));
+                        }
+                    }
+                    int dayChecked = 1;
+                    while (dayChecked <= listByInterval.get(listByInterval.size() - 1).getDay()) {
+                        for (int i = 0; i < listByInterval.size(); i++) {
+                            if (listByInterval.get(i).getDay() == dayChecked) {
+                                if (listByInterval.get(i).isLeak()) {
+                                    leak = true;
+                                }
+                                vol += listByInterval.get(i).getVolumeFlow();
+                            }
+                        }
+                        tracks.add(new Track(dayChecked + "/" +
+                                listByInterval.get(listByInterval.size() - 1).getMonth() + "/" +
+                                listByInterval.get(listByInterval.size() - 1).getYear(), leak, vol, 0));
+                        mAdapterT.notifyDataSetChanged();
+                        vol = 0;
+                        leak = false;
+                        dayChecked++;
+                    }
+                } else if (position == 3) { // Option is "monthly"
+                    for (int i = 0; i < waterList.size(); i++) {
+                        if (waterList.get(i).getYear() == latestYear) {
+                            listByInterval.add(waterList.get(i));
+                        }
+                    }
+                    String[] months = {"January", "February", "March", "April,",
+                            "May", "June", "July", "August", "September",
+                            "October", "November", "December"};
+                    int monthChecked = 1;
+                    while (monthChecked <= listByInterval.get(listByInterval.size() - 1).getMonth()) {
+                        for (int i = 0; i < listByInterval.size(); i++) {
+                            if (listByInterval.get(i).getMonth() == monthChecked) {
+                                if (listByInterval.get(i).isLeak()) {
+                                    leak = true;
+                                }
+                                vol += listByInterval.get(i).getVolumeFlow();
+                            }
+                        }
+                        tracks.add(new Track(months[monthChecked - 1] + " " + listByInterval.get(listByInterval.size() - 1).getYear(), leak, vol, 0));
+                        mAdapterT.notifyDataSetChanged();
+                        vol = 0;
+                        leak = false;
+                        monthChecked++;
+                    }
+                } else { // Option is yearly
+                    for (int i = latestYear - 19; i <= latestYear; i++) {
+                        for (Water water: waterList) {
+                            if (water.getYear() == i) {
+                                listByInterval.add(water);
+                            }
+                        }
+                    }
+                    for (int i = latestYear - 19; i <= latestYear; i++) {
+                        for (int j = 0; j < listByInterval.size(); j++) {
+                            if (listByInterval.get(j).getYear() == i) {
+                                if (listByInterval.get(j).isLeak()) {
+                                    leak = true;
+                                }
+                                vol += listByInterval.get(j).getVolumeFlow();
+                            }
+                        }
+                        tracks.add(new Track("" + i, leak, vol, 0));
+                        mAdapterT.notifyDataSetChanged();
+                        vol = 0;
+                        leak = false;
+                    }
+                }
+                Toast.makeText(v.getContext(), intervalOpt[position], Toast.LENGTH_SHORT).show();
             }
 
             @Override

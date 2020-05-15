@@ -72,10 +72,10 @@ public class MainActivity extends AppCompatActivity implements Intake.OnFragment
         list = new ArrayList<>();
         String[] fixtureOpt = getResources().getStringArray(R.array.fixture);
 
-        list.add(new Water(14,0,2019, 6, 00, 00, fixtureOpt[1], 40.0, 12, true, 0));
-        list.add(new Water(14,0,2019, 7, 00, 00, fixtureOpt[2], 30.0, 12, true, 0));
-        list.add(new Water(15,1,2019, 8, 59, 59, fixtureOpt[1], 25.0, 12, true, 0));
-        list.add(new Water(15,1,2019, 9, 59, 59, fixtureOpt[2], 25.0, 12, true, 0));
+        list.add(new Water(14,3,2019, 6, 00, 00, fixtureOpt[1], 40.0, 12, true, 0));
+        list.add(new Water(14,3,2019, 7, 00, 00, fixtureOpt[2], 30.0, 12, true, 0));
+        list.add(new Water(15,2,2019, 8, 59, 59, fixtureOpt[1], 25.0, 12, true, 0));
+        list.add(new Water(15,2,2019, 9, 59, 59, fixtureOpt[2], 25.0, 12, true, 0));
 
         for (Water water: list) { water.setVolumeFlow(water.getFlowRate() * water.getSecondExtent()); }
         return list;

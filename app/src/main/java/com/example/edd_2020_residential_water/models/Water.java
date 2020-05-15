@@ -5,7 +5,7 @@ package com.example.edd_2020_residential_water.models;
  */
 public class Water {
     private int day; // Private 2-digit integer for day (01 to 31)
-    private int month; // Private 2-digit integer for month (00 to 11)
+    private int month; // Private 2-digit integer for month (01 to 12)
     private int year; // Private 4-digit integer for year (1900 to 9999)
     private int hour; // Private 2-digit integer for hours (00 to 23)
     private int minute; // Private 2-digit integer for minutes (00 to 59)
@@ -56,12 +56,12 @@ public class Water {
         this.day = day;
     }
 
-    // Return the month (00 to 11)
+    // Return the month (01 to 12)
     public int getMonth() {
         return month;
     }
 
-    // Modify the month (00 to 11)
+    // Modify the month (01 to 12)
     public void setMonth(int month) {
         this.month = month;
     }
@@ -159,7 +159,7 @@ public class Water {
     //****** These methods return "dd/mm/yyyy...." and "hh:mm ******//
     public String toDateString() {
         String d = day + "";
-        String m = (month + 1) + "";
+        String m = (month) + "";
 
         if (day < 9) {
             d = "0" + day;
