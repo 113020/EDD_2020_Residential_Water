@@ -111,6 +111,7 @@ public class Intake extends Fragment {
         final View view = waterBinding.getRoot();
 
         final LinearLayoutManager wllm = new LinearLayoutManager(view.getContext());
+        conserve = (MainActivity) getActivity();
 
         fluid = waterBinding.waterDataIntake;
 
@@ -120,29 +121,40 @@ public class Intake extends Fragment {
         FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
         DatabaseReference mGetReference = mDatabase.getReference();
 
+        while (getList().isEmpty()){
+            waterList = getList();
+        }
+
+        while (!getList().isEmpty()) {
+            waterList = getList();
+        }
+        FragmentManager fm = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(fluid.getId(), Fixtures.newInstance("", ""));
+
+        return view;
+    }
+
+    public List<Water> getList() {
+        waterList = new ArrayList<Water>();
+        final Calendar cal = Calendar.getInstance();
+
+        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference mGetReference = mDatabase.getReference();
+
         mGetReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    fluid.removeAllViews();
+                    String fixture = dataSnapshot.child("Fixture").getValue() == null ?  dataSnapshot.child("Fixture").getValue().toString() : "";
+                    long flowL = dataSnapshot.child("Fixture").child("flowL").getValue() == null ? (long) dataSnapshot.child("Fixture").child("flowL").getValue(): 0;
+                    long flowML = dataSnapshot.child("Fixture").child("flowML").getValue() == null ? (long) dataSnapshot.child("Fixture").child("flowML").getValue(): 0;
+                    long vol = dataSnapshot.child("Fixture").child("totalVolume").getValue() == null ? (long) dataSnapshot.child("Fixture").child("totalVolume").getValue(): 0;
+
                     waterList.add(new Water(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR),
-                            cal.get(Calendar.HOUR), cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND),"Shower",
-                            dataSnapshot.child("Fixture").child("flowL").getValue() != null ? (double) ((long) dataSnapshot.child("Fixture").child("flowL").getValue()) : 0,
-                            0, true,
-                            dataSnapshot.child("Fixture").child("totalVolume").getValue() != null ? (double) ((long) dataSnapshot.child("Fixture").child("totalVolume").getValue()) : 0));
-//                    mAdapterI.notifyDataSetChanged();
-
-                    // Initialize the adapter
-                    mAdapterI = new IntakeRecyclerViewAdapter(waterList);
-
-                    // Set the layout manager
-                    waterBinding.setWaterManager(wllm);
-
-                    // Set the adapter
-                    waterBinding.setWaterAdapter(mAdapterI);
-//                    Toast.makeText(view.getContext(), "" + (long) dataSnapshot.child("Fixture").child("totalVolume").getValue(), Toast.LENGTH_SHORT).show();
+                            cal.get(Calendar.HOUR), cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND),fixture, (double) flowL,0, true, (double) vol));
                 } else {
-                    Toast.makeText(view.getContext(), "Data does not exist", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Data does not exist", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -151,13 +163,9 @@ public class Intake extends Fragment {
 
             }
         });
-
-        FragmentManager fm = getChildFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(fluid.getId(), Fixtures.newInstance("", ""));
-//        waterList.add(mWater2);
-        return view;
+        return waterList;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
