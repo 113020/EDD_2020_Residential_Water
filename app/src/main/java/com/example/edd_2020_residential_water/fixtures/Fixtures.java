@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.example.edd_2020_residential_water.MainActivity;
 import com.example.edd_2020_residential_water.R;
 import com.example.edd_2020_residential_water.SharedViewModel;
+import com.example.edd_2020_residential_water.models.FixturePercentage;
 import com.example.edd_2020_residential_water.models.Water;
 import com.example.edd_2020_residential_water.databinding.FragmentFixturesBinding;
 
@@ -50,6 +52,7 @@ public class Fixtures extends Fragment {
     private OnFragmentInteractionListener mListener;
     private List<Water> waterList; // Original list of Water objects
     private List<Water> list; // To be modified by the onSelectedItemListener()
+    private List<FixturePercentage> fixturePercentages;
 
     private FragmentFixturesBinding waterBinding;
     private FixturesRecyclerViewAdapter adapterW;

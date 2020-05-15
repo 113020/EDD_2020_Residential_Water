@@ -1,6 +1,7 @@
 package com.example.edd_2020_residential_water;
 
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Bundle;
 
 import com.example.edd_2020_residential_water.fixtures.Fixtures;
@@ -9,16 +10,24 @@ import com.example.edd_2020_residential_water.interval.Interval;
 import com.example.edd_2020_residential_water.models.Water;
 import com.example.edd_2020_residential_water.overall.Overall;
 import com.example.edd_2020_residential_water.waterBill.WaterBill;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.edd_2020_residential_water.ui.main.SectionsPagerAdapter;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements Intake.OnFragment
         Interval.OnFragmentInteractionListener, Overall.OnFragmentInteractionListener, WaterBill.OnFragmentInteractionListener {
 
     private List<Water> list;
+    public static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +57,25 @@ public class MainActivity extends AppCompatActivity implements Intake.OnFragment
                         .setAction("Action", null).show();
             }
         });
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        // Log and toast
+                        String msg = getString(R.string.msg_token_fmt, token);
+                        Log.d(TAG, msg);
+                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
 
     }
 

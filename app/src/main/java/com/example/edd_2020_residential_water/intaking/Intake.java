@@ -25,10 +25,12 @@ import com.example.edd_2020_residential_water.databinding.FragmentIntakeBinding;
 import com.example.edd_2020_residential_water.fixtures.Fixtures;
 import com.example.edd_2020_residential_water.fixtures.FixturesRecyclerViewAdapter;
 import com.example.edd_2020_residential_water.models.Water;
+import com.google.firebase.FirebaseError;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -74,6 +76,8 @@ public class Intake extends Fragment {
     private SharedViewModel svm;
 
     private OnFragmentInteractionListener mListener;
+
+    public static final String CHANNEL_ID = "simple_water_message";
 
     public Intake() {
         // Required empty public constructor
@@ -123,46 +127,77 @@ public class Intake extends Fragment {
         FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
         DatabaseReference mGetReference = mDatabase.getReference();
 
-        mGetReference.addValueEventListener(new ValueEventListener() {
+//        final Query query = ;
+        mGetReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    fluid.removeAllViews();
+//                    long flowL = (long) dataSnapshot.child("Fixture").child("flowL").getValue();
+//                    long vol = (long) dataSnapshot.child("Fixture").child("totalVolume").getValue();
+                    waterList.add(new Water(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR),
+                            cal.get(Calendar.HOUR), cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND),
+                            "Shower", (double) ((long) dataSnapshot.child("Fixture").child("flowL").getValue()),
+                            0, true, (double) ((long) dataSnapshot.child("Fixture").child("totalVolume").getValue()), 0));
 
-//                day.add(cal.get(Calendar.DAY_OF_MONTH));
-//                month.add(cal.get(Calendar.MONTH));
-//                year.add(cal.get(Calendar.YEAR));
-//                hour.add(cal.get(Calendar.HOUR));
-//                min.add(cal.get(Calendar.MINUTE));
-//                sec.add(cal.get(Calendar.SECOND));
-//                fixtures.add(dataSnapshot.child("Fixture").getValue().toString());
-//                volume.add((double) vol);
-                long vol = (long) dataSnapshot.child("totalVolume").getValue();
-                waterList.add(new Water(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR),
-                        cal.get(Calendar.HOUR), cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND),
-                        dataSnapshot.child("Fixture").getValue().toString(),
-                        0, 0, true, (double) vol, 0));
+                    /*for (int i = 0; i < waterList.size(); i++) {
+                        if (waterList.get(i) == null) {
+                            waterList.remove(i);
+                        }
+                    }*/
+                    // Initialize the adapter
+                    mAdapterI = new IntakeRecyclerViewAdapter(waterList);
 
-                Toast.makeText(view.getContext(), "" + vol, Toast.LENGTH_SHORT).show();
+                    // Set the layout manager
+                    waterBinding.setWaterManager(wllm);
+
+                    // Set the adapter
+                    waterBinding.setWaterAdapter(mAdapterI);
+
+//                    Toast.makeText(view.getContext(), "" + (long) dataSnapshot.child("Fixture").child("totalVolume").getValue(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(view.getContext(), "Data does not exist", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(view.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         });
 
-        // Initialize the adapter
-        mAdapterI = new IntakeRecyclerViewAdapter(waterList);
-
-        // Set the layout manager
-        waterBinding.setWaterManager(wllm);
-
-        // Set the adapter
-        waterBinding.setWaterAdapter(mAdapterI);
+//        mGetReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                fluid.removeAllViews();
+//
+////                day.add(cal.get(Calendar.DAY_OF_MONTH));
+////                month.add(cal.get(Calendar.MONTH));
+////                year.add(cal.get(Calendar.YEAR));
+////                hour.add(cal.get(Calendar.HOUR));
+////                min.add(cal.get(Calendar.MINUTE));
+////                sec.add(cal.get(Calendar.SECOND));
+////                fixtures.add(dataSnapshot.child("Fixture").getValue().toString());
+////                volume.add((double) vol);
+//                long flowL = (long) dataSnapshot.child("Fixture").child("flowL").getValue();
+//                long vol = (long) dataSnapshot.child("Fixture").child("totalVolume").getValue();
+//                waterList.add(new Water(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR),
+//                        cal.get(Calendar.HOUR), cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND),
+//                        "Shower", (double) flowL, 0, true, (double) vol, 0));
+//
+//                Toast.makeText(view.getContext(), "" + vol, Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Toast.makeText(view.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         FragmentManager fm = getChildFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(fluid.getId(), Fixtures.newInstance("", ""));
-        waterList.add(mWater2);
+//        waterList.add(mWater2);
         return view;
     }
 
