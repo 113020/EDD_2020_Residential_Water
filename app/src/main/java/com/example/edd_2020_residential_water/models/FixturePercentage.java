@@ -4,7 +4,7 @@ public class FixturePercentage {
 
     // Variables for FixturePercentage model
     private String month;
-    private String fixtureOverall;
+    private String fixture;
     private double totalVolume;
     private double percentage;
 
@@ -12,9 +12,9 @@ public class FixturePercentage {
         // Required empty public constructor
     }
 
-    public FixturePercentage(String month, String fixtureOverall, double totalVolume, double percentage) {
+    public FixturePercentage(String month, String fixture, double totalVolume, double percentage) {
         this.month = month;
-        this.fixtureOverall = fixtureOverall;
+        this.fixture = fixture;
         this.totalVolume = totalVolume;
         this.percentage = percentage;
     }
@@ -27,12 +27,12 @@ public class FixturePercentage {
         this.month = month;
     }
 
-    public String getFixtureOverall() {
-        return fixtureOverall;
+    public String getFixture() {
+        return fixture;
     }
 
-    public void setFixtureOverall(String fixtureOverall) {
-        this.fixtureOverall = fixtureOverall;
+    public void setFixture(String fixture) {
+        this.fixture = fixture;
     }
 
     public double getTotalVolume() {

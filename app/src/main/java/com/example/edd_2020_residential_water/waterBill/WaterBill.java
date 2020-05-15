@@ -237,7 +237,6 @@ public class WaterBill extends Fragment {
         });
 
         // Initialize the adapter
-        mAdapterF = new FixturesRecyclerViewAdapter(list);
         mAdapterT = new IntervalRecyclerViewAdapter(tracks);
         mAdapterB = new WaterBillRecyclerViewAdapter(tracks);
 

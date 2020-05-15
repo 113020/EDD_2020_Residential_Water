@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="water_adapter"
+            name="percent_adapter"
             type="com.example.edd_2020_residential_water.fixtures.FixturesRecyclerViewAdapter" />
         <variable
             name="water_manager"
@@ -28,22 +28,63 @@
             android:layout_height="wrap_content"
             android:adapter="@{fixture_adapter}"
             android:dropDownWidth="wrap_content"
-            android:entries="@array/interval"
-            app:layout_constraintBottom_toTopOf="@+id/water_data"
+            android:entries="@array/fixture"
+            app:layout_constraintBottom_toTopOf="@+id/fixture_percentage_table"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TableLayout
+            android:id="@+id/fixture_percentage_table"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/fixture_data"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/enterFixture"
+            android:stretchColumns="*">
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/txtLabelDate"
+                    android:layout_width="0dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:padding="3dip"
+                    android:text="Month" />
+
+                <TextView
+                    android:id="@+id/txtLabelFixtureOverall"
+                    android:layout_width="0dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:padding="3dip"
+                    android:text="Fixture" />
+
+                <TextView
+                    android:id="@+id/txtLabelFixtureVolume"
+                    android:layout_width="0dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:padding="3dip"
+                    android:text="Volume (L)" />
+
+                <TextView
+                    android:id="@+id/txtLabelFixturePercentage"
+                    android:layout_width="0dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:padding="3dip"
+                    android:text="Percentage" />
+            </TableRow>
+        </TableLayout>
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/water_data"
+            android:id="@+id/fixture_data"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:adapter="@{water_adapter}"
+            android:adapter="@{percent_adapter}"
             app:layoutManager="@{water_manager}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/enterFixture" />
+            app:layout_constraintTop_toBottomOf="@+id/fixture_percentage_table" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

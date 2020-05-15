@@ -12,7 +12,6 @@
         <item>Shower 2</item>
         <item>Sink Faucet 1</item>
         <item>Sink Faucet 2</item>
-        <item>All Fixtures</item>
     </string-array>
 
     <string-array name="interval">

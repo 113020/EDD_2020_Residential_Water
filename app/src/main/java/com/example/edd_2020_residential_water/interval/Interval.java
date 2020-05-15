@@ -208,9 +208,7 @@ public class Interval extends Fragment {
                                         second = 0;
                                         listByInterval.add(new Water(listByFixture.get(i).getDay(), listByFixture.get(i).getMonth(), listByFixture.get(i).getYear(),
                                                 hour, minute, second, listByFixture.get(i).getFixture(), listByFixture.get(i).getFlowRate(),
-                                                second, listByFixture.get(i).isLeak(), listByFixture.get(i).getFlowRate() * secondExtent,
-                                                Math.round((listByFixture.get(i).getVolumeFlow() * 0.01116696697) * 100.0) / 100.0
-                                                ));
+                                                second, listByFixture.get(i).isLeak(), listByFixture.get(i).getFlowRate() * secondExtent));
                                     } else {
                                         minute++;
                                         secondExtent = Math.abs(secondExtent + second - 60);
@@ -328,7 +326,6 @@ public class Interval extends Fragment {
         });
 
         // Initialize the adapter
-        mAdapterF = new FixturesRecyclerViewAdapter(listByFixture);
         mAdapterT = new IntervalRecyclerViewAdapter(tracks);
 
         // Set the layout manager

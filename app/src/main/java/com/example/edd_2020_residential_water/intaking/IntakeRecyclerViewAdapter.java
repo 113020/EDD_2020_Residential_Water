@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.edd_2020_residential_water.BR;
-import com.example.edd_2020_residential_water.databinding.FixturesTableBinding;
+import com.example.edd_2020_residential_water.databinding.IntakeTableBinding;
 import com.example.edd_2020_residential_water.models.Water;
 
 import java.util.List;
@@ -26,8 +26,8 @@ public class IntakeRecyclerViewAdapter extends RecyclerView.Adapter<IntakeRecycl
     @Override
     public WaterViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        FixturesTableBinding fixturesTableBinding = FixturesTableBinding.inflate(layoutInflater, parent, false);
-        return new WaterViewHolder(fixturesTableBinding);
+        IntakeTableBinding intakeTableBinding = IntakeTableBinding.inflate(layoutInflater, parent, false);
+        return new WaterViewHolder(intakeTableBinding);
     }
 
     @Override
@@ -40,9 +40,9 @@ public class IntakeRecyclerViewAdapter extends RecyclerView.Adapter<IntakeRecycl
     public int getItemCount() { return mValues != null ? 1 : 0; }
 
     public static class WaterViewHolder extends RecyclerView.ViewHolder {
-        private FixturesTableBinding binding;
+        private IntakeTableBinding binding;
 
-        public WaterViewHolder(FixturesTableBinding binding) {
+        public WaterViewHolder(IntakeTableBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

@@ -8,53 +8,49 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.edd_2020_residential_water.BR;
-import com.example.edd_2020_residential_water.models.Water;
+import com.example.edd_2020_residential_water.models.FixturePercentage;
 import com.example.edd_2020_residential_water.databinding.FixturesTableBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FixturesRecyclerViewAdapter extends RecyclerView.Adapter<FixturesRecyclerViewAdapter.WaterViewHolder> {
-    private List<Water> mValues;
+    private List<FixturePercentage> mValues;
     private AdapterView.OnItemClickListener mClickListener;
 
-    public FixturesRecyclerViewAdapter(List<Water> items) {
+    public FixturesRecyclerViewAdapter(List<FixturePercentage> items) {
         mValues = items;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public WaterViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
+    public FixturesRecyclerViewAdapter.WaterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         FixturesTableBinding fixturesTableBinding = FixturesTableBinding.inflate(layoutInflater, parent, false);
-        return new WaterViewHolder(fixturesTableBinding);
+        return new FixturesRecyclerViewAdapter.WaterViewHolder(fixturesTableBinding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull WaterViewHolder holder, int position) {
-        Water w = mValues.get(position);
-        holder.bind(w);
+    public void onBindViewHolder(@NonNull FixturesRecyclerViewAdapter.WaterViewHolder holder, int position) {
+        FixturePercentage p = mValues.get(position);
+        holder.bind(p);
     }
 
     @Override
     public int getItemCount() { return mValues != null ? mValues.size() : 0; }
 
-    public static class WaterViewHolder extends RecyclerView.ViewHolder {
+    public class WaterViewHolder extends RecyclerView.ViewHolder {
         private FixturesTableBinding binding;
 
-        public WaterViewHolder(FixturesTableBinding binding) {
+        public WaterViewHolder(@NonNull FixturesTableBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
 
-        public void bind(Water water) {
-            binding.setVariable(BR.water, water);
+        public void bind(FixturePercentage fixturePercentage) {
+            binding.setVariable(BR.fixtureP, fixturePercentage);
             binding.executePendingBindings();
         }
-    }
-
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
     }
 }

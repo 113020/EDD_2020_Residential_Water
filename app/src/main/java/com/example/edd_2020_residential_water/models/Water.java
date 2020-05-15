@@ -5,7 +5,7 @@ package com.example.edd_2020_residential_water.models;
  */
 public class Water {
     private int day; // Private 2-digit integer for day (01 to 31)
-    private int month; // Private 2-digit integer for month (01 to 12)
+    private int month; // Private 2-digit integer for month (00 to 11)
     private int year; // Private 4-digit integer for year (1900 to 9999)
     private int hour; // Private 2-digit integer for hours (00 to 23)
     private int minute; // Private 2-digit integer for minutes (00 to 59)
@@ -15,7 +15,6 @@ public class Water {
     private int secondExtent; // Private integer value for length of faucet run time (in seconds)
     private boolean leak; // Private boolean for detecting leaks
     private double volumeFlow; // Private boolean for detecting leaks
-    private double waterBill; // Private double value for total projected water bill (in $$)
 
     /**
      * Water class constructor, for testing data display
@@ -30,11 +29,10 @@ public class Water {
      * @param secondExtent
      * @param leak
      * @param volumeFlow
-     * @param waterBill
      */
     public Water(int day, int month, int year, int hour, int minute, int second,
                  String fixture, double flowRate, int secondExtent, boolean leak,
-                 double volumeFlow, double waterBill) {
+                 double volumeFlow) {
         this.day = day;
         this.month = month;
         this.year = year;
@@ -46,7 +44,6 @@ public class Water {
         this.secondExtent = secondExtent;
         this.leak = leak;
         this.volumeFlow = volumeFlow;
-        this.waterBill = waterBill;
     }
 
     // Return the day (01-31)
@@ -59,12 +56,12 @@ public class Water {
         this.day = day;
     }
 
-    // Return the month (01 to 12)
+    // Return the month (00 to 11)
     public int getMonth() {
         return month;
     }
 
-    // Modify the month (01 to 12)
+    // Modify the month (00 to 11)
     public void setMonth(int month) {
         this.month = month;
     }
@@ -159,25 +156,15 @@ public class Water {
         this.volumeFlow = volumeFlow;
     }
 
-    // Return water bill
-    public double getWaterBill() {
-        return waterBill;
-    }
-
-    // Modify water bill
-    public void setWaterBill(double waterBill) {
-        this.waterBill = waterBill;
-    }
-
     //****** These methods return "dd/mm/yyyy...." and "hh:mm ******//
     public String toDateString() {
         String d = day + "";
-        String m = month + "";
+        String m = (month + 1) + "";
 
-        if (day < 10) {
+        if (day < 9) {
             d = "0" + day;
         }
-        if (month < 10) {
+        if (month < 9) {
             m = "0" + month;
         }
 
@@ -204,6 +191,6 @@ public class Water {
     @Override
     public String toString() {
         return toDateString() + "," + toTimeString() + "," + fixture + "," + flowRate + "," + secondExtent
-                + "," + leak + "," + volumeFlow + "," + waterBill + "|";
+                + "," + leak + "," + volumeFlow + " | ";
     }
 }

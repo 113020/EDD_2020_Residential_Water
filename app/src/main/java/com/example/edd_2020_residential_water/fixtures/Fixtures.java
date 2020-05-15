@@ -55,7 +55,7 @@ public class Fixtures extends Fragment {
     private List<FixturePercentage> fixturePercentages;
 
     private FragmentFixturesBinding waterBinding;
-    private FixturesRecyclerViewAdapter adapterW;
+    private FixturesRecyclerViewAdapter mAdapterF;
     private RecyclerView fluid;
     private MainActivity conserve;
 
@@ -102,9 +102,16 @@ public class Fixtures extends Fragment {
         // Declare needed objects and bind them to the corresponding elements in the layout: Cleaner version of findViewById(R.id....)
         final Spinner fixtureSpin = waterBinding.enterFixture;
         final LinearLayoutManager wllm = new LinearLayoutManager(view.getContext());
+        waterList = new ArrayList<Water>();
         list = new ArrayList<Water>();
+        fixturePercentages = new ArrayList<FixturePercentage>();
         conserve = (MainActivity) getActivity();
-        fluid = waterBinding.waterData;
+        fluid = waterBinding.fixtureData;
+
+        fluid.removeAllViews();
+
+        // Get the list of water data and send that data to the adapter
+        waterList = conserve.initWaters();
 
         // Fixture options put into an arrayList of strings
         final String[] fixtureOpt = getResources().getStringArray(R.array.fixture);
@@ -116,32 +123,54 @@ public class Fixtures extends Fragment {
         adapterF.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         waterBinding.setFixtureAdapter(adapterF);
 
-        // Get the list of water data and send that data to the adapter
-        waterList = conserve.initWaters();
-
         // Create the listener for the spinner: responsible for getting the list based on the option
         fixtureSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
                 Toast.makeText(v.getContext(), fixtureOpt[position], Toast.LENGTH_SHORT).show();
                 conserve.clearWaterList(list);
+                fixturePercentages.clear();
 
-                /*list.addAll(getFixtureList(fixtureOpt[position], waterList));
-                adapterW.notifyDataSetChanged();*/
-
-                if (position != fixtureOpt.length - 1) {
-                    for (int i = 0; i < waterList.size(); i++) {
-                        if (waterList.get(i).getFixture().equals(fixtureOpt[position])) {
-                            list.add(waterList.get(i));
-                            adapterW.notifyDataSetChanged();
-                        }
+                for (int i = 0; i < waterList.size(); i++) {
+                    if (waterList.get(i).getFixture().equals(fixtureOpt[position])) {
+                        list.add(waterList.get(i));
                     }
-                } else {
-                    list.addAll(waterList);
-                    adapterW.notifyDataSetChanged();
                 }
+                if (list.isEmpty() == true) { fluid.removeAllViews(); }
 
-                if (list.isEmpty() == true) {
+                String[] months = {"January", "February", "March", "April",
+                        "May", "June", "July", "August", "September",
+                        "October", "November", "December"};
+                double totalVol[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+                double fixtureVol[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+                double fixturePercent[] = new double[fixtureVol.length];
+                int monthChecked = 0;
+
+                if (!list.isEmpty()) {
+                    while (monthChecked <= list.get(list.size() - 1).getMonth()) {
+                        for (Water water: waterList) {
+                            if (water.getMonth() == monthChecked) {
+                                totalVol[monthChecked] += water.getVolumeFlow();
+                            }
+                        }
+                        for (Water water: list) {
+                            if (water.getMonth() == monthChecked) {
+                                fixtureVol[monthChecked] += water.getVolumeFlow();
+                            }
+                        }
+                        fixturePercent[monthChecked] = fixtureVol[monthChecked] / totalVol[monthChecked] * 100;
+                        fixturePercentages.add(new FixturePercentage(months[monthChecked], fixtureOpt[position], fixtureVol[monthChecked], fixturePercent[monthChecked]));
+                        monthChecked++;
+                    }
+                    // Initialize the adapter
+                    mAdapterF = new FixturesRecyclerViewAdapter(fixturePercentages);
+
+                    // Set the layout manager
+                    waterBinding.setWaterManager(wllm);
+
+                    // Set the adapter
+                    waterBinding.setPercentAdapter(mAdapterF);
+                } else {
                     fluid.removeAllViews();
                 }
             }
@@ -151,15 +180,6 @@ public class Fixtures extends Fragment {
 
             }
         });
-
-        // Initialize the adapter
-        adapterW = new FixturesRecyclerViewAdapter(list);
-
-        // Set the layout manager
-        waterBinding.setWaterManager(wllm);
-
-        // Set the adapter
-        waterBinding.setWaterAdapter(adapterW);
 
         FragmentManager fm = getChildFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();

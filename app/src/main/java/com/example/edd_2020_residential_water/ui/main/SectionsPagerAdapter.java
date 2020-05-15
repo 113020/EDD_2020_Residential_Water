@@ -12,7 +12,6 @@ import com.example.edd_2020_residential_water.fixtures.Fixtures;
 import com.example.edd_2020_residential_water.intaking.Intake;
 import com.example.edd_2020_residential_water.interval.Interval;
 import com.example.edd_2020_residential_water.R;
-import com.example.edd_2020_residential_water.overall.Overall;
 import com.example.edd_2020_residential_water.waterBill.WaterBill;
 
 /**
@@ -22,7 +21,7 @@ import com.example.edd_2020_residential_water.waterBill.WaterBill;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3, R.string.tab_text_4, R.string.tab_text_5};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3, R.string.tab_text_5};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -41,8 +40,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return Fixtures.newInstance("","");
             case 2:
                 return Interval.newInstance("","");
-            case 3:
-                return Overall.newInstance("","");
             default:
                 return WaterBill.newInstance("","");
         }

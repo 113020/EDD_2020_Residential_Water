@@ -54,17 +54,10 @@ public class Intake extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String mParam1, mParam2;
 
-    Water mWater2;
     List<Water> waterList;
-    List<Integer> day;
-    List<Integer> month;
-    List<Integer> year;
-    List<Integer> hour;
-    List<Integer> min;
-    List<Integer> sec;
+    List<Integer> day, month, year, hour, min, sec;
     List<String> fixtures;
     List<Double> volume;
 
@@ -127,24 +120,18 @@ public class Intake extends Fragment {
         FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
         DatabaseReference mGetReference = mDatabase.getReference();
 
-//        final Query query = ;
-        mGetReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        mGetReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     fluid.removeAllViews();
-//                    long flowL = (long) dataSnapshot.child("Fixture").child("flowL").getValue();
-//                    long vol = (long) dataSnapshot.child("Fixture").child("totalVolume").getValue();
                     waterList.add(new Water(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR),
-                            cal.get(Calendar.HOUR), cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND),
-                            "Shower", (double) ((long) dataSnapshot.child("Fixture").child("flowL").getValue()),
-                            0, true, (double) ((long) dataSnapshot.child("Fixture").child("totalVolume").getValue()), 0));
+                            cal.get(Calendar.HOUR), cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND),"Shower",
+                            dataSnapshot.child("Fixture").child("flowL").getValue() != null ? (double) ((long) dataSnapshot.child("Fixture").child("flowL").getValue()) : 0,
+                            0, true,
+                            dataSnapshot.child("Fixture").child("totalVolume").getValue() != null ? (double) ((long) dataSnapshot.child("Fixture").child("totalVolume").getValue()) : 0));
+//                    mAdapterI.notifyDataSetChanged();
 
-                    /*for (int i = 0; i < waterList.size(); i++) {
-                        if (waterList.get(i) == null) {
-                            waterList.remove(i);
-                        }
-                    }*/
                     // Initialize the adapter
                     mAdapterI = new IntakeRecyclerViewAdapter(waterList);
 
@@ -153,7 +140,6 @@ public class Intake extends Fragment {
 
                     // Set the adapter
                     waterBinding.setWaterAdapter(mAdapterI);
-
 //                    Toast.makeText(view.getContext(), "" + (long) dataSnapshot.child("Fixture").child("totalVolume").getValue(), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(view.getContext(), "Data does not exist", Toast.LENGTH_SHORT).show();
@@ -165,34 +151,6 @@ public class Intake extends Fragment {
 
             }
         });
-
-//        mGetReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                fluid.removeAllViews();
-//
-////                day.add(cal.get(Calendar.DAY_OF_MONTH));
-////                month.add(cal.get(Calendar.MONTH));
-////                year.add(cal.get(Calendar.YEAR));
-////                hour.add(cal.get(Calendar.HOUR));
-////                min.add(cal.get(Calendar.MINUTE));
-////                sec.add(cal.get(Calendar.SECOND));
-////                fixtures.add(dataSnapshot.child("Fixture").getValue().toString());
-////                volume.add((double) vol);
-//                long flowL = (long) dataSnapshot.child("Fixture").child("flowL").getValue();
-//                long vol = (long) dataSnapshot.child("Fixture").child("totalVolume").getValue();
-//                waterList.add(new Water(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR),
-//                        cal.get(Calendar.HOUR), cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND),
-//                        "Shower", (double) flowL, 0, true, (double) vol, 0));
-//
-//                Toast.makeText(view.getContext(), "" + vol, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                Toast.makeText(view.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
         FragmentManager fm = getChildFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
