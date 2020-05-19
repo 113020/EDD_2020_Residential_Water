@@ -119,7 +119,7 @@
                     android:layout_width="0dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="3dip"
-                    android:text="@{splash.leaking}"/>
+                    android:text="@{Boolean.toString(water.leak)}"/>
             </TableRow>
 
             <TableRow>
@@ -135,7 +135,7 @@
                     android:layout_width="0dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="3dip"
-                    android:text="@{Double.toString(splash.volume) + ` L`}"/>
+                    android:text="@{Double.toString(water.volumeFlow) + ` L`}"/>
             </TableRow>
 
             <TableRow>
@@ -151,7 +151,7 @@
                     android:layout_width="0dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="3dip"
-                    android:text="@{Double.toString(splash.volume * 0.264) + ` g`}"/>
+                    android:text="@{Double.toString(water.volumeFlow * 0.264) + ` g`}"/>
             </TableRow>
 
             <TableRow>

@@ -46,7 +46,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -117,8 +116,7 @@ public class Intake extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         waterBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_intake, container, false);
         final View view = waterBinding.getRoot();
@@ -129,120 +127,49 @@ public class Intake extends Fragment {
         fluid = waterBinding.waterDataIntake;
         fluid.setLayoutManager(wllm);
 
-//        fluid.removeAllViews();
-
-        final Calendar cal = Calendar.getInstance();
+        final Water water = new Water();
         waterList = new ArrayList<Water>();
         waterList.clear();
 
-//        onStart();
+        //reading data from firebase database
+        FirebaseDatabase.getInstance().getReference().child("Master Shower").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                    water.setDay(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+                    water.setMonth(Calendar.getInstance().get(Calendar.MONTH) + 1);
+                    water.setYear(Calendar.getInstance().get(Calendar.YEAR));
+                    water.setHour(Calendar.getInstance().get(Calendar.HOUR));
+                    water.setMinute(Calendar.getInstance().get(Calendar.MINUTE));
+                    water.setSecond(Calendar.getInstance().get(Calendar.SECOND));
+                    water.setFixture(dataSnapshot.getKey().toString() != null ? dataSnapshot.getKey().toString() : "");
+                    water.setFlowRateL(dataSnapshot.child("flowL").getValue() != null ? Double.parseDouble(dataSnapshot.child("flowL").getValue().toString()) : 0);
+                    water.setFlowRateML(dataSnapshot.child("flowML").getValue() != null ? Double.parseDouble(dataSnapshot.child("flowML").getValue().toString()) : 0);
+                    water.setSecondExtent(0);
+                    water.setLeak(dataSnapshot.child("Leaking").getValue() != null ? Boolean.parseBoolean(dataSnapshot.child("Leaking").getValue().toString()) : false);
+                    water.setVolumeFlow(dataSnapshot.child("totalVolume").getValue() != null ? Double.parseDouble(dataSnapshot.child("totalVolume").getValue().toString()) : 0);
+                    waterList.add(water);
 
-//        FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Water>().setQuery(query, Water.class).build();
-//
-//        FirebaseRecyclerAdapter adapter = new FirebaseRecyclerAdapter<Water, SplashViewHolder>(options) {
-//            @Override
-//            public SplashViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//                // Create a new instance of the ViewHolder, in this case we are using a custom
-//                // layout called R.layout.message for each item
-//                View view = LayoutInflater.from(parent.getContext())
-//                        .inflate(R.layout.fragment_intake, parent, false);
-//
-//                return new SplashViewHolder(waterBinding);
-//            }
-//
-//            @Override
-//            protected void onBindViewHolder(SplashViewHolder holder, int position, Water model) {
-//
-//                holder.bind(model);
-////                holder.setFixt(model.getFixture());
-////                holder.setFlow(model.getFlowRate());
-////                holder.setLeaking(model.getLeaking());
-////                holder.setVolume(model.getVolume());
-//            }
-//        };
-//        adapter.startListening();
+                    mAdapterI = new IntakeRecyclerViewAdapter(waterList);
 
-        // Initialize the adapter
-//        fluid.setAdapter(adapter);
+                    // Set the layout manager
+                    waterBinding.setWaterManager(new LinearLayoutManager(view.getContext()));
 
-        // Set the layout manager
-        waterBinding.setWaterManager(wllm);
+                    // Set the adapter
+                    waterBinding.setWaterAdapter(mAdapterI);
 
-        // Set the adapter
-        waterBinding.setWaterAdapter(mAdapterI);
+                    FragmentManager fm = getChildFragmentManager();
+                    FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                    fragmentTransaction.replace(fluid.getId(), Fixtures.newInstance("", ""));
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-        FragmentManager fm = getChildFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-//        fragmentTransaction.replace(fluid.getId(), Fixtures.newInstance("", ""));
+            }
+        });
 
         return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-//        Query query = FirebaseDatabase.getInstance().getReference().child("Master Shower").limitToLast(1);
-
-        FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Water>().setQuery(mGetReference, Water.class).build();
-
-        FirebaseRecyclerAdapter<Water, SplashViewHolder> adapter = new FirebaseRecyclerAdapter<Water, SplashViewHolder>(options) {
-            @Override
-            public SplashViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                // Create a new instance of the ViewHolder, in this case we are using a custom
-                // layout called R.layout.message for each item
-                waterBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.fragment_intake, parent, false);
-                return new SplashViewHolder(waterBinding);
-            }
-
-            @Override
-            protected void onBindViewHolder(SplashViewHolder holder, int position, Water model) {
-
-                holder.bind(model);
-//                holder.setFixt(model.getFixture());
-//                holder.setFlow(model.getFlowRateL(), model.getFlowRateML());
-//                holder.setLeaking(model.isLeak());
-//                holder.setVolume(model.getVolumeFlow());
-            }
-        };
-        fluid.setAdapter(adapter);
-        fluid.setLayoutManager(wllm);
-        adapter.startListening();
-    }
-
-    public static class SplashViewHolder extends RecyclerView.ViewHolder {
-        private FragmentIntakeBinding binding;
-        private View view;
-
-        /*public SplashViewHolder(@NonNull View itemView) {
-            super(itemView);
-            view = itemView;
-        }*/
-
-        public SplashViewHolder(@NonNull FragmentIntakeBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
-        }
-
-        public void bind(Water water) {
-            binding.setVariable(BR.water, water);
-            binding.executePendingBindings();
-        }
-//        public void setFixt(String fixture) {
-//            binding.waterFixture.setText(fixture);
-//        }
-//
-//        public void setLeaking(Boolean leaking) {
-//            binding.waterLeaking.setText(Boolean.toString(leaking));
-//        }
-//
-//        public void setFlow(double flowL, double flowML) {
-//            binding.waterFlowRate.setText(Double.toString(flowL + flowML / 1000));
-//        }
-//
-//        public void setVolume(double volume) {
-//            binding.waterVolumeFlow.setText(Double.toString(volume));
-//        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
