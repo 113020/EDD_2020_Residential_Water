@@ -5,12 +5,6 @@
 
     <data>
         <variable
-            name="splash"
-            type="com.example.edd_2020_residential_water.models.Splash" />
-        <variable
-            name="water"
-            type="com.example.edd_2020_residential_water.models.Water" />
-        <variable
             name="water_adapter"
             type="com.example.edd_2020_residential_water.intaking.IntakeRecyclerViewAdapter" />
         <variable
@@ -21,8 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".intaking.Intake">
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/water_data_intake"

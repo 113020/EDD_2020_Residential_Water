@@ -7,6 +7,9 @@
         <variable
             name="water"
             type="com.example.edd_2020_residential_water.models.Water" />
+        <variable
+            name="splash"
+            type="com.example.edd_2020_residential_water.models.Splash" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -84,7 +87,7 @@
                     android:layout_width="0dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="3dip"
-                    android:text="@{Double.toString(water.flowRate) + ` L/sec`}"/>
+                    android:text="@{Double.toString(water.flowRateL + water.flowRateML / 1000) + ` L/sec`}"/>
             </TableRow>
 
             <TableRow>
@@ -116,7 +119,7 @@
                     android:layout_width="0dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="3dip"
-                    android:text="@{Boolean.toString(water.leak)}"/>
+                    android:text="@{splash.leaking}"/>
             </TableRow>
 
             <TableRow>
@@ -132,7 +135,7 @@
                     android:layout_width="0dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="3dip"
-                    android:text="@{Double.toString(water.volumeFlow) + ` L`}"/>
+                    android:text="@{Double.toString(splash.volume) + ` L`}"/>
             </TableRow>
 
             <TableRow>
@@ -148,7 +151,7 @@
                     android:layout_width="0dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="3dip"
-                    android:text="@{Double.toString(water.volumeFlow * 0.264) + ` g`}"/>
+                    android:text="@{Double.toString(splash.volume * 0.264) + ` g`}"/>
             </TableRow>
 
             <TableRow>

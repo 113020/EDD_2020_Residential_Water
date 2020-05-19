@@ -11,10 +11,13 @@ public class Water {
     private int minute; // Private 2-digit integer for minutes (00 to 59)
     private int second; // Private 2-digit integer for seconds (00 to 59)
     private String fixture; // Private string for fixture
-    private double flowRate; // Private double value for the detected water speed
+    private double flowRateL; // Private double value for the detected water speed
+    private double flowRateML; // Private double value for the detected water speed
     private int secondExtent; // Private integer value for length of faucet run time (in seconds)
     private boolean leak; // Private boolean for detecting leaks
     private double volumeFlow; // Private boolean for detecting leaks
+
+    public Water() {} // Private Constructor
 
     /**
      * Water class constructor, for testing data display
@@ -25,13 +28,14 @@ public class Water {
      * @param minute
      * @param second
      * @param fixture
-     * @param flowRate
+     * @param flowRateL
+     * @param flowRateML
      * @param secondExtent
      * @param leak
      * @param volumeFlow
      */
     public Water(int day, int month, int year, int hour, int minute, int second,
-                 String fixture, double flowRate, int secondExtent, boolean leak,
+                 String fixture, double flowRateL, double flowRateML, int secondExtent, boolean leak,
                  double volumeFlow) {
         this.day = day;
         this.month = month;
@@ -40,7 +44,8 @@ public class Water {
         this.minute = minute;
         this.second = second;
         this.fixture = fixture;
-        this.flowRate = flowRate;
+        this.flowRateL = flowRateL;
+        this.flowRateML = flowRateML;
         this.secondExtent = secondExtent;
         this.leak = leak;
         this.volumeFlow = volumeFlow;
@@ -117,13 +122,23 @@ public class Water {
     }
 
     // Return volumetric flow rate
-    public double getFlowRate() {
-        return flowRate;
+    public double getFlowRateL() {
+        return flowRateL;
     }
 
     // Modify volumetric flow rate
-    public void setFlowRate(double flowRate) {
-        this.flowRate = flowRate;
+    public void setFlowRateL(double flowRateL) {
+        this.flowRateL = flowRateL;
+    }
+
+    // Return volumetric flow rate
+    public double getFlowRateML() {
+        return flowRateML;
+    }
+
+    // Modify volumetric flow rate
+    public void setFlowRateML(double flowRateML) {
+        this.flowRateML = flowRateML;
     }
 
     // Return extent of water use
@@ -190,7 +205,7 @@ public class Water {
 
     @Override
     public String toString() {
-        return toDateString() + "," + toTimeString() + "," + fixture + "," + flowRate + "," + secondExtent
+        return toDateString() + "," + toTimeString() + "," + fixture + "," + ((double)(flowRateL + flowRateML / 1000)) + "," + secondExtent
                 + "," + leak + "," + volumeFlow + " | ";
     }
 }
