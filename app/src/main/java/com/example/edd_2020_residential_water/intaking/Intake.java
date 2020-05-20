@@ -3,47 +3,31 @@ package com.example.edd_2020_residential_water.intaking;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.edd_2020_residential_water.BR;
 import com.example.edd_2020_residential_water.MainActivity;
 import com.example.edd_2020_residential_water.R;
 import com.example.edd_2020_residential_water.SharedViewModel;
-import com.example.edd_2020_residential_water.databinding.FragmentFixturesBinding;
 import com.example.edd_2020_residential_water.databinding.FragmentIntakeBinding;
-import com.example.edd_2020_residential_water.databinding.IntakeTableBinding;
 import com.example.edd_2020_residential_water.fixtures.Fixtures;
-import com.example.edd_2020_residential_water.fixtures.FixturesRecyclerViewAdapter;
-import com.example.edd_2020_residential_water.models.Splash;
 import com.example.edd_2020_residential_water.models.Water;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.FirebaseError;
-import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -72,6 +56,7 @@ public class Intake extends Fragment {
     private IntakeRecyclerViewAdapter mAdapterI;
     private RecyclerView fluid;
     private MainActivity conserve;
+    private View view;
 
     private SharedViewModel svm;
 
@@ -171,6 +156,47 @@ public class Intake extends Fragment {
 
         return view;
     }
+
+    /*public void initWaters(List<Water> water) {
+        final Water water1 = new Water();
+        //reading data from firebase database
+        FirebaseDatabase.getInstance().getReference().child("Master Shower").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                    water.setDay(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+                    water.setMonth(Calendar.getInstance().get(Calendar.MONTH) + 1);
+                    water.setYear(Calendar.getInstance().get(Calendar.YEAR));
+                    water.setHour(Calendar.getInstance().get(Calendar.HOUR));
+                    water.setMinute(Calendar.getInstance().get(Calendar.MINUTE));
+                    water.setSecond(Calendar.getInstance().get(Calendar.SECOND));
+                    water.setFixture(dataSnapshot.getKey().toString() != null ? dataSnapshot.getKey().toString() : "");
+                    water.setFlowRateL(dataSnapshot.child("flowL").getValue() != null ? Double.parseDouble(dataSnapshot.child("flowL").getValue().toString()) : 0);
+                    water.setFlowRateML(dataSnapshot.child("flowML").getValue() != null ? Double.parseDouble(dataSnapshot.child("flowML").getValue().toString()) : 0);
+                    water.setSecondExtent(0);
+                    water.setLeak(dataSnapshot.child("Leaking").getValue() != null ? Boolean.parseBoolean(dataSnapshot.child("Leaking").getValue().toString()) : false);
+                    water.setVolumeFlow(dataSnapshot.child("totalVolume").getValue() != null ? Double.parseDouble(dataSnapshot.child("totalVolume").getValue().toString()) : 0);
+                    waterList.add(water);
+
+                    mAdapterI = new IntakeRecyclerViewAdapter(waterList);
+
+                    // Set the layout manager
+                    waterBinding.setWaterManager(new LinearLayoutManager(view.getContext()));
+
+                    // Set the adapter
+                    waterBinding.setWaterAdapter(mAdapterI);
+
+                    FragmentManager fm = getChildFragmentManager();
+                    FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                    fragmentTransaction.replace(fluid.getId(), Fixtures.newInstance("", ""));
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }*/
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
