@@ -106,6 +106,13 @@ public class WaterBill extends Fragment {
         fluid = waterBinding.waterBillData;
         bills = new ArrayList<Bill>();
 
+        String bill = "";
+
+        if (!waterBinding.enterPlace.getText().toString().isEmpty()) {
+            if ()
+        }
+        fluid.setText("Water Bill: $" + bill);
+
 //        bills.add(new Bill(place, bill));
 
         displayWaterBill.setOnClickListener(new View.OnClickListener() {
@@ -113,16 +120,7 @@ public class WaterBill extends Fragment {
             public void onClick(View view) {
 //                bills.clear();
 
-                String place = "";
-                String bill = "";
 
-                if (!waterBinding.enterPlace.getText().toString().isEmpty()) {
-                    place = waterBinding.enterPlace.getText().toString();
-                }
-                if (!waterBinding.enterWaterBill.getText().toString().isEmpty()) {
-                    bill = waterBinding.enterWaterBill.getText().toString();
-                }
-                fluid.setText("" + place + ": $" + bill);
             }
         });
 

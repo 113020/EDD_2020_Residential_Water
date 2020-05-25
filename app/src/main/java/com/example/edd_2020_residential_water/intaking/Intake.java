@@ -128,11 +128,15 @@ public class Intake extends Fragment {
                     water.setMinute(Calendar.getInstance().get(Calendar.MINUTE));
                     water.setSecond(Calendar.getInstance().get(Calendar.SECOND));
                     water.setFixture(dataSnapshot.getKey().toString() != null ? dataSnapshot.getKey().toString() : "");
-                    water.setFlowRateL(dataSnapshot.child("flowL").getValue() != null ? Double.parseDouble(dataSnapshot.child("flowL").getValue().toString()) : 0);
-                    water.setFlowRateML(dataSnapshot.child("flowML").getValue() != null ? Double.parseDouble(dataSnapshot.child("flowML").getValue().toString()) : 0);
+                    water.setFlowRateL(dataSnapshot.child("flowL").getValue() != null ?
+                            Double.parseDouble(dataSnapshot.child("flowL").getValue().toString()) : 0);
+                    water.setFlowRateML(dataSnapshot.child("flowML").getValue() != null ?
+                            Double.parseDouble(dataSnapshot.child("flowML").getValue().toString()) : 0);
                     water.setSecondExtent(0);
-                    water.setLeak(dataSnapshot.child("Leaking").getValue() != null ? Boolean.parseBoolean(dataSnapshot.child("Leaking").getValue().toString()) : false);
-                    water.setVolumeFlow(dataSnapshot.child("totalVolume").getValue() != null ? Double.parseDouble(dataSnapshot.child("totalVolume").getValue().toString()) : 0);
+                    water.setLeak(dataSnapshot.child("Leaking").getValue() != null ?
+                            Boolean.parseBoolean(dataSnapshot.child("Leaking").getValue().toString()) : false);
+                    water.setVolumeFlow(dataSnapshot.child("totalVolume").getValue() != null ?
+                            Double.parseDouble(dataSnapshot.child("totalVolume").getValue().toString()) : 0);
                     waterList.add(water);
 
                     mAdapterI = new IntakeRecyclerViewAdapter(waterList);
