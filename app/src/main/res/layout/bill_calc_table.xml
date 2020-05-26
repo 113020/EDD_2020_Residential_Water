@@ -4,8 +4,8 @@
 
     <data>
         <variable
-            name="water"
-            type="com.example.edd_2020_residential_water.models.Water" />
+            name="bill"
+            type="com.example.edd_2020_residential_water.models.Bill" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,14 +28,14 @@
                     android:layout_width="0dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="3dip"
-                    android:text="@{Double.toString(water.volumeFlow)}" />
+                    android:text="@{Double.toString(bill.totalVolume * 0.264) + ` gal`}" />
 
                 <TextView
                     android:id="@+id/txtWaterBill"
                     android:layout_width="0dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="3dip"
-                    android:text="@{Double.toString(water.volumeFlow * )}"/>
+                    android:text="@{bill.toBillString(bill.totalBill)}"/>
             </TableRow>
         </TableLayout>
 

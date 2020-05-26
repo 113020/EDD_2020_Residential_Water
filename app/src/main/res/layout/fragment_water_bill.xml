@@ -5,11 +5,14 @@
 
     <data>
         <variable
-            name="water_adapter"
+            name="water_bill_adapter"
             type="com.example.edd_2020_residential_water.waterBill.WaterBillRecyclerViewAdapter" />
         <variable
             name="water_manager"
             type="androidx.recyclerview.widget.LinearLayoutManager" />
+        <variable
+            name="bill_adapter"
+            type="android.widget.ArrayAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,38 +21,28 @@
         android:layout_height="match_parent"
         tools:context=".waterBill.WaterBill">
 
-        <Button
-            android:id="@+id/btnDisplayBill"
+        <Spinner
+            android:id="@+id/enterRate"
+            style="@style/Platform.Widget.AppCompat.Spinner"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/example_button"
-            android:text="Show"
+            android:layout_height="wrap_content"
+            android:adapter="@{bill_adapter}"
+            android:dropDownWidth="wrap_content"
+            android:entries="@array/bill_rates"
+            app:layout_constraintBottom_toTopOf="@+id/fixture_percentage_table"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bill_data"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adapter="@{water_bill_adapter}"
+            app:layoutManager="@{water_manager}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:stretchColumns="*">
-
-            <TableRow>
-                <TextView
-                    android:id="@+id/txtTime"
-                    android:layout_width="0dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:padding="3dip"/>
-
-                <TextView
-                    android:id="@+id/txtWaterBill"
-                    android:layout_width="0dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:padding="3dip"/>
-            </TableRow>
-        </TableLayout>
-
+            app:layout_constraintTop_toBottomOf="@+id/enterRate" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

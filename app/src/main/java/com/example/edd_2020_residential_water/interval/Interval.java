@@ -24,7 +24,7 @@ import com.example.edd_2020_residential_water.fixtures.FixturesRecyclerViewAdapt
 import com.example.edd_2020_residential_water.MainActivity;
 import com.example.edd_2020_residential_water.R;
 import com.example.edd_2020_residential_water.SharedViewModel;
-import com.example.edd_2020_residential_water.models.Track;
+import com.example.edd_2020_residential_water.models.Bill;
 import com.example.edd_2020_residential_water.models.Water;
 import com.example.edd_2020_residential_water.databinding.FragmentIntervalBinding;
 
@@ -56,7 +56,7 @@ public class Interval extends Fragment {
     private OnFragmentInteractionListener mListener;
     private List<Water> waterList; // Original list of Water objects
     private List<Water> listByInterval; // To be modified by the interval spinner's onSelectedItemListener()
-    private List<Track> tracks; // List of track objects for the interval data binding layout
+    private List<Bill> bills; // List of track objects for the interval data binding layout
 
     private FragmentIntervalBinding waterBinding;
     private FixturesRecyclerViewAdapter mAdapterF;
@@ -103,7 +103,7 @@ public class Interval extends Fragment {
         final Spinner intervalSpin = waterBinding.enterInterval;
         final LinearLayoutManager wllm = new LinearLayoutManager(view.getContext());
         listByInterval = new ArrayList<Water>();
-        tracks = new ArrayList<Track>();
+        bills = new ArrayList<Bill>();
         conserve = (MainActivity) getActivity();
         fluid = waterBinding.waterDataInterval;
 
@@ -125,7 +125,7 @@ public class Interval extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
                 listByInterval.clear();
-                tracks.clear();
+                bills.clear();
                 fluid.removeAllViews();
                 int latestDay = 1;
                 int latestMonth = 1;
@@ -168,7 +168,7 @@ public class Interval extends Fragment {
                                 listByInterval.get(i).setMinute(0);
                             }
                         }
-                        tracks.add(new Track(hourChecked + ":00", leak, vol, 0));
+                        bills.add(new Bill(hourChecked + ":00", leak, vol, 0));
                         mAdapterT.notifyDataSetChanged();
                         vol = 0;
                         leak = false;
@@ -190,7 +190,7 @@ public class Interval extends Fragment {
                                 vol += listByInterval.get(i).getVolumeFlow();
                             }
                         }
-                        tracks.add(new Track(dayChecked + "/" +
+                        bills.add(new Bill(dayChecked + "/" +
                                 listByInterval.get(listByInterval.size() - 1).getMonth() + "/" +
                                 listByInterval.get(listByInterval.size() - 1).getYear(), leak, vol, 0));
                         mAdapterT.notifyDataSetChanged();
@@ -217,7 +217,7 @@ public class Interval extends Fragment {
                                 vol += listByInterval.get(i).getVolumeFlow();
                             }
                         }
-                        tracks.add(new Track(months[monthChecked - 1] + " " + listByInterval.get(listByInterval.size() - 1).getYear(), leak, vol, 0));
+                        bills.add(new Bill(months[monthChecked - 1] + " " + listByInterval.get(listByInterval.size() - 1).getYear(), leak, vol, 0));
                         mAdapterT.notifyDataSetChanged();
                         vol = 0;
                         leak = false;
@@ -240,7 +240,7 @@ public class Interval extends Fragment {
                                 vol += listByInterval.get(j).getVolumeFlow();
                             }
                         }
-                        tracks.add(new Track("" + i, leak, vol, 0));
+                        bills.add(new Bill("" + i, leak, vol, 0));
                         mAdapterT.notifyDataSetChanged();
                         vol = 0;
                         leak = false;
@@ -256,7 +256,7 @@ public class Interval extends Fragment {
         });
 
         // Initialize the adapter
-        mAdapterT = new IntervalRecyclerViewAdapter(tracks);
+        mAdapterT = new IntervalRecyclerViewAdapter(bills);
 
         // Set the layout manager
         waterBinding.setWaterManager(wllm);

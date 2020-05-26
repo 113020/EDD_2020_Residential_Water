@@ -8,9 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.edd_2020_residential_water.BR;
-import com.example.edd_2020_residential_water.models.Bill;
-import com.example.edd_2020_residential_water.models.Track;
 import com.example.edd_2020_residential_water.databinding.BillCalcTableBinding;
+import com.example.edd_2020_residential_water.models.Bill;
 
 import java.util.List;
 
