@@ -4,10 +4,9 @@
     <string name="tab_text_1">Intake</string>
     <string name="tab_text_2">Fixtures</string>
     <string name="tab_text_3">Interval</string>
-    <string name="tab_text_4">Overall</string>
-    <string name="tab_text_5">Water Bill</string>
+    <string name="tab_text_4">Water Bill</string>
     <string-array name="fixture">
-        <item>Choose a fixture</item>
+        <item>Choose a fixture.</item>
         <item>Shower 1</item>
         <item>Shower 2</item>
         <item>Sink Faucet 1</item>

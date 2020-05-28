@@ -29,7 +29,7 @@
             android:adapter="@{bill_adapter}"
             android:dropDownWidth="wrap_content"
             android:entries="@array/bill_rates"
-            app:layout_constraintBottom_toTopOf="@+id/fixture_percentage_table"
+            app:layout_constraintBottom_toTopOf="@+id/bill_data"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

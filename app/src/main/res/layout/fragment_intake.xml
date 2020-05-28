@@ -11,29 +11,261 @@
             name="water"
             type="com.example.edd_2020_residential_water.models.Water" />
         <variable
-            name="water_adapter"
+            name="water_adapter_I"
             type="com.example.edd_2020_residential_water.intaking.IntakeRecyclerViewAdapter" />
         <variable
-            name="water_manager"
+            name="fixture_adapter"
+            type="android.widget.ArrayAdapter" />
+        <variable
+            name="percent_adapter"
+            type="com.example.edd_2020_residential_water.fixtures.FixturesRecyclerViewAdapter" />
+        <variable
+            name="interval_adapter"
+            type="android.widget.ArrayAdapter" />
+        <variable
+            name="water_adapter_T"
+            type="com.example.edd_2020_residential_water.interval.IntervalRecyclerViewAdapter" />
+        <variable
+            name="bill_adapter"
+            type="android.widget.ArrayAdapter" />
+        <variable
+            name="water_bill_adapter"
+            type="com.example.edd_2020_residential_water.waterBill.WaterBillRecyclerViewAdapter" />
+        <variable
+            name="water_manager_I"
             type="androidx.recyclerview.widget.LinearLayoutManager" />
+        <variable
+            name="water_manager_F"
+            type="androidx.recyclerview.widget.LinearLayoutManager" />
+        <variable
+            name="water_manager_T"
+            type="androidx.recyclerview.widget.LinearLayoutManager" />
+        <variable
+            name="water_manager_WB"
+            type="androidx.recyclerview.widget.LinearLayoutManager" />
+
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/frameLayout2"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".intaking.Intake">
+        tools:context="com.example.edd_2020_residential_water.intaking.Intake">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/water_data_intake"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:adapter="@{water_adapter}"
-            app:layoutManager="@{water_manager}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/intakeL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/water_data_intake"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:adapter="@{water_adapter_I}"
+                    app:layoutManager="@{water_manager_I}"
+                    app:layout_constraintBottom_toTopOf="@+id/enterLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <Spinner
+                    android:id="@+id/enterLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/water_data_intake"
+                    tools:layout_editor_absoluteY="578dp" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/fixtureL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/enterLayout"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <Spinner
+                        android:id="@+id/enterFixture"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adapter="@{fixture_adapter}"
+                        android:dropDownWidth="wrap_content"
+                        android:entries="@array/fixture"
+                        app:layout_constraintBottom_toTopOf="@+id/fixture_percentage_table"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TableLayout
+                        android:id="@+id/fixture_percentage_table"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toTopOf="@+id/fixture_data"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/enterFixture"
+                        android:stretchColumns="*">
+
+                        <TableRow>
+                            <TextView
+                                android:id="@+id/txtLabelDate"
+                                android:layout_width="0dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:padding="3dip"
+                                android:text="Month" />
+
+                            <TextView
+                                android:id="@+id/txtLabelLeaking"
+                                android:layout_width="0dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:padding="3dip"
+                                android:text="Fixture" />
+
+                            <TextView
+                                android:id="@+id/txtLabelFixtureVolume"
+                                android:layout_width="0dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:padding="3dip"
+                                android:text="Volume (L)" />
+
+                            <TextView
+                                android:id="@+id/txtLabelFixturePercentage"
+                                android:layout_width="0dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:padding="3dip"
+                                android:text="Percentage" />
+                        </TableRow>
+                    </TableLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/fixture_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adapter="@{percent_adapter}"
+                        app:layoutManager="@{water_manager_F}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/fixture_percentage_table" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/intervalL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/enterLayout"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <Spinner
+                        android:id="@+id/enterInterval"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adapter="@{interval_adapter}"
+                        android:dropDownWidth="wrap_content"
+                        android:entries="@array/interval"
+                        app:layout_constraintBottom_toTopOf="@+id/table_label_interval"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TableLayout
+                        android:id="@+id/table_label_interval"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toTopOf="@+id/water_data_interval"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/enterInterval"
+                        android:stretchColumns="*">
+
+                        <TableRow>
+                            <TextView
+                                android:id="@+id/txtTime"
+                                android:layout_width="0dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:padding="3dip"
+                                android:text="Date/Time" />
+
+                            <TextView
+                                android:id="@+id/txtLeak"
+                                android:layout_width="0dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:padding="3dip"
+                                android:text="Leaking?"/>
+
+                            <TextView
+                                android:id="@+id/txtVol"
+                                android:layout_width="0dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:padding="3dip"
+                                android:text="Volume (L)"/>
+                        </TableRow>
+                    </TableLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/water_data_interval"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adapter="@{water_adapter_T}"
+                        app:layoutManager="@{water_manager_T}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/table_label_interval" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/waterBillL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/enterLayout"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <Spinner
+                        android:id="@+id/enterRate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adapter="@{bill_adapter}"
+                        android:dropDownWidth="wrap_content"
+                        android:entries="@array/bill_rates"
+                        app:layout_constraintBottom_toTopOf="@+id/bill_data"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/bill_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adapter="@{water_bill_adapter}"
+                        app:layoutManager="@{water_manager_WB}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/enterRate" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>

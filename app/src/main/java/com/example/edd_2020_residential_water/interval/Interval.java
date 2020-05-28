@@ -262,7 +262,7 @@ public class Interval extends Fragment {
         waterBinding.setWaterManager(wllm);
 
         // Set the adapter
-        waterBinding.setWaterAdapter(mAdapterT);
+        waterBinding.setWaterAdapterT(mAdapterT);
 
         FragmentManager fm = getChildFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
