@@ -147,8 +147,8 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/fixture_data"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:adapter="@{percent_adapter}"
                         app:layoutManager="@{water_manager_F}"
                         app:layout_constraintBottom_toBottomOf="parent"

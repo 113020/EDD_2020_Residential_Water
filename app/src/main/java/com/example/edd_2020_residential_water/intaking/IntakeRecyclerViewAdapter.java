@@ -14,11 +14,11 @@ import com.example.edd_2020_residential_water.models.Water;
 import java.util.List;
 
 public class IntakeRecyclerViewAdapter extends RecyclerView.Adapter<IntakeRecyclerViewAdapter.WaterViewHolder> {
-    private List<Water> mValues;
+    private Water mValue;
     private AdapterView.OnItemClickListener mClickListener;
 
-    public IntakeRecyclerViewAdapter(List<Water> water) {
-        mValues = water;
+    public IntakeRecyclerViewAdapter(Water water) {
+        mValue = water;
         notifyDataSetChanged();
     }
 
@@ -32,12 +32,12 @@ public class IntakeRecyclerViewAdapter extends RecyclerView.Adapter<IntakeRecycl
 
     @Override
     public void onBindViewHolder(@NonNull WaterViewHolder holder, int position) {
-        Water w = mValues.get(position);
+        Water w = mValue;
         holder.bind(w);
     }
 
     @Override
-    public int getItemCount() { return mValues != null ? 1 : 0; }
+    public int getItemCount() { return mValue != null ? 1 : 0; }
 
     public static class WaterViewHolder extends RecyclerView.ViewHolder {
         private IntakeTableBinding binding;

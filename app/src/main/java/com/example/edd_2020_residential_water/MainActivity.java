@@ -2,6 +2,7 @@ package com.example.edd_2020_residential_water;
 
 import android.net.Uri;
 import android.nfc.Tag;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.example.edd_2020_residential_water.fixtures.Fixtures;
@@ -17,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +28,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.edd_2020_residential_water.ui.main.SectionsPagerAdapter;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,6 +41,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements Intake.OnFragmentInteractionListener, Fixtures.OnFragmentInteractionListener,
         Interval.OnFragmentInteractionListener, WaterBill.OnFragmentInteractionListener {
@@ -44,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements Intake.OnFragment
     private List<Water> list;
     public static final String TAG = "MainActivity";
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements Intake.OnFragment
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
+
+        FirebaseApp.initializeApp(this, Objects.requireNonNull(FirebaseOptions.fromResource(this)));
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
             @Override

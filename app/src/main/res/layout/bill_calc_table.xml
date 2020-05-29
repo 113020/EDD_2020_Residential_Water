@@ -28,7 +28,7 @@
                     android:layout_width="0dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="3dip"
-                    android:text="@{Double.toString(bill.totalVolume * 0.264) + ` gal`}" />
+                    android:text="@{Double.toString(bill.totalVolume / 1000 * 0.264) + ` gal`}" />
 
                 <TextView
                     android:id="@+id/txtWaterBill"
